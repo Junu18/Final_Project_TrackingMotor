@@ -12,11 +12,16 @@
 #include "Listener.h"
 
 void Listener_Init() {
-    // SPI 리스너 초기화 (패킷 버퍼 및 헤더 세팅)
-    Listener_SPITest_Init();
+    // Tracking 리스너 초기화 (SPI 인터럽트 모드)
+    Listener_Tracking_Init();
+
+    // 첫 번째 SPI 인터럽트 수신 시작
+    Listener_Tracking_StartReceive();
+
+    printf("[Listener] Task Started (Interrupt Mode)\r\n");
 }
 
 void Listener_Excute() {
-    // FPGA에 데이터를 요청하는 시퀀스 실행
-    Listener_SPITest_RequestData();
+    // Tracking Execute 호출 (Queue 대기 및 처리)
+    Listener_Tracking_Excute();
 }

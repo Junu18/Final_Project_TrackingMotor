@@ -1,45 +1,55 @@
+
+
 /*
  * Model_SPITest.h
- *
- * Created on: Jan 7, 2026
- * Author: kccistc
  */
-
 #ifndef AP_MODEL_MODEL_SPITEST_H_
 #define AP_MODEL_MODEL_SPITEST_H_
 
-#include "../Common/Common.h"
+#include "main.h"
 
-// [추가] STM32에서 FPGA로 보내는 32비트 패킷 구조 정의
-typedef union {
-    uint32_t raw;
-    struct {
-        uint32_t header : 8;  // 0xAA (STM 송신용 헤더)
-        uint32_t x_pos  : 12; // 테스트용 혹은 모터 제어용 X (필요에 따라 angle로 변경 가능)
-        uint32_t y_pos  : 12; // 테스트용 혹은 모터 제어용 Y (필요에 따라 angle로 변경 가능)
-    } fields;
-} TxPacket_t;
+/* * [FPGA 데이터 구조 매핑]
+ * Raw Data Example: 0x83C20199
+ * STM32(Little Endian) 기준: LSB(하위 비트)부터 정의
+ */
 
-// 32비트 패킷의 내부 구조를 정의 (FPGA에서 수신용)
-typedef union {
-    uint32_t raw;
-    struct {
-        uint32_t header : 8;  // 0x55 (검증용)
-        uint32_t x_pos  : 12; // 객체 X 좌표 (0~4095)
-        uint32_t y_pos  : 12; // 객체 Y 좌표 (0~4095)
+
+/* * [FPGA 데이터 구조 매핑]
+ * 총 32비트 데이터
+ * * 비트 위치 | 내용         | 비트 수 | 설명
+ * ------------------------------------------------
+ * [0..10]   | padding_0          | 11 bit  | 0으로 채워짐
+ * [    11]  | on_box     		 | 1  bit  | 모니터에서 파란색 박스 (display 전용)
+ * [    12] | aim_detect    	 | 1  bit  | 모니터에서 가운데 aim (하얀색 십자가 여기에 감지된 부분이 좌표로 전송)
+ * [13..21] | y_pos       		 | 9  bit  | Y좌표 (0~511)
+ * [22..31] | x_pos      		 | 10 bit  | X좌표 (0~1023)
+ */
+
+typedef union
+{
+    uint32_t raw;  // 32비트 전체 데이터
+
+    struct
+    {
+        uint32_t padding   : 11; // [0~10]  LSB
+        uint32_t aim_state : 2;  // [11~12]
+        uint32_t y_pos     : 9;  // [13~21]
+        uint32_t x_pos     : 10; // [22~31] MSB
     } fields;
+
 } RxPacket_t;
 
-typedef struct {
-    // FPGA에서 받은 데이터
-    RxPacket_t rx_packet;
 
-    // 통계 및 상태
-    uint32_t rx_count;          // 수신 성공 횟수
-    uint32_t rx_error_count;    // 수신 실패 횟수
+/* 모델 데이터 구조체 */
+typedef struct
+{
+    RxPacket_t rx_packet;
+    uint32_t   rx_count;
+    uint32_t   rx_error_count;
 } Model_SPITest_t;
 
-void Model_SPITest_Init(Model_SPITest_t* model);
+/* 함수 프로토타입 */
+void Model_SPITest_Init(Model_SPITest_t *p_model);
 void Model_SPITest_UpdateRxData(Model_SPITest_t* model, RxPacket_t* rx);
 uint8_t Model_SPITest_ValidateRx(Model_SPITest_t* model);
 

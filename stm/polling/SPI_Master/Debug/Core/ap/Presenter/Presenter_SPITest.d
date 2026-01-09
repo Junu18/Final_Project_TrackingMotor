@@ -51,7 +51,6 @@ Core/ap/Presenter/Presenter_SPITest.o: \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Core/ap/Presenter/../Model/Model_SPITest.h \
- ../Core/ap/Presenter/../Model/../Common/Common.h \
  ../Core/ap/Presenter/../Listener/Listener_SPITest.h \
  ../Core/ap/Presenter/../Listener/../Model/Model_SPITest.h
 ../Core/ap/Presenter/Presenter_SPITest.h:
@@ -106,6 +105,5 @@ Core/ap/Presenter/Presenter_SPITest.o: \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Core/ap/Presenter/../Model/Model_SPITest.h:
-../Core/ap/Presenter/../Model/../Common/Common.h:
 ../Core/ap/Presenter/../Listener/Listener_SPITest.h:
 ../Core/ap/Presenter/../Listener/../Model/Model_SPITest.h:

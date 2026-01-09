@@ -51,7 +51,6 @@ Core/ap/Controller/Controller_SPITest.o: \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Core/ap/Controller/../Model/Model_SPITest.h \
- ../Core/ap/Controller/../Model/../Common/Common.h \
  ../Core/ap/Controller/../../driver/lcd/lcd.h
 ../Core/ap/Controller/Controller_SPITest.h:
 ../Core/ap/Controller/../Common/Common.h:
@@ -105,5 +104,4 @@ Core/ap/Controller/Controller_SPITest.o: \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Core/ap/Controller/../Model/Model_SPITest.h:
-../Core/ap/Controller/../Model/../Common/Common.h:
 ../Core/ap/Controller/../../driver/lcd/lcd.h:

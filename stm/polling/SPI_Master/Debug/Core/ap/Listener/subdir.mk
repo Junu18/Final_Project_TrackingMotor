@@ -6,18 +6,15 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/ap/Listener/Listener.c \
-../Core/ap/Listener/ListenerTracking.c \
-../Core/ap/Listener/Listener_SPITest.c 
+../Core/ap/Listener/ListenerTracking.c 
 
 OBJS += \
 ./Core/ap/Listener/Listener.o \
-./Core/ap/Listener/ListenerTracking.o \
-./Core/ap/Listener/Listener_SPITest.o 
+./Core/ap/Listener/ListenerTracking.o 
 
 C_DEPS += \
 ./Core/ap/Listener/Listener.d \
-./Core/ap/Listener/ListenerTracking.d \
-./Core/ap/Listener/Listener_SPITest.d 
+./Core/ap/Listener/ListenerTracking.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,7 +24,7 @@ Core/ap/Listener/%.o Core/ap/Listener/%.su Core/ap/Listener/%.cyclo: ../Core/ap/
 clean: clean-Core-2f-ap-2f-Listener
 
 clean-Core-2f-ap-2f-Listener:
-	-$(RM) ./Core/ap/Listener/Listener.cyclo ./Core/ap/Listener/Listener.d ./Core/ap/Listener/Listener.o ./Core/ap/Listener/Listener.su ./Core/ap/Listener/ListenerTracking.cyclo ./Core/ap/Listener/ListenerTracking.d ./Core/ap/Listener/ListenerTracking.o ./Core/ap/Listener/ListenerTracking.su ./Core/ap/Listener/Listener_SPITest.cyclo ./Core/ap/Listener/Listener_SPITest.d ./Core/ap/Listener/Listener_SPITest.o ./Core/ap/Listener/Listener_SPITest.su
+	-$(RM) ./Core/ap/Listener/Listener.cyclo ./Core/ap/Listener/Listener.d ./Core/ap/Listener/Listener.o ./Core/ap/Listener/Listener.su ./Core/ap/Listener/ListenerTracking.cyclo ./Core/ap/Listener/ListenerTracking.d ./Core/ap/Listener/ListenerTracking.o ./Core/ap/Listener/ListenerTracking.su
 
 .PHONY: clean-Core-2f-ap-2f-Listener
 

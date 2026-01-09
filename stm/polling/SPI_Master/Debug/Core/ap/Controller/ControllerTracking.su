@@ -1,0 +1,3 @@
+../Core/ap/Controller/ControllerTracking.c:28:6:Controller_Tracking_Init	8	static
+../Core/ap/Controller/ControllerTracking.c:37:6:Controller_Tracking_Excute	48	static
+../Core/ap/Controller/ControllerTracking.c:105:6:Controller_Tracking_CalculateAngles	32	static

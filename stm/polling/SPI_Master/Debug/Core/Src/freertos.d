@@ -48,17 +48,19 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Core/Inc/usart.h ../Core/Inc/main.h ../Core/Src/../ap/Common/Common.h \
- ../Core/Src/../ap/Listener/Listener_SPITest.h \
- ../Core/Src/../ap/Listener/../Model/Model_SPITest.h \
+ ../Core/Src/../ap/Listener/Listener.h \
+ ../Core/Src/../ap/Listener/../Common/Common.h \
+ ../Core/Src/../ap/Listener/ListenerTracking.h \
+ ../Core/Src/../ap/Listener/../Model/ModelTracking.h \
  ../Core/Src/../ap/Listener/../Model/../Common/Common.h \
- ../Core/Src/../ap/Model/Model_SPITest.h \
- ../Core/Src/../ap/Presenter/Presenter_SPITest.h \
- ../Core/Src/../ap/Presenter/../Common/Common.h \
- ../Core/Src/../ap/Presenter/../Model/Model_SPITest.h \
- ../Core/Src/../ap/Presenter/../Listener/Listener_SPITest.h \
- ../Core/Src/../ap/Controller/Controller_SPITest.h \
- ../Core/Src/../ap/Controller/../Common/Common.h \
- ../Core/Src/../ap/Controller/../Model/Model_SPITest.h \
+ ../Core/Src/../ap/Controller/Controller.h \
+ ../Core/Src/../ap/Controller/../Model/ModelTracking.h \
+ ../Core/Src/../ap/Controller/ControllerTracking.h \
+ ../Core/Src/../ap/Presenter/Presenter.h \
+ ../Core/Src/../ap/Presenter/../../driver/lcd/lcd.h ../Core/Inc/i2c.h \
+ ../Core/Src/../ap/Presenter/PresenterTracking.h \
+ ../Core/Src/../ap/Presenter/../Model/ModelTracking.h \
+ ../Core/Src/../ap/Presenter/../Controller/ControllerTracking.h \
  ../Core/Src/../driver/SPI/SPI.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
@@ -112,15 +114,18 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
 ../Core/Src/../ap/Common/Common.h:
-../Core/Src/../ap/Listener/Listener_SPITest.h:
-../Core/Src/../ap/Listener/../Model/Model_SPITest.h:
+../Core/Src/../ap/Listener/Listener.h:
+../Core/Src/../ap/Listener/../Common/Common.h:
+../Core/Src/../ap/Listener/ListenerTracking.h:
+../Core/Src/../ap/Listener/../Model/ModelTracking.h:
 ../Core/Src/../ap/Listener/../Model/../Common/Common.h:
-../Core/Src/../ap/Model/Model_SPITest.h:
-../Core/Src/../ap/Presenter/Presenter_SPITest.h:
-../Core/Src/../ap/Presenter/../Common/Common.h:
-../Core/Src/../ap/Presenter/../Model/Model_SPITest.h:
-../Core/Src/../ap/Presenter/../Listener/Listener_SPITest.h:
-../Core/Src/../ap/Controller/Controller_SPITest.h:
-../Core/Src/../ap/Controller/../Common/Common.h:
-../Core/Src/../ap/Controller/../Model/Model_SPITest.h:
+../Core/Src/../ap/Controller/Controller.h:
+../Core/Src/../ap/Controller/../Model/ModelTracking.h:
+../Core/Src/../ap/Controller/ControllerTracking.h:
+../Core/Src/../ap/Presenter/Presenter.h:
+../Core/Src/../ap/Presenter/../../driver/lcd/lcd.h:
+../Core/Inc/i2c.h:
+../Core/Src/../ap/Presenter/PresenterTracking.h:
+../Core/Src/../ap/Presenter/../Model/ModelTracking.h:
+../Core/Src/../ap/Presenter/../Controller/ControllerTracking.h:
 ../Core/Src/../driver/SPI/SPI.h:

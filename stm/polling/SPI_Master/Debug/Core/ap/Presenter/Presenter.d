@@ -33,8 +33,9 @@ Core/ap/Presenter/Presenter.o: ../Core/ap/Presenter/Presenter.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/i2c.h ../Core/Inc/main.h \
- ../Core/ap/Presenter/Presenter_SPITest.h \
- ../Core/ap/Presenter/../Common/Common.h ../Core/Inc/main.h \
+ ../Core/ap/Presenter/PresenterTracking.h \
+ ../Core/ap/Presenter/../Model/ModelTracking.h \
+ ../Core/ap/Presenter/../Model/../Common/Common.h ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -52,10 +53,8 @@ Core/ap/Presenter/Presenter.o: ../Core/ap/Presenter/Presenter.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/ap/Presenter/../Model/Model_SPITest.h \
- ../Core/ap/Presenter/../Model/../Common/Common.h \
- ../Core/ap/Presenter/../Listener/Listener_SPITest.h \
- ../Core/ap/Presenter/../Listener/../Model/Model_SPITest.h
+ ../Core/ap/Presenter/../Controller/ControllerTracking.h \
+ ../Core/ap/Presenter/../Controller/../Model/ModelTracking.h
 ../Core/ap/Presenter/Presenter.h:
 ../Core/ap/Presenter/../../driver/lcd/lcd.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -91,8 +90,9 @@ Core/ap/Presenter/Presenter.o: ../Core/ap/Presenter/Presenter.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/main.h:
-../Core/ap/Presenter/Presenter_SPITest.h:
-../Core/ap/Presenter/../Common/Common.h:
+../Core/ap/Presenter/PresenterTracking.h:
+../Core/ap/Presenter/../Model/ModelTracking.h:
+../Core/ap/Presenter/../Model/../Common/Common.h:
 ../Core/Inc/main.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
@@ -111,7 +111,5 @@ Core/ap/Presenter/Presenter.o: ../Core/ap/Presenter/Presenter.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
-../Core/ap/Presenter/../Model/Model_SPITest.h:
-../Core/ap/Presenter/../Model/../Common/Common.h:
-../Core/ap/Presenter/../Listener/Listener_SPITest.h:
-../Core/ap/Presenter/../Listener/../Model/Model_SPITest.h:
+../Core/ap/Presenter/../Controller/ControllerTracking.h:
+../Core/ap/Presenter/../Controller/../Model/ModelTracking.h:

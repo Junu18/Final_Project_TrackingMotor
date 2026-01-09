@@ -1,6 +1,6 @@
 Core/ap/Controller/Controller.o: ../Core/ap/Controller/Controller.c \
  ../Core/ap/Controller/Controller.h \
- ../Core/ap/Controller/../Model/Model_SPITest.h \
+ ../Core/ap/Controller/../Model/ModelTracking.h \
  ../Core/ap/Controller/../Model/../Common/Common.h ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
@@ -50,10 +50,9 @@ Core/ap/Controller/Controller.o: ../Core/ap/Controller/Controller.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/ap/Controller/Controller_SPITest.h \
- ../Core/ap/Controller/../Common/Common.h
+ ../Core/ap/Controller/ControllerTracking.h
 ../Core/ap/Controller/Controller.h:
-../Core/ap/Controller/../Model/Model_SPITest.h:
+../Core/ap/Controller/../Model/ModelTracking.h:
 ../Core/ap/Controller/../Model/../Common/Common.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -104,5 +103,4 @@ Core/ap/Controller/Controller.o: ../Core/ap/Controller/Controller.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
-../Core/ap/Controller/Controller_SPITest.h:
-../Core/ap/Controller/../Common/Common.h:
+../Core/ap/Controller/ControllerTracking.h:

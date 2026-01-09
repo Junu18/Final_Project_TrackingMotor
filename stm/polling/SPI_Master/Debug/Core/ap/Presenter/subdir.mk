@@ -6,18 +6,15 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/ap/Presenter/Presenter.c \
-../Core/ap/Presenter/PresenterTrakcing.c \
-../Core/ap/Presenter/Presenter_SPITest.c 
+../Core/ap/Presenter/PresenterTrakcing.c 
 
 OBJS += \
 ./Core/ap/Presenter/Presenter.o \
-./Core/ap/Presenter/PresenterTrakcing.o \
-./Core/ap/Presenter/Presenter_SPITest.o 
+./Core/ap/Presenter/PresenterTrakcing.o 
 
 C_DEPS += \
 ./Core/ap/Presenter/Presenter.d \
-./Core/ap/Presenter/PresenterTrakcing.d \
-./Core/ap/Presenter/Presenter_SPITest.d 
+./Core/ap/Presenter/PresenterTrakcing.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,7 +24,7 @@ Core/ap/Presenter/%.o Core/ap/Presenter/%.su Core/ap/Presenter/%.cyclo: ../Core/
 clean: clean-Core-2f-ap-2f-Presenter
 
 clean-Core-2f-ap-2f-Presenter:
-	-$(RM) ./Core/ap/Presenter/Presenter.cyclo ./Core/ap/Presenter/Presenter.d ./Core/ap/Presenter/Presenter.o ./Core/ap/Presenter/Presenter.su ./Core/ap/Presenter/PresenterTrakcing.cyclo ./Core/ap/Presenter/PresenterTrakcing.d ./Core/ap/Presenter/PresenterTrakcing.o ./Core/ap/Presenter/PresenterTrakcing.su ./Core/ap/Presenter/Presenter_SPITest.cyclo ./Core/ap/Presenter/Presenter_SPITest.d ./Core/ap/Presenter/Presenter_SPITest.o ./Core/ap/Presenter/Presenter_SPITest.su
+	-$(RM) ./Core/ap/Presenter/Presenter.cyclo ./Core/ap/Presenter/Presenter.d ./Core/ap/Presenter/Presenter.o ./Core/ap/Presenter/Presenter.su ./Core/ap/Presenter/PresenterTrakcing.cyclo ./Core/ap/Presenter/PresenterTrakcing.d ./Core/ap/Presenter/PresenterTrakcing.o ./Core/ap/Presenter/PresenterTrakcing.su
 
 .PHONY: clean-Core-2f-ap-2f-Presenter
 

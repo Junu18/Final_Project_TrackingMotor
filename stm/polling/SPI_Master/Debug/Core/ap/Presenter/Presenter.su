@@ -1,2 +1,2 @@
-../Core/ap/Presenter/Presenter.c:14:6:Presenter_Init	8	static
-../Core/ap/Presenter/Presenter.c:26:6:Presenter_Excute	8	static
+../Core/ap/Presenter/Presenter.c:13:6:Presenter_Init	8	static
+../Core/ap/Presenter/Presenter.c:28:6:Presenter_Excute	8	static
