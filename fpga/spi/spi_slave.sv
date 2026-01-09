@@ -9,9 +9,7 @@ module spi_slave (
     input  logic        cs,
     output logic        miso,
 
-    input  logic [15:0] xdata_tx,
-    input  logic [15:0] ydata_tx,
-
+    input  logic [31:0] data_frame,
     output logic        req
 );
 
@@ -111,10 +109,10 @@ module spi_slave (
                 ST_PREP: begin
                     req_next = 1'b1;
                     if (prep_cnt == 2'd0) begin
-                        tx_shift_next = {xdata_tx, ydata_tx};
+                        tx_shift_next = data_frame;
                         rx_shift_next = '0;
                         bit_cnt_next  = '0;
-                        miso_next     = xdata_tx[15];
+                        miso_next     = data_frame[31];
                         state_next    = ST_SHIFT;
                     end else begin
                         prep_cnt_next = prep_cnt - 1'b1;
