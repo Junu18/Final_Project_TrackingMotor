@@ -17,6 +17,7 @@
 
 void Controller_Tracking_Init();
 void Controller_Tracking_Excute();
+void Controller_Tracking_ResetData();
 void Controller_Tracking_HandleSignal();
 void Controller_Tracking_UpdateState();
 void Controller_Tracking_Idle();
