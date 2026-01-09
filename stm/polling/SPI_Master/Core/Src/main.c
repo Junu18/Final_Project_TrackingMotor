@@ -19,10 +19,10 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "../ap/Common/Common.h"
-#include "../ap/Listener/ListenerTracking.h"
-#include "../ap/Model/ModelTracking.h"
-#include "../ap/Controller/ControllerTracking.h"
-#include "../ap/Presenter/PresenterTracking.h"
+#include "../ap/Listener/Listener_SPITest.h"
+#include "../ap/Model/Model_SPITest.h"
+#include "../ap/Controller/Controller_SPITest.h"
+#include "../ap/Presenter/Presenter_SPITest.h"
 #include "../driver/SPI/SPI.h"
 /* USER CODE END Includes */
 
@@ -40,10 +40,8 @@ osThreadId Presenter_TaskHandle;
 
 /* USER CODE BEGIN PV */
 /* 전역 변수 정의 */
-Model_Tracking_t g_tracking_model;  // Tracking Model
-osMessageQId g_queue_fpga_data;     // SPI Callback → Listener
-osMessageQId g_queue_xy_coord;      // Listener → Controller (추후)
-osMessageQId g_queue_angle;         // Controller → Presenter (추후)
+Model_SPITest_t g_spi_test_model;
+osMessageQId g_queue_fpga_data;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,37 +64,11 @@ int _write(int file, char *ptr, int len)
     return len;
 }
 
-/* ========================================
- * SPI 수신 완료 콜백 (인터럽트 모드)
- * ======================================== */
+/* SPI 수신 완료 콜백 */
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
     if (hspi->Instance == SPI1) {
-        // 1. CS 핀 올리기 (통신 종료)
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_SET);
-
-        // 2. 수신된 4바이트 데이터를 32비트로 조립
-        extern uint8_t rx_buff[4];  // ListenerTracking.c의 static 변수 참조
-        extern RxPacket_t g_rx_packet_tracking;
-
-        // ISR에서는 printf 사용하면 안됨 (blocking)
-        // → Listener Task에서 출력하도록 변경
-
-        g_rx_packet_tracking.raw = (rx_buff[0] << 24) |
-                                   (rx_buff[1] << 16) |
-                                   (rx_buff[2] << 8)  |
-                                    rx_buff[3];
-
-        // 3. Queue에 데이터 전송 (ISR에서 안전하게)
-        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-        xQueueSendFromISR(g_queue_fpga_data,
-                         &g_rx_packet_tracking.raw,
-                         &xHigherPriorityTaskWoken);
-
-        // 4. 컨텍스트 스위칭 필요 시 수행
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-
-        // 5. 다음 수신 준비 (자동 재시작)
-        // → Listener Task에서 다시 StartReceive() 호출하게 함
+        SPI_CS_High();
+        osMessagePut(g_queue_fpga_data, g_rx_packet.raw, 0);
     }
 }
 /* USER CODE END 0 */
@@ -113,14 +85,6 @@ int main(void)
   MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
-  // UART 테스트 메시지 (시스템 시작 확인)
-  printf("\r\n");
-  printf("========================================\r\n");
-  printf("  STM32 System Initialized\r\n");
-  printf("  UART2 Working - Baud: 115200\r\n");
-  printf("========================================\r\n");
-  printf("\r\n");
-
   SPI_Init();
   /* USER CODE END 2 */
 

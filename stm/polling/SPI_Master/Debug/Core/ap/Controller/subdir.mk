@@ -6,15 +6,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/ap/Controller/Controller.c \
-../Core/ap/Controller/ControllerTracking.c 
+../Core/ap/Controller/ControllerTracking.c \
+../Core/ap/Controller/Controller_SPITest.c 
 
 OBJS += \
 ./Core/ap/Controller/Controller.o \
-./Core/ap/Controller/ControllerTracking.o 
+./Core/ap/Controller/ControllerTracking.o \
+./Core/ap/Controller/Controller_SPITest.o 
 
 C_DEPS += \
 ./Core/ap/Controller/Controller.d \
-./Core/ap/Controller/ControllerTracking.d 
+./Core/ap/Controller/ControllerTracking.d \
+./Core/ap/Controller/Controller_SPITest.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -24,7 +27,7 @@ Core/ap/Controller/%.o Core/ap/Controller/%.su Core/ap/Controller/%.cyclo: ../Co
 clean: clean-Core-2f-ap-2f-Controller
 
 clean-Core-2f-ap-2f-Controller:
-	-$(RM) ./Core/ap/Controller/Controller.cyclo ./Core/ap/Controller/Controller.d ./Core/ap/Controller/Controller.o ./Core/ap/Controller/Controller.su ./Core/ap/Controller/ControllerTracking.cyclo ./Core/ap/Controller/ControllerTracking.d ./Core/ap/Controller/ControllerTracking.o ./Core/ap/Controller/ControllerTracking.su
+	-$(RM) ./Core/ap/Controller/Controller.cyclo ./Core/ap/Controller/Controller.d ./Core/ap/Controller/Controller.o ./Core/ap/Controller/Controller.su ./Core/ap/Controller/ControllerTracking.cyclo ./Core/ap/Controller/ControllerTracking.d ./Core/ap/Controller/ControllerTracking.o ./Core/ap/Controller/ControllerTracking.su ./Core/ap/Controller/Controller_SPITest.cyclo ./Core/ap/Controller/Controller_SPITest.d ./Core/ap/Controller/Controller_SPITest.o ./Core/ap/Controller/Controller_SPITest.su
 
 .PHONY: clean-Core-2f-ap-2f-Controller
 

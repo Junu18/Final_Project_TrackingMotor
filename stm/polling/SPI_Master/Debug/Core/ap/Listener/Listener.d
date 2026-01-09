@@ -48,8 +48,8 @@ Core/ap/Listener/Listener.o: ../Core/ap/Listener/Listener.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/ap/Listener/ListenerTracking.h \
- ../Core/ap/Listener/../Model/ModelTracking.h \
+ ../Core/ap/Listener/Listener_SPITest.h \
+ ../Core/ap/Listener/../Model/Model_SPITest.h \
  ../Core/ap/Listener/../Model/../Common/Common.h
 ../Core/ap/Listener/Listener.h:
 ../Core/ap/Listener/../Common/Common.h:
@@ -102,6 +102,6 @@ Core/ap/Listener/Listener.o: ../Core/ap/Listener/Listener.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
-../Core/ap/Listener/ListenerTracking.h:
-../Core/ap/Listener/../Model/ModelTracking.h:
+../Core/ap/Listener/Listener_SPITest.h:
+../Core/ap/Listener/../Model/Model_SPITest.h:
 ../Core/ap/Listener/../Model/../Common/Common.h:

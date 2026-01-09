@@ -5,13 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Core/ap/Model/ModelTracking.c 
+../Core/ap/Model/ModelTracking.c \
+../Core/ap/Model/Model_SPITest.c 
 
 OBJS += \
-./Core/ap/Model/ModelTracking.o 
+./Core/ap/Model/ModelTracking.o \
+./Core/ap/Model/Model_SPITest.o 
 
 C_DEPS += \
-./Core/ap/Model/ModelTracking.d 
+./Core/ap/Model/ModelTracking.d \
+./Core/ap/Model/Model_SPITest.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,7 +24,7 @@ Core/ap/Model/%.o Core/ap/Model/%.su Core/ap/Model/%.cyclo: ../Core/ap/Model/%.c
 clean: clean-Core-2f-ap-2f-Model
 
 clean-Core-2f-ap-2f-Model:
-	-$(RM) ./Core/ap/Model/ModelTracking.cyclo ./Core/ap/Model/ModelTracking.d ./Core/ap/Model/ModelTracking.o ./Core/ap/Model/ModelTracking.su
+	-$(RM) ./Core/ap/Model/ModelTracking.cyclo ./Core/ap/Model/ModelTracking.d ./Core/ap/Model/ModelTracking.o ./Core/ap/Model/ModelTracking.su ./Core/ap/Model/Model_SPITest.cyclo ./Core/ap/Model/Model_SPITest.d ./Core/ap/Model/Model_SPITest.o ./Core/ap/Model/Model_SPITest.su
 
 .PHONY: clean-Core-2f-ap-2f-Model
 

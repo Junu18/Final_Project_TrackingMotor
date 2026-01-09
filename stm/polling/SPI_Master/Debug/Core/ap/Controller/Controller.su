@@ -1,2 +1,2 @@
-../Core/ap/Controller/Controller.c:9:6:Controller_Init	8	static
-../Core/ap/Controller/Controller.c:16:6:Controller_Excute	8	static
+../Core/ap/Controller/Controller.c:9:6:Controller_Init	4	static
+../Core/ap/Controller/Controller.c:14:6:Controller_Excute	8	static

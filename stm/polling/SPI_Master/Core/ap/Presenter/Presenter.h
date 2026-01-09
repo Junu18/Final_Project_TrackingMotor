@@ -10,8 +10,7 @@
 
 #include "../../driver/lcd/lcd.h"
 #include "i2c.h"
-#include "PresenterTracking.h"
-#include "../Model/ModelTracking.h"
+#include "Presenter_SPITest.h"
 
 void Presenter_Init();
 void Presenter_Excute();
