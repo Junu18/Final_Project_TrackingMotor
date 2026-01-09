@@ -1,15 +1,16 @@
 `timescale 1ns / 1ps
 
 module spi_packer (
-    input  logic       clk,
-    input  logic       reset,
-
-    input  logic       req,
-    input  logic [9:0] xdata,
-    input  logic [8:0] ydata,
-
-    output logic [15:0] xdata_tx,
-    output logic [15:0] ydata_tx
+    input logic clk,
+    input logic reset,
+    /////////////////
+    input logic [ 9:0] xdata,
+    input logic [ 8:0] ydata,
+    input logic [12:0] etc,
+    /////////////////
+    input logic        req,
+    //////////////////
+    output logic [31:0] data_frame
 );
 
     logic [15:0] x_reg;
@@ -24,8 +25,7 @@ module spi_packer (
             y_reg <= '0;
         end else begin
             if (req) begin
-                x_reg <= {1'b1, 5'b0, xdata};
-                y_reg <= {1'b0, 6'b0, ydata};
+                data_frame <= {xdata, ydata, etc};
             end
         end
     end

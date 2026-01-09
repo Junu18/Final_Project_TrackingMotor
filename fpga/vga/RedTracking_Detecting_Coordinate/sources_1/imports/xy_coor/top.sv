@@ -20,38 +20,38 @@ module top (
     output logic       SIO_C,
     output logic       SIO_D,
 
-    output logic       aim_detected_led,
-    output logic       raser_shoot_led,
+    output logic aim_detected_led,
+    output logic raser_shoot_led,
 
-    output logic       target_off,
+    output logic target_off,
     // SPI side
-    input  logic       mosi,
-    output logic       miso,
-    input  logic       sclk,
-    input  logic       cs
+    input  logic mosi,
+    output logic miso,
+    input  logic sclk,
+    input  logic cs
 );
 
 
     // global side
-    logic                     sys_clk;
+    logic        sys_clk;
 
     // VGA side
-    logic                     DE;
-    logic [              9:0] x_pixel;
-    logic [              9:0] y_pixel;
+    logic        DE;
+    logic [ 9:0] x_pixel;
+    logic [ 9:0] y_pixel;
 
     // OV7670 side
-    logic                     wclk;
-    logic                     we;
-    logic [             16:0] wAddr;  // [$clog2(320*240)-1:0] 
-    logic [             15:0] wData;
-    logic                     rclk;
-    logic                     oe;
-    logic [             16:0] rAddr;  // [$clog2(320*240)-1:0] 
-    logic [             15:0] rData;  //imgData of IMG_MEM_READER
+    logic        wclk;
+    logic        we;
+    logic [16:0] wAddr;  // [$clog2(320*240)-1:0] 
+    logic [15:0] wData;
+    logic        rclk;
+    logic        oe;
+    logic [16:0] rAddr;  // [$clog2(320*240)-1:0] 
+    logic [15:0] rData;  //imgData of IMG_MEM_READER
 
     // img side
-    logic [1:0] bg_sel;
+    logic [ 1:0] bg_sel;
     logic [11:0] img_cam, img_bg;
 
     logic [9:0] aim_x, aim_y;
@@ -61,7 +61,7 @@ module top (
 
     // led debug
     assign aim_detected_led = aim_detected;
-    assign raser_shoot_led  = raser_shoot;
+    assign raser_shoot_led = raser_shoot;
 
     assign xclk = sys_clk;
 
@@ -100,19 +100,19 @@ module top (
     );
 
     pixel_mixer U_PIXEL_MIXER (
-        .img_bg        (img_cam),
-        .aim_x         (aim_x),
-        .aim_y         (aim_y),
-        .aim_detected  (aim_detected),
-        .x_pixel       (x_pixel),
-        .y_pixel       (y_pixel),
-        .box_x_min     (box_x_min),
-        .box_x_max     (box_x_max),
-        .box_y_min     (box_y_min),
-        .box_y_max     (box_y_max),
-        .r_port        (r_port),
-        .g_port        (g_port),
-        .b_port        (b_port)
+        .img_bg      (img_cam),
+        .aim_x       (aim_x),
+        .aim_y       (aim_y),
+        .aim_detected(aim_detected),
+        .x_pixel     (x_pixel),
+        .y_pixel     (y_pixel),
+        .box_x_min   (box_x_min),
+        .box_x_max   (box_x_max),
+        .box_y_min   (box_y_min),
+        .box_y_max   (box_y_max),
+        .r_port      (r_port),
+        .g_port      (g_port),
+        .b_port      (b_port)
     );
 
     frame_buffer U_FRAME_BUFFER (
@@ -168,7 +168,8 @@ module top (
         .miso (miso),
         .cs   (cs),
         .xdata(aim_x),
-        .ydata(aim_y[8:0])
+        .ydata(aim_y[8:0]),
+        .etc  (13'b0_0000_0000_0000)
     );
 
 endmodule
