@@ -102,11 +102,11 @@ set_property -dict { PACKAGE_PIN P17   IOSTANDARD LVCMOS33 } [get_ports {data[2]
 set_property -dict { PACKAGE_PIN R18   IOSTANDARD LVCMOS33 } [get_ports {data[0]}];#Sch name = JC10
 
 ##Pmod Header JXADC
-#set_property -dict { PACKAGE_PIN J3   IOSTANDARD LVCMOS33 } [get_ports {JXADC[0]}];#Sch name = XA1_P
-#set_property -dict { PACKAGE_PIN L3   IOSTANDARD LVCMOS33 } [get_ports {JXADC[1]}];#Sch name = XA2_P
-#set_property -dict { PACKAGE_PIN M2   IOSTANDARD LVCMOS33 } [get_ports {JXADC[2]}];#Sch name = XA3_P
-#set_property -dict { PACKAGE_PIN N2   IOSTANDARD LVCMOS33 } [get_ports {JXADC[3]}];#Sch name = XA4_P
-#set_property -dict { PACKAGE_PIN K3   IOSTANDARD LVCMOS33 } [get_ports {JXADC[4]}];#Sch name = XA1_N
+set_property -dict { PACKAGE_PIN J3   IOSTANDARD LVCMOS33 } [get_ports {sclk}];#Sch name = XA1_P
+set_property -dict { PACKAGE_PIN L3   IOSTANDARD LVCMOS33 } [get_ports {mosi}];#Sch name = XA2_P
+set_property -dict { PACKAGE_PIN M2   IOSTANDARD LVCMOS33 } [get_ports {miso}];#Sch name = XA3_P
+set_property -dict { PACKAGE_PIN N2   IOSTANDARD LVCMOS33 } [get_ports {cs}];#Sch name = XA4_P
+#set_property -dict { PACKAGE_PIN K3   IOSTANDARD LVCMOS33 } [get_ports {test}];#Sch name = XA1_N
 #set_property -dict { PACKAGE_PIN M3   IOSTANDARD LVCMOS33 } [get_ports {JXADC[5]}];#Sch name = XA2_N
 #set_property -dict { PACKAGE_PIN M1   IOSTANDARD LVCMOS33 } [get_ports {JXADC[6]}];#Sch name = XA3_N
 #set_property -dict { PACKAGE_PIN N1   IOSTANDARD LVCMOS33 } [get_ports {JXADC[7]}];#Sch name = XA4_N
@@ -142,11 +142,11 @@ set_property -dict { PACKAGE_PIN R19   IOSTANDARD LVCMOS33 } [get_ports v_sync]
 ##Quad SPI Flash
 ##Note that CCLK_0 cannot be placed in 7 series devices. You can access it using the
 ##STARTUPE2 primitive.
-#set_property -dict { PACKAGE_PIN D18   IOSTANDARD LVCMOS33 } [get_ports {QspiDB[0]}]
-#set_property -dict { PACKAGE_PIN D19   IOSTANDARD LVCMOS33 } [get_ports {QspiDB[1]}]
-#set_property -dict { PACKAGE_PIN G18   IOSTANDARD LVCMOS33 } [get_ports {QspiDB[2]}]
+#set_property -dict { PACKAGE_PIN D18   IOSTANDARD LVCMOS33 } [get_ports sclk]
+#set_property -dict { PACKAGE_PIN D19   IOSTANDARD LVCMOS33 } [get_ports mosi]
+#set_property -dict { PACKAGE_PIN G18   IOSTANDARD LVCMOS33 } [get_ports miso]
 #set_property -dict { PACKAGE_PIN F18   IOSTANDARD LVCMOS33 } [get_ports {QspiDB[3]}]
-#set_property -dict { PACKAGE_PIN K19   IOSTANDARD LVCMOS33 } [get_ports QspiCSn]
+#set_property -dict { PACKAGE_PIN K19   IOSTANDARD LVCMOS33 } [get_ports cs]
 
 
 ## Configuration options, can be used for all designs
