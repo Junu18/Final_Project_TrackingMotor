@@ -1,0 +1,7 @@
+../Core/ap/Controller/Controller_Tracking.c:12:6:Controller_Tracking_Init	1
+../Core/ap/Controller/Controller_Tracking.c:20:6:Controller_Tracking_Excute	6
+../Core/ap/Controller/Controller_Tracking.c:41:6:Controller_Tracking_Idle	3
+../Core/ap/Controller/Controller_Tracking.c:54:6:Controller_Tracking_Search	4
+../Core/ap/Controller/Controller_Tracking.c:69:6:Controller_Tracking_Follow	4
+../Core/ap/Controller/Controller_Tracking.c:84:6:Controller_Tracking_Lost	3
+../Core/ap/Controller/Controller_Tracking.c:99:6:Controller_Tracking_Aimed	1
