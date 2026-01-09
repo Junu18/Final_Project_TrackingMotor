@@ -23,8 +23,14 @@ module top (
     output logic       aim_detected_led,
     output logic       raser_shoot_led,
 
-    output logic       target_off
+    output logic       target_off,
+    // SPI side
+    input  logic       mosi,
+    output logic       miso,
+    input  logic       sclk,
+    input  logic       cs
 );
+
 
     // global side
     logic                     sys_clk;
@@ -152,6 +158,17 @@ module top (
         .y_min_out   (box_y_min),
         .y_max_out   (box_y_max),
         .target_off  (target_off)
+    );
+
+    slave_top U_SPI_Slave (
+        .clk  (clk),
+        .reset(reset),
+        .sclk (sclk),
+        .mosi (mosi),
+        .miso (miso),
+        .cs   (cs),
+        .xdata(aim_x),
+        .ydata(aim_y[8:0])
     );
 
 endmodule
