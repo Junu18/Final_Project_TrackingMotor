@@ -1,7 +1,7 @@
-../Core/ap/Controller/Controller_Tracking.c:12:6:Controller_Tracking_Init	16	static
-../Core/ap/Controller/Controller_Tracking.c:20:6:Controller_Tracking_Excute	16	static
-../Core/ap/Controller/Controller_Tracking.c:41:6:Controller_Tracking_Idle	24	static
-../Core/ap/Controller/Controller_Tracking.c:54:6:Controller_Tracking_Search	24	static
-../Core/ap/Controller/Controller_Tracking.c:69:6:Controller_Tracking_Follow	24	static
-../Core/ap/Controller/Controller_Tracking.c:84:6:Controller_Tracking_Lost	24	static
-../Core/ap/Controller/Controller_Tracking.c:99:6:Controller_Tracking_Aimed	4	static
+../Core/ap/Controller/Controller_Tracking.c:12:6:Controller_Tracking_Init	4	static
+../Core/ap/Controller/Controller_Tracking.c:16:6:Controller_Tracking_Excute	16	static
+../Core/ap/Controller/Controller_Tracking.c:38:6:Controller_Tracking_Idle	24	static
+../Core/ap/Controller/Controller_Tracking.c:51:6:Controller_Tracking_Search	24	static
+../Core/ap/Controller/Controller_Tracking.c:66:6:Controller_Tracking_Follow	24	static
+../Core/ap/Controller/Controller_Tracking.c:81:6:Controller_Tracking_Lost	24	static
+../Core/ap/Controller/Controller_Tracking.c:94:6:Controller_Tracking_Aimed	24	static

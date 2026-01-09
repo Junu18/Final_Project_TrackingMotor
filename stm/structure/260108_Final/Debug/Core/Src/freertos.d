@@ -54,14 +54,13 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Core/Src/../ap/Controller/Controller.h \
  ../Core/Src/../ap/Controller/Controller_Tracking.h \
  ../Core/Src/../ap/Controller/../Model/Model_Tracking.h \
- ../Core/Src/../ap/Presenter/Presenter.h \
+ ../Core/Src/../ap/Controller/../../driver/lcd/lcd.h ../Core/Inc/i2c.h \
+ ../Core/Inc/main.h ../Core/Src/../ap/Presenter/Presenter.h \
  ../Core/Src/../ap/Presenter/Presenter_Tracking.h \
  ../Core/Src/../ap/Presenter/../Model/Model_Tracking.h \
- ../Core/Inc/usart.h ../Core/Inc/main.h \
- ../Core/Src/../ap/Presenter/../../driver/lcd/lcd.h \
+ ../Core/Inc/usart.h ../Core/Src/../ap/Presenter/../../driver/lcd/lcd.h \
  ../Core/Src/../ap/Presenter/../../driver/ServoMotor/ServoMotor.h \
- ../Core/Inc/tim.h ../Core/Inc/i2c.h \
- ../Core/Src/../ap/Model/Model_Tracking.h
+ ../Core/Inc/tim.h ../Core/Src/../ap/Model/Model_Tracking.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -118,13 +117,14 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Core/Src/../ap/Controller/Controller.h:
 ../Core/Src/../ap/Controller/Controller_Tracking.h:
 ../Core/Src/../ap/Controller/../Model/Model_Tracking.h:
+../Core/Src/../ap/Controller/../../driver/lcd/lcd.h:
+../Core/Inc/i2c.h:
+../Core/Inc/main.h:
 ../Core/Src/../ap/Presenter/Presenter.h:
 ../Core/Src/../ap/Presenter/Presenter_Tracking.h:
 ../Core/Src/../ap/Presenter/../Model/Model_Tracking.h:
 ../Core/Inc/usart.h:
-../Core/Inc/main.h:
 ../Core/Src/../ap/Presenter/../../driver/lcd/lcd.h:
 ../Core/Src/../ap/Presenter/../../driver/ServoMotor/ServoMotor.h:
 ../Core/Inc/tim.h:
-../Core/Inc/i2c.h:
 ../Core/Src/../ap/Model/Model_Tracking.h:

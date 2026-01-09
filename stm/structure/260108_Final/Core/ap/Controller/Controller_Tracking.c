@@ -10,15 +10,12 @@
 tracking_t trackingData;
 
 void Controller_Tracking_Init() {
-	trackingData.x_angle = 90.0f;
 
-	tracking_t *pTrackingData = osPoolAlloc(poolTrackingData);
-	memcpy(pTrackingData, &trackingData, sizeof(tracking_t));
-	osMessagePut(trackingDataMsgBox, (uint32_t) pTrackingData, 0);
 }
 
 void Controller_Tracking_Excute() {
 	trackingState_t state = Model_GetTrackingState();
+
 	switch (state) {
 	case TRACKING_IDLE:
 		Controller_Tracking_Idle();
@@ -74,9 +71,9 @@ void Controller_Tracking_Follow() {
 		evtState = evt.value.v;
 
 		if (evtState == EVENT_TARGET_LOST) {
-			Model_SetTrackingState(TRACKING_IDLE);
-		} else if (evtState == EVENT_TARGET_ON) {
-			Model_SetTrackingState(TRACKING_FOLLOW);
+			Model_SetTrackingState(TRACKING_LOST);
+		} else if (evtState == EVENT_TARGET_AIMED) {
+			Model_SetTrackingState(TRACKING_AIMED);
 		}
 	}
 }
@@ -92,10 +89,17 @@ void Controller_Tracking_Lost() {
 			Model_SetTrackingState(TRACKING_FOLLOW);
 		}
 	}
-
 }
 
-
 void Controller_Tracking_Aimed() {
+	osEvent evt = osMessageGet(trackingEventMsgBox, 0);
+	uint16_t evtState;
 
+	if (evt.status == osEventMessage) {
+		evtState = evt.value.v;
+
+		if (evtState == EVENT_CLEAR) {
+			Model_SetTrackingState(TRACKING_SEARCH);
+		}
+	}
 }

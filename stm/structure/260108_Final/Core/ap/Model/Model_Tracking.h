@@ -29,6 +29,7 @@ typedef enum {
 typedef struct {
 	float x_angle;
 	float y_angle;
+	int debug;
 } tracking_t;
 
 extern trackingState_t trackingState;
