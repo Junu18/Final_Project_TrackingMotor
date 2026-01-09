@@ -1,0 +1,4 @@
+../Core/ap/Model/ModelTracking.c:14:6:Model_Tracking_Init	16	static
+../Core/ap/Model/ModelTracking.c:33:6:Model_Tracking_UpdateXY	16	static
+../Core/ap/Model/ModelTracking.c:43:6:Model_Tracking_UpdateAngles	16	static
+../Core/ap/Model/ModelTracking.c:56:9:Model_Tracking_ValidateRx	16	static
