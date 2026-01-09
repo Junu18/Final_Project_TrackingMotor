@@ -1,7 +1,9 @@
-../Core/ap/Controller/Controller_Tracking.c:12:6:Controller_Tracking_Init	16	static
-../Core/ap/Controller/Controller_Tracking.c:20:6:Controller_Tracking_Excute	16	static
-../Core/ap/Controller/Controller_Tracking.c:41:6:Controller_Tracking_Idle	24	static
-../Core/ap/Controller/Controller_Tracking.c:54:6:Controller_Tracking_Search	24	static
-../Core/ap/Controller/Controller_Tracking.c:69:6:Controller_Tracking_Follow	24	static
-../Core/ap/Controller/Controller_Tracking.c:84:6:Controller_Tracking_Lost	24	static
-../Core/ap/Controller/Controller_Tracking.c:99:6:Controller_Tracking_Aimed	4	static
+../Core/ap/Controller/Controller_Tracking.c:13:6:Controller_Tracking_Init	4	static
+../Core/ap/Controller/Controller_Tracking.c:17:6:Controller_Tracking_Excute	24	static
+../Core/ap/Controller/Controller_Tracking.c:27:6:Controller_Tracking_HandleSignal	16	static
+../Core/ap/Controller/Controller_Tracking.c:38:6:Controller_Tracking_UpdateState	16	static
+../Core/ap/Controller/Controller_Tracking.c:60:6:Controller_Tracking_Idle	8	static
+../Core/ap/Controller/Controller_Tracking.c:66:6:Controller_Tracking_Search	8	static
+../Core/ap/Controller/Controller_Tracking.c:74:6:Controller_Tracking_Follow	8	static
+../Core/ap/Controller/Controller_Tracking.c:82:6:Controller_Tracking_Lost	8	static
+../Core/ap/Controller/Controller_Tracking.c:88:6:Controller_Tracking_Aimed	8	static

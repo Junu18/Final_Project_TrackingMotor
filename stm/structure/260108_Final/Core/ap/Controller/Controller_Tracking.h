@@ -12,9 +12,13 @@
 #include <string.h>
 #include "cmsis_os.h"
 #include "../Model/Model_Tracking.h"
+#include "../../driver/lcd/lcd.h"
+#include "i2c.h"
 
 void Controller_Tracking_Init();
 void Controller_Tracking_Excute();
+void Controller_Tracking_HandleSignal();
+void Controller_Tracking_UpdateState();
 void Controller_Tracking_Idle();
 void Controller_Tracking_Search();
 void Controller_Tracking_Follow();
