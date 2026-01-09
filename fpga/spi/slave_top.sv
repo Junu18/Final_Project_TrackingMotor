@@ -11,7 +11,7 @@ module slave_top (
     //////
     input  logic [ 9:0] xdata,
     input  logic [ 8:0] ydata,
-    input  logic [12:0] etc
+    input  logic [12:0] et\
 );
 
     logic        req;
