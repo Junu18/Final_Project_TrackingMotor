@@ -1,19 +1,12 @@
 `timescale 1ns / 1ps
 
 module ps2_rx (
-    input clk,
-    input reset,
-    input ps2clk,
-    input ps2data,
-    //   output       rx_done,
-
-    //    output       led_aa,
-    //    output       led_idle,
-    //    output       led_00,
-    //    output       led_f2,
+    input  clk,
+    input  reset,
+    inout  ps2clk,
+    inout  ps2data,
+    output rx_done,
     output [2:0] led_state,
-    //    output       led_parity,
-    //    input  [1:0] packet_type,
     output [7:0] valid_data,
     output led_ps2clk,
     output led_ps2data
@@ -46,10 +39,10 @@ module ps2_rx (
             ps2data_sync2 <= ps2data_sync1;
         end
     end
-    assign ps2clk_rising   = ps2clk_sync1 & ~(ps2clk_sync2);
-    assign ps2clk_falling  = ~(ps2clk_sync1) & ps2clk_sync2;
-    assign ps2data_rising  = ps2data_sync1 & ~(ps2data_sync2);
-    assign ps2datas_falling = ~(ps2data_sync1) & ps2data_sync2;
+    assign ps2clk_rising = ps2clk_sync1 & ~(ps2clk_sync2);
+    assign ps2clk_falling = ~(ps2clk_sync1) & ps2clk_sync2;
+    assign ps2data_rising = ps2data_sync1 & ~(ps2data_sync2);
+    assign ps2data_falling = ~(ps2data_sync1) & ps2data_sync2;
 
     // parity 
     reg parity_error_reg, parity_error_next;
@@ -67,7 +60,7 @@ module ps2_rx (
     reg [7:0] rx_buffer_reg, rx_buffer_next;
     reg rx_done_reg, rx_done_next;
 
-    //    assign rx_done = rx_done_reg;
+    assign rx_done = rx_done_reg;
     assign valid_data  = rx_buffer_reg;
     assign led_state   = state_reg;
 
@@ -150,3 +143,5 @@ module ps2_rx (
         endcase
     end
 endmodule
+
+
