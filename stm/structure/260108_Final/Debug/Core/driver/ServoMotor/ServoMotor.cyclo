@@ -1,4 +1,5 @@
 ../Core/driver/ServoMotor/ServoMotor.c:10:6:Servo_Init	1
 ../Core/driver/ServoMotor/ServoMotor.c:22:6:Servo_SetAngle	6
-../Core/driver/ServoMotor/ServoMotor.c:37:6:Servo_Start	1
-../Core/driver/ServoMotor/ServoMotor.c:41:6:Servo_AddAngle	1
+../Core/driver/ServoMotor/ServoMotor.c:37:6:Servo_Enable	1
+../Core/driver/ServoMotor/ServoMotor.c:41:6:Servo_Disable	1
+../Core/driver/ServoMotor/ServoMotor.c:45:6:Servo_AddAngle	1

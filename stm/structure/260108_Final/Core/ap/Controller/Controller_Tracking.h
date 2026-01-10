@@ -11,13 +11,20 @@
 #include <stdint.h>
 #include <string.h>
 #include "cmsis_os.h"
+#include "../Common/Common.h"
 #include "../Model/Model_Tracking.h"
 #include "../../driver/lcd/lcd.h"
 #include "i2c.h"
 
+#define GAIN_X		0.1f
+#define GAIN_Y		0.1f
+#define MIN_X		0
+#define MIN_Y		0
+#define MAX_X		640
+#define MAX_Y		320
+
 void Controller_Tracking_Init();
 void Controller_Tracking_Excute();
-void Controller_Tracking_ResetData();
 void Controller_Tracking_HandleSignal();
 void Controller_Tracking_UpdateState();
 void Controller_Tracking_Idle();
@@ -25,5 +32,8 @@ void Controller_Tracking_Search();
 void Controller_Tracking_Follow();
 void Controller_Tracking_Lost();
 void Controller_Tracking_Aimed();
+void Controller_Tracking_ResetData();
+void Controller_Tracking_ComputeServoAngle();
+void Controller_Tracking_PushData();
 
 #endif /* AP_CONTROLLER_CONTROLLER_TRACKING_H_ */

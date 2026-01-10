@@ -50,6 +50,7 @@ Core/ap/Common/Common.o: ../Core/ap/Common/Common.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
+ ../Core/ap/Common/../Controller/../Common/Common.h \
  ../Core/ap/Common/../Controller/../Model/Model_Tracking.h \
  ../Core/ap/Common/../Controller/../../driver/lcd/lcd.h ../Core/Inc/i2c.h
 ../Core/ap/Common/Common.h:
@@ -104,6 +105,7 @@ Core/ap/Common/Common.o: ../Core/ap/Common/Common.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
+../Core/ap/Common/../Controller/../Common/Common.h:
 ../Core/ap/Common/../Controller/../Model/Model_Tracking.h:
 ../Core/ap/Common/../Controller/../../driver/lcd/lcd.h:
 ../Core/Inc/i2c.h:

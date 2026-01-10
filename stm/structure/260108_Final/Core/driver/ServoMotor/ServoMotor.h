@@ -27,7 +27,8 @@ typedef struct {
 
 void Servo_Init(Servo_t *servo, TIM_HandleTypeDef *htim, uint32_t channel);
 void Servo_SetAngle(Servo_t *servo, float angle);
-void Servo_Start(Servo_t *servo);
+void Servo_Enable(Servo_t *servo);
+void Servo_Disable(Servo_t *servo);
 void Servo_AddAngle(Servo_t *servo, float step);
 
 #endif /* DRIVER_SERVOMOTOR_SERVOMOTOR_H_ */

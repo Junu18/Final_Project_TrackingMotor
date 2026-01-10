@@ -34,8 +34,12 @@ void Servo_SetAngle(Servo_t *servo, float angle) {
 	__HAL_TIM_SET_COMPARE(servo->htim, servo->channel, pulse);
 }
 
-void Servo_Start(Servo_t *servo) {
+void Servo_Enable(Servo_t *servo) {
 	HAL_TIM_PWM_Start(servo->htim, servo->channel);
+}
+
+void Servo_Disable(Servo_t *servo) {
+	HAL_TIM_PWM_Stop(servo->htim, servo->channel);
 }
 
 void Servo_AddAngle(Servo_t *servo, float step) {

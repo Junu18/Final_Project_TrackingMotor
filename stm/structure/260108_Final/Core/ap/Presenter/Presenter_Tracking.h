@@ -19,5 +19,8 @@
 
 void Presenter_Tracking_Init();
 void Presenter_Tracking_Excute();
+void Presenter_Tracking_UpdateState();
+void Presenter_Tracking_ManageServoPower(trackingState_t currState);
+void Presenter_Tracking_DispLCD();
 
 #endif /* AP_PRESENTER_PRESENTER_TRACKING_H_ */
