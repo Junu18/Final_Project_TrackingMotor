@@ -16,11 +16,12 @@
 #include "../../driver/lcd/lcd.h"
 #include "../../driver/ServoMotor/ServoMotor.h"
 #include "i2c.h"
+#include "tim.h"
 
 void Presenter_Tracking_Init();
 void Presenter_Tracking_Excute();
-void Presenter_Tracking_UpdateState();
+void Presenter_Tracking_UpdateState(tracking_t *pTrackingData);
 void Presenter_Tracking_ManageServoPower(trackingState_t currState);
-void Presenter_Tracking_DispLCD();
+void Presenter_Tracking_DispLCD(tracking_t *pTrackingData);
 
 #endif /* AP_PRESENTER_PRESENTER_TRACKING_H_ */

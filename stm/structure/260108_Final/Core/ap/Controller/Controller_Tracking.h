@@ -25,13 +25,13 @@
 
 void Controller_Tracking_Init();
 void Controller_Tracking_Excute();
-void Controller_Tracking_HandleSignal();
-void Controller_Tracking_UpdateState();
-void Controller_Tracking_Idle();
-void Controller_Tracking_Search();
-void Controller_Tracking_Follow();
-void Controller_Tracking_Lost();
-void Controller_Tracking_Aimed();
+void Controller_Tracking_HandleSignal(uint16_t currEvent);
+void Controller_Tracking_UpdateState(uint16_t currEvent);
+void Controller_Tracking_Idle(uint16_t currEvent);
+void Controller_Tracking_Search(uint16_t currEvent);
+void Controller_Tracking_Follow(uint16_t currEvent);
+void Controller_Tracking_Lost(uint16_t currEvent);
+void Controller_Tracking_Aimed(uint16_t currEvent);
 void Controller_Tracking_ResetData();
 void Controller_Tracking_ComputeServoAngle();
 void Controller_Tracking_PushData();

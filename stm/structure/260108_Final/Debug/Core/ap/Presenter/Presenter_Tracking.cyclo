@@ -1,5 +1,5 @@
-../Core/ap/Presenter/Presenter_Tracking.c:15:6:Presenter_Tracking_Init	1
-../Core/ap/Presenter/Presenter_Tracking.c:26:6:Presenter_Tracking_Excute	2
-../Core/ap/Presenter/Presenter_Tracking.c:38:6:Presenter_Tracking_UpdateState	1
-../Core/ap/Presenter/Presenter_Tracking.c:48:6:Presenter_Tracking_ManageServoPower	4
-../Core/ap/Presenter/Presenter_Tracking.c:63:6:Presenter_Tracking_DispLCD	8
+../Core/ap/Presenter/Presenter_Tracking.c:13:6:Presenter_Tracking_Init	1
+../Core/ap/Presenter/Presenter_Tracking.c:24:6:Presenter_Tracking_Excute	4
+../Core/ap/Presenter/Presenter_Tracking.c:45:6:Presenter_Tracking_UpdateState	2
+../Core/ap/Presenter/Presenter_Tracking.c:55:6:Presenter_Tracking_ManageServoPower	4
+../Core/ap/Presenter/Presenter_Tracking.c:70:6:Presenter_Tracking_DispLCD	8

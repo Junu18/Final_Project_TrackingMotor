@@ -10,15 +10,15 @@
 trackingState_t trackingState = TRACKING_IDLE; // state shared memory
 
 osMessageQId trackingEventMsgBox;
-osMessageQDef(trackingEventQue, 4, trackingEvent_t);
+osMessageQDef(trackingEventQue, 16, trackingEvent_t);
 
 osMessageQId trackingDataMsgBox;
-osMessageQDef(trackingDataQue, 4, tracking_t);
+osMessageQDef(trackingDataQue, 16, uint32_t);
 
 // Dynamic memory allocation provided by RTOS
-osPoolDef(poolTrackingEvent, 4, trackingEvent_t);
+osPoolDef(poolTrackingEvent, 16, trackingEvent_t);
 osPoolId poolTrackingEvent;
-osPoolDef(poolTrackingData, 4, tracking_t);
+osPoolDef(poolTrackingData, 32, tracking_t);
 osPoolId poolTrackingData;
 
 void Model_TrackingInit() {
