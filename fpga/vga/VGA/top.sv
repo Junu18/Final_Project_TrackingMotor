@@ -21,7 +21,10 @@ module top (
     output logic       target_off,         // LED[15]
 
     inout logic PS2Clk,
-    inout logic PS2Data
+    inout logic PS2Data,
+
+    output logic debug_ps2clk,
+    output logic debug_ps2data
 );
 
     logic             sys_clk;
@@ -115,14 +118,16 @@ module top (
     ps2_top U_PS2_TOP (
         .clk(clk),
         .reset(reset),
-        .btnR(1'b0),
+        .btnR(btnR),
         .PS2Clk(PS2Clk),
         .PS2Data(PS2Data),
         .mouse_x_pixel(mouse_x),
         .mouse_y_pixel(mouse_y),
         .click_l(click_l),
         .click_r(click_r),
-        .click_m(click_m)
+        .click_m(click_m),
+        .debug_ps2clk(debug_ps2clk),
+        .debug_ps2data(debug_ps2data)
     );
 
     // --- 3. Vision Processing (Red Tracker) ---
@@ -145,7 +150,7 @@ module top (
         .target_off(target_off)
     );
 
-    // --- 4. [신규] Target Control Logic (FSM & Handover) ---
+    // --- 4. Target Control Logic (FSM & Handover) ---
     target_controller U_TARGET_CONTROLLER (
         .clk  (sys_clk),
         .reset(reset),
@@ -201,7 +206,11 @@ module top (
         .y_pixel(y_pixel),
         .r_port(r_port),
         .g_port(g_port),
-        .b_port(b_port)
+        .b_port(b_port),
+
+        // stm에 보낼 최종 좌표
+        .target_x_coor(),
+        .target_y_coor()
     );
 
 endmodule

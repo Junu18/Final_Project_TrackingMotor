@@ -31,8 +31,14 @@ module pixel_mixer (
 
     output logic [3:0] r_port,
     output logic [3:0] g_port,
-    output logic [3:0] b_port
+    output logic [3:0] b_port,
+
+    // target coor
+    output logic [9:0] target_x_coor,
+    output logic [9:0] target_y_coor
+
 );
+
 
     // --- 색상 정의 ---
     localparam logic [11:0] RED = 12'hF00;
@@ -91,9 +97,13 @@ module pixel_mixer (
     logic [3:0] x_100, x_10, x_1;
     logic [3:0] y_100, y_10, y_1;
 
+    assign target_x_coor = target_x;
+    assign target_y_coor = target_y;
+
     always_comb begin
         is_text_pixel = 0;
-
+        target_x      = 0;
+        target_y      = 0;
         // 락온 상태일 때만 좌표 표시
         if (is_locked && aim_detected_all[locked_idx]) begin
             target_x = aim_x_all[locked_idx];
