@@ -10,9 +10,13 @@ module spi_slave (
     output logic        miso,
 
     input  logic [31:0] data_frame,
-    output logic        req
+    output logic        req, //miso 데이터 버퍼 요청
+
+    output logic [31:0] rx_data,
+    output logic        rx_valid
 );
 
+    //////////////////////////////// double ff -> sync
     logic sclk_sync0, sclk_sync1;
     logic cs_sync0,   cs_sync1;
     logic mosi_sync0, mosi_sync1;
@@ -43,6 +47,9 @@ module spi_slave (
 
     assign cs_fall   = ~cs_sync0 &  cs_sync1;
     assign cs_rise   =  cs_sync0 & ~cs_sync1;
+    //////////////////////////////////////////////////
+
+
 
     typedef enum logic [1:0] {ST_IDLE, ST_PREP, ST_SHIFT, ST_HOLD} state_t;
     state_t state, state_next;
@@ -56,46 +63,58 @@ module spi_slave (
     logic miso_reg, miso_next;
     logic req_reg, req_next;
 
-    assign miso = cs_sync0 ? 1'b0 : miso_reg;
-    assign req  = req_reg;
+    logic [31:0] rx_data_reg, rx_data_next;
+    logic        rx_valid_reg, rx_valid_next;
+
+    assign miso     = cs_sync0 ? 1'b0 : miso_reg; //안정화시 miso 전송 시작
+    assign req      = req_reg;
+    assign rx_data  = rx_data_reg;
+    assign rx_valid = rx_valid_reg;
 
     always_ff @(posedge clk, posedge reset) begin
         if (reset) begin
-            state    <= ST_IDLE;
-            tx_shift <= '0;
-            rx_shift <= '0;
-            bit_cnt  <= '0;
-            prep_cnt <= '0;
-            miso_reg <= 1'b0;
-            req_reg  <= 1'b0;
+            state        <= ST_IDLE;
+            tx_shift     <= '0;
+            rx_shift     <= '0;
+            bit_cnt      <= '0;
+            prep_cnt     <= '0;
+            miso_reg     <= 1'b0;
+            req_reg      <= 1'b0;
+            rx_data_reg  <= '0;
+            rx_valid_reg <= 1'b0;
         end else begin
-            state    <= state_next;
-            tx_shift <= tx_shift_next;
-            rx_shift <= rx_shift_next;
-            bit_cnt  <= bit_cnt_next;
-            prep_cnt <= prep_cnt_next;
-            miso_reg <= miso_next;
-            req_reg  <= req_next;
+            state        <= state_next;
+            tx_shift     <= tx_shift_next;
+            rx_shift     <= rx_shift_next;
+            bit_cnt      <= bit_cnt_next;
+            prep_cnt     <= prep_cnt_next;
+            miso_reg     <= miso_next;
+            req_reg      <= req_next;
+            rx_data_reg  <= rx_data_next;
+            rx_valid_reg <= rx_valid_next;
         end
     end
 
     always_comb begin
-        state_next    = state;
-        tx_shift_next = tx_shift;
-        rx_shift_next = rx_shift;
-        bit_cnt_next  = bit_cnt;
-        prep_cnt_next = prep_cnt;
-        miso_next     = miso_reg;
-        req_next      = 1'b0;
+        state_next     = state;
+        tx_shift_next  = tx_shift;
+        rx_shift_next  = rx_shift;
+        bit_cnt_next   = bit_cnt;
+        prep_cnt_next  = prep_cnt;
+        miso_next      = miso_reg;
+        req_next       = 1'b0;
+        rx_data_next   = rx_data_reg;
+        rx_valid_next  = 1'b0;
 
         if (cs_rise) begin
-            state_next    = ST_IDLE;
-            tx_shift_next = '0;
-            rx_shift_next = '0;
-            bit_cnt_next  = '0;
-            prep_cnt_next = '0;
-            miso_next     = 1'b0;
-            req_next      = 1'b0;
+            state_next     = ST_IDLE;
+            tx_shift_next  = '0;
+            rx_shift_next  = '0;
+            bit_cnt_next   = '0;
+            prep_cnt_next  = '0;
+            miso_next      = 1'b0;
+            req_next       = 1'b0;
+            rx_valid_next  = 1'b0;
         end else begin
             case (state)
                 ST_IDLE: begin
@@ -122,8 +141,13 @@ module spi_slave (
                 ST_SHIFT: begin
                     if (sclk_rise) begin
                         rx_shift_next = {rx_shift[30:0], mosi_sync1};
-                        if (bit_cnt == 6'd31) state_next = ST_HOLD;
-                        else bit_cnt_next = bit_cnt + 1'b1;
+                        if (bit_cnt == 6'd31) begin
+                            rx_data_next  = {rx_shift[30:0], mosi_sync1};
+                            rx_valid_next = 1'b1;
+                            state_next    = ST_HOLD;
+                        end else begin
+                            bit_cnt_next  = bit_cnt + 1'b1;
+                        end
                     end
 
                     if (sclk_fall) begin
@@ -138,5 +162,4 @@ module spi_slave (
             endcase
         end
     end
-
 endmodule

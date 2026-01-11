@@ -24,7 +24,11 @@ module top (
     inout logic PS2Data,
 
     output logic debug_ps2clk,
-    output logic debug_ps2data
+    output logic debug_ps2data,
+    input  logic        sclk,
+    input  logic        mosi,
+    output logic        miso,
+    input  logic        cs
 );
 
     logic             sys_clk;
@@ -55,6 +59,14 @@ module top (
     logic       is_locked;
     logic [3:0] locked_idx;
     logic       center_hit;
+
+    ///spi module
+    logic [ 9:0] final_enemy_xdata;
+    logic [ 8:0] final_enemy_ydata;
+    logic [ 7:0] mortor_xdata;
+    logic [ 6:0] mortor_ydata;
+    logic        mosi_valid ;
+
 
     assign xclk = sys_clk;
 
@@ -209,8 +221,42 @@ module top (
         .b_port(b_port),
 
         // stm에 보낼 최종 좌표
-        .target_x_coor(),
-        .target_y_coor()
+        .target_x_coor(final_enemy_xdata),
+        .target_y_coor(final_enemy_ydata)
+    );
+
+    
+
+    slave_top U_SPI_Slave (
+        .clk  (clk),
+        .reset(reset),
+        /////// spi protocol port
+        .sclk (sclk),
+        .mosi (mosi),
+        .miso (miso),
+        .cs   (cs),
+        ////// miso data
+        .enemy_xdata(final_enemy_xdata),
+        .enemy_ydata(final_enemy_ydata),
+        .miso_etc  ({aim_detected,raser_shoot,11'b000_0000_0000}),
+        ////// mosi data
+        .mortor_xdata(mortor_xdata),
+        .mortor_ydata(mortor_ydata),
+        .mosi_valid(mosi_valid),//valid when mosi_valid is 1.
+        .mosi_etc(17'b0_0000_0000_0000_0000)
+
+        /* miso_etc bit frame(26-01-11 ver)
+        12: red_detected
+        11: target_on_box
+        10: laser_fire_complete
+        9~0: blank 
+        */
+
+        /* mosi_etc bit frame(26-01-11 ver)
+        16~14: stm_state?
+        13: laser_fire_flag
+        12~0: blank
+        */
     );
 
 endmodule
