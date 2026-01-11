@@ -6,15 +6,8 @@ module ps2_rx_mouse (
     inout  ps2clk,
     inout  ps2data,
     output rx_done,
-    output [2:0] led_state,
-    output [7:0] valid_data,
-    output led_ps2clk,
-    output led_ps2data
+    output [7:0] valid_data
 );
-
-    reg led_checkaa;
-    reg led_check00;
-    reg led_checkdata;
 
     // syncronizer, edge detector
     reg ps2clk_sync0, ps2clk_sync1, ps2clk_sync2;

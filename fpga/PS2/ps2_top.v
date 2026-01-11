@@ -8,14 +8,12 @@ module ps2_top (
     inout        PS2Data,
     input        ps2_clk_keyboard,
     input        ps2_data_keyboard,
-    output       led_ps2clk,
-    output       led_ps2data,
-    output [2:0] led_state,
     output [9:0] x_pos,        // 현재 화면 X 좌표 (0~639)
     output [9:0] y_pos,        // 현재 화면 Y 좌표 (0~479)
     output       click_l,        // 왼쪽 버튼 상태
     output       click_r,        // 오른쪽 버튼 상태
-    output       click_m         // 가운데 버튼 상태
+    output       click_m,         // 가운데 버튼 상태
+    output [7:0] keyboard_data
 );
 
     wire [7:0] w_valid_data_mouse;
@@ -47,10 +45,7 @@ module ps2_top (
         .ps2clk     (PS2Clk),
         .ps2data    (PS2Data),
         .rx_done    (w_rx_done),
-        .led_state  (led_state),
-        .valid_data (w_valid_data_mouse),
-        .led_ps2clk (led_ps2clk),
-        .led_ps2data(led_ps2data)
+        .valid_data (w_valid_data_mouse)
     );
 
     ps2_packet U_PS2_PACKET_MOUSE (
@@ -81,22 +76,18 @@ module ps2_top (
     ps2_rx_keyboard U_PS2_RX_KEYBOARD (
         .clk        (clk),
         .reset      (reset),
-        .ps2clk     (PS2Clk),
-        .ps2data    (PS2Data),
+        .ps2clk     (ps2_clk_keyboard),
+        .ps2data    (ps2_data_keyboard),
         .rx_done    (w_rx_done),
-        .led_state  (led_state),
-        .valid_data (w_valid_data_keyboard),
-        .led_ps2clk (),
-        .led_ps2data()
+        .valid_data (w_valid_data_keyboard)
     );
 
     ps2_keyboard U_PS2_KEYBOARD (
         .clk        (clk),
         .reset      (reset),
         .rx_done    (w_rx_done),
-        .valid_data (w_valid_data_keyboard),
-        .keyboard_data(keyboard_data),
-        .keyboard_done(keyboard_done)
+        .valid_data_keyboard (w_valid_data_keyboard),
+        .keyboard_data(keyboard_data)
     );
 
 endmodule

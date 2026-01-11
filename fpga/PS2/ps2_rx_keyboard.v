@@ -6,10 +6,7 @@ module ps2_rx_keyboard (
     inout  ps2clk,
     inout  ps2data,
     output rx_done,
-    output [2:0] led_state,
-    output [7:0] valid_data,
-    output led_ps2clk,
-    output led_ps2data
+    output [7:0] valid_data
 );
 
     reg led_checkaa;
