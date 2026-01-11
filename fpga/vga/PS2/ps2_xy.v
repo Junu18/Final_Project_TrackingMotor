@@ -1,81 +1,69 @@
 `timescale 1ns / 1ps
 
 module ps2_xy (
-    input            clk,          // 시스템 클럭 (100MHz)
-    input            reset,        // 리셋 신호
-    input            packet_done,  // ps2_packet 모듈에서 3바이트 수집 완료 신호
-    input      [7:0] packet1,      // Status Byte: [YV, XV, YS, XS, 1, M, R, L]
-    input      [7:0] packet2,      // X Movement Magnitude
-    input      [7:0] packet3,      // Y Movement Magnitude
-    output     [9:0] x_pos,        // 현재 화면 X 좌표 (0~639)
-    output     [9:0] y_pos,        // 현재 화면 Y 좌표 (0~479)
-    output           click_l,        // 왼쪽 버튼 상태
-    output           click_r,        // 오른쪽 버튼 상태
-    output           click_m         // 가운데 버튼 상태
+    input            clk,
+    input            reset,
+    input            packet_done,
+    input      [7:0] packet1,      // [YV, XV, YS, XS, 1, M, R, L]
+    input      [7:0] packet2,      // X Magnitude
+    input      [7:0] packet3,      // Y Magnitude
+    output     [9:0] mouse_x_pixel,
+    output     [9:0] mouse_y_pixel,
+    output           click_l,
+    output           click_r,
+    output           click_m
 );
 
-    // 내부 레지스터 선언
     reg [9:0] x_reg, y_reg;
     reg click_l_reg, click_r_reg, click_m_reg;
-    
-    // 변화량 계산을 위한 부호 있는 10비트 변수
     reg signed [9:0] dx, dy;
 
-    // 출력 연결
-    assign x_pos = x_reg;
-    assign y_pos = y_reg;
-    assign click_l = click_l_reg;
-    assign click_r = click_r_reg;
-    assign click_m = click_m_reg;
+    // 핵심: 음수 결과값을 안전하게 저장하기 위해 11비트 부호 있는 변수 선언
+    reg signed [10:0] next_x, next_y; 
 
-    // 1. 오버플로 및 부호 비트를 고려한 실제 변화량(dx, dy) 결정
+    assign mouse_x_pixel = x_reg;
+    assign mouse_y_pixel = y_reg;
+    assign {click_m, click_r, click_l} = {click_m_reg, click_r_reg, click_l_reg};
+
+    // 1. 변화량 결정 (오버플로 및 부호 확장)
     always @(*) begin
-        // X축 변화량 처리
-        if (packet1[6]) begin // X Overflow 발생 시
-            dx = packet1[4] ? -10'd256 : 10'd255; // 음수면 최솟값, 양수면 최댓값 고정
-        end else begin
-            dx = {{2{packet1[4]}}, packet2}; // XS 비트를 이용한 10비트 부호 확장
-        end
+        if (packet1[6]) dx = packet1[4] ? -10'd256 : 10'd255; // X 오버플로 처리
+        else            dx = {{2{packet1[4]}}, packet2};     // X 부호 확장
 
-        // Y축 변화량 처리
-        if (packet1[7]) begin // Y Overflow 발생 시
-            dy = packet1[5] ? -10'd256 : 10'd255;
-        end else begin
-            dy = {{2{packet1[5]}}, packet3}; // YS 비트를 이용한 10비트 부호 확장
-        end
+        if (packet1[7]) dy = packet1[5] ? -10'd256 : 10'd255; // Y 오버플로 처리
+        else            dy = {{2{packet1[5]}}, packet3};     // Y 부호 확장
     end
 
-    // 2. 좌표 누적 및 경계 처리 (Clamping)
+    // 2. 좌표 누적 및 경계 처리 (Teleportation 방지 로직)
     always @(posedge clk or posedge reset) begin
         if (reset) begin
-            x_reg <= 10'd320; // 화면 중앙에서 시작
+            x_reg <= 10'd320;
             y_reg <= 10'd240;
-            click_l_reg <= 1'b0;
-            click_r_reg <= 1'b0;
-            click_m_reg <= 1'b0;
+            {click_m_reg, click_r_reg, click_l_reg} <= 3'b000;
         end else if (packet_done) begin
-            // 버튼 상태 업데이트
-            click_l_reg <= packet1[0];
-            click_r_reg <= packet1[1];
-            click_m_reg <= packet1[2];
+            click_l_reg <= packet1[0]; // Left Click
+            click_r_reg <= packet1[1]; // Right Click
+            click_m_reg <= packet1[2]; // Middle Click
 
-            // X 좌표 계산 및 화면 경계 제한 (0 ~ 639)
-            if (x_reg + dx < 0) 
+            // [수정 포인트] $signed 캐스팅을 통해 11비트 영역에서 계산 수행
+            next_x = $signed({1'b0, x_reg}) + dx;
+            next_y = $signed({1'b0, y_reg}) - dy; // 마우스 위쪽 이동 시 좌표 감소 (VGA 기준)
+
+            // X축 경계 제한 (0 미만 감지 가능)
+            if (next_x < 0) 
                 x_reg <= 10'd0;
-            else if (x_reg + dx > 10'd639) 
+            else if (next_x > 10'd639) 
                 x_reg <= 10'd639;
             else 
-                x_reg <= x_reg + dx;
+                x_reg <= next_x[9:0];
 
-            // Y 좌표 계산 및 화면 경계 제한 (0 ~ 479)
-            // PS/2는 위쪽 이동이 (+)이나 VGA 좌표계는 아래쪽이 (+)이므로 dy를 뺍니다.
-            if (y_reg - dy < 0) 
+            // Y축 경계 제한 (0 미만 감지 가능)
+            if (next_y < 0) 
                 y_reg <= 10'd0;
-            else if (y_reg - dy > 10'd479) 
+            else if (next_y > 10'd479) 
                 y_reg <= 10'd479;
             else 
-                y_reg <= y_reg - dy;
+                y_reg <= next_y[9:0];
         end
     end
-
 endmodule

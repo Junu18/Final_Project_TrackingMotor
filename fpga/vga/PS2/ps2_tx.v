@@ -6,11 +6,12 @@ module ps2_tx (
     inout ps2clk,
     inout ps2data
 );
+    wire tick;
 
     tick_gen U_TICK_GEN (
-        .clk (clk),
-        .rst (rst),
-        .tick(tick)
+        .clk  (clk),
+        .reset(reset),
+        .tick (tick)
     );
 
 
@@ -37,22 +38,18 @@ module ps2_tx (
             ps2data_sync2 <= ps2data_sync1;
         end
     end
-    assign ps2clk_rising = ps2clk_sync1 & ~(ps2clk_sync2);
-    assign ps2clk_falling = ~(ps2clk_sync1) & ps2clk_sync2;
-    assign ps2data_rising = ps2data_sync1 & ~(ps2data_sync2);
-    assign ps2datas_falling = ~(ps2data_sync1) & ps2data_sync2;
+    assign ps2clk_rising   = ps2clk_sync1 & ~(ps2clk_sync2);
+    assign ps2clk_falling  = ~(ps2clk_sync1) & ps2clk_sync2;
+    assign ps2data_rising  = ps2data_sync1 & ~(ps2data_sync2);
+    assign ps2data_falling = ~(ps2data_sync1) & ps2data_sync2;
 
     // sda 3state buffer
-    reg  ps2clk_en;
-    reg  ps2clk_wr;
-    wire ps2clk_rd;
-    assign ps2clk_rd = ps2clk;
+    reg ps2clk_en;
+    reg ps2clk_wr;
     assign ps2clk = (ps2clk_en) ? ps2clk_wr : 1'bz;
 
-    reg  ps2data_en;
-    reg  ps2data_wr;
-    wire ps2data_rd;
-    assign ps2data_rd = ps2data;
+    reg ps2data_en;
+    reg ps2data_wr;
     assign ps2data = (ps2data_en) ? ps2data_wr : 1'bz;
 
     // state
@@ -63,7 +60,6 @@ module ps2_tx (
     localparam TX_F4 = 4;
     localparam TX_PARITY = 5;
     localparam TX_STOP = 6;
-    localparam RX_FA = 7;
 
     reg [2:0] tx_state_reg, tx_state_next;
     reg tx_busy_reg, tx_busy_next;
@@ -97,6 +93,11 @@ module ps2_tx (
         data_buf_next = data_buf_reg;
         tick_cnt_next = tick_cnt_reg;
         bit_cnt_next  = bit_cnt_reg;
+
+        ps2clk_en     = 1'b0;
+        ps2clk_wr     = 1'b1;
+        ps2data_en    = 1'b0;
+        ps2data_wr    = 1'b1;
         case (tx_state_reg)
             TX_IDLE: begin
                 tx_next      = 1'b1;
@@ -191,7 +192,7 @@ module tick_gen #(
     parameter TICK_COUNT = 3000 - 1  // 30us 
 ) (
     input  clk,
-    input  rst,
+    input  reset,
     output tick
 );
 
@@ -200,8 +201,8 @@ module tick_gen #(
 
     assign tick = tick_reg;
 
-    always @(posedge clk, posedge rst) begin
-        if (rst) begin
+    always @(posedge clk, posedge reset) begin
+        if (reset) begin
             counter_reg <= 0;
             tick_reg <= 1'b0;
         end else begin
