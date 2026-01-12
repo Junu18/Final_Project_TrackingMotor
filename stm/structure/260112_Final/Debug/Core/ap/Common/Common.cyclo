@@ -1,0 +1,2 @@
+../Core/ap/Common/Common.c:10:6:Common_StartTIMInterrupt	1
+../Core/ap/Common/Common.c:14:6:Common_StopTIMInterrupt	1
