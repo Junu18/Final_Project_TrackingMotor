@@ -50,6 +50,7 @@ void Controller_Tracking_Follow(uint16_t currEvent);
 void Controller_Tracking_Lost(uint16_t currEvent);
 void Controller_Tracking_Aimed(uint16_t currEvent);
 void Controller_Tracking_ResetData();
+void Controller_Tracking_Unpack();  // FPGA 패킷 언패킹
 void Controller_Tracking_ComputeServoAngle();
 void Controller_Tracking_PushData();
 

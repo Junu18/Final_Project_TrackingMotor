@@ -24,7 +24,7 @@ trackingState_t trackingState = TRACKING_IDLE; // state shared memory
  * @note   Listener → Controller
  */
 osMessageQId trackingEventMsgBox;
-osMessageQDef(trackingEventQue, 16, trackingEvent_t);
+osMessageQDef(trackingEventQue, 100, trackingEvent_t);  // 16 → 100 (overflow 방지)
 
 
 /**
@@ -33,7 +33,7 @@ osMessageQDef(trackingEventQue, 16, trackingEvent_t);
  * 		   tracking_t 구조체는 header에 정의
  */
 osMessageQId trackingDataMsgBox;
-osMessageQDef(trackingDataQue, 16, tracking_t); 
+osMessageQDef(trackingDataQue, 100, tracking_t);  // 16 → 100 (overflow 방지)
 
 
 /**
@@ -99,14 +99,14 @@ trackingState_t Model_GetTrackingState() {
 }
 
 
-/**
- * @brief 수신 데이터 검증 (헤더 체크)
- */
-uint8_t Model_Tracking_ValidateRx(Model_Tracking_t* model) {
-    if (model->rx_packet.fields.header == 0x55) {
-        return 1;  // 유효함
-    } else {
-        model->rx_error_count++;
-        return 0;  // 무효함
-    }
-}
+///**
+// * @brief 수신 데이터 검증 (헤더 체크)
+// */
+//uint8_t Model_Tracking_ValidateRx(Model_Tracking_t* model) {
+//    if (model->rx_packet.fields.header == 0x55) {
+//        return 1;  // 유효함
+//    } else {
+//        model->rx_error_count++;
+//        return 0;  // 무효함
+//    }
+//}

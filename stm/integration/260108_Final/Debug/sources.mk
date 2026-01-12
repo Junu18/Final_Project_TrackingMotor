@@ -29,6 +29,7 @@ Core/ap/Controller \
 Core/ap/Listener \
 Core/ap/Model \
 Core/ap/Presenter \
+Core/driver/SPI \
 Core/driver/ServoMotor \
 Core/driver/button \
 Core/driver/lcd \

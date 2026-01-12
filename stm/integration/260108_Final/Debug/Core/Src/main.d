@@ -51,7 +51,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/usart.h ../Core/Inc/gpio.h \
  ../Core/Src/../ap/Listener/Listener_Tracking.h \
  ../Core/Src/../ap/Listener/../../driver/button/button.h \
- ../Core/Src/../ap/Listener/../Model/Model_Tracking.h
+ ../Core/Src/../ap/Listener/../Model/Model_Tracking.h \
+ ../Core/Src/../ap/Listener/../Model/../Common/Common.h \
+ ../Core/Src/../ap/Listener/../Model/../Common/../Controller/Controller_Tracking.h \
+ ../Core/Src/../ap/Listener/../Model/../Common/../Controller/../Common/Common.h \
+ ../Core/Src/../ap/Listener/../Model/../Common/../Controller/../Model/Model_Tracking.h \
+ ../Core/Src/../ap/Listener/../Model/../Common/../Controller/../../driver/lcd/lcd.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -110,3 +115,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Src/../ap/Listener/Listener_Tracking.h:
 ../Core/Src/../ap/Listener/../../driver/button/button.h:
 ../Core/Src/../ap/Listener/../Model/Model_Tracking.h:
+../Core/Src/../ap/Listener/../Model/../Common/Common.h:
+../Core/Src/../ap/Listener/../Model/../Common/../Controller/Controller_Tracking.h:
+../Core/Src/../ap/Listener/../Model/../Common/../Controller/../Common/Common.h:
+../Core/Src/../ap/Listener/../Model/../Common/../Controller/../Model/Model_Tracking.h:
+../Core/Src/../ap/Listener/../Model/../Common/../Controller/../../driver/lcd/lcd.h:

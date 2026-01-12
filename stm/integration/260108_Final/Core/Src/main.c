@@ -118,14 +118,6 @@ int main(void)
 
   /* We should never get here as control is now taken by the scheduler */
 
-
-
-/**
- * @brief 무한 루프
- * @note  
- *       
- */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {

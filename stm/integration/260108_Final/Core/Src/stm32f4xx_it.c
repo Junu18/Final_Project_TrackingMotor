@@ -22,6 +22,9 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "cmsis_os.h"
+#include "../ap/Common/Common.h"
+#include "../ap/Model/Model_Tracking.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,7 +44,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+volatile uint32_t g_isr_count = 0;  // ISR 호출 횟수 카운터 (전역 변수)
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -211,6 +214,61 @@ void TIM3_IRQHandler(void)
 void SPI1_IRQHandler(void)
 {
   /* USER CODE BEGIN SPI1_IRQn 0 */
+  // ========================================
+  // 수업 자료 방식: 직접 레지스터 처리
+  // HAL 우회하여 CR2 문제 해결
+  // ========================================
+
+  extern uint8_t tx_buff[4];
+  extern uint8_t rx_buff[4];
+  extern RxPacket_t g_rx_packet_tracking;
+  extern osMessageQId trackingEventMsgBox;
+  // g_isr_count는 이 파일에 정의되어 있음 (line 44)
+
+  static uint8_t tx_index = 0;
+  static uint8_t rx_index = 0;
+
+  uint32_t sr = SPI1->SR;
+
+  // RXNE: 수신 데이터 있음
+  if (sr & SPI_SR_RXNE) {
+      uint8_t data = (uint8_t)SPI1->DR;  // DR 읽기로 RXNE 플래그 클리어
+      if (rx_index < 4) {
+          rx_buff[rx_index++] = data;
+      }
+  }
+
+  // TXE: 송신 버퍼 비어있음
+  if (sr & SPI_SR_TXE) {
+      if (tx_index < 4) {
+          SPI1->DR = tx_buff[tx_index++];  // DR 쓰기로 TXE 플래그 클리어
+      }
+  }
+
+  // 4바이트 송수신 완료
+  if (tx_index >= 4 && rx_index >= 4) {
+      // BSY 대기 제거 - Full-Duplex에서 마지막 RXNE면 전송 완료
+
+      g_isr_count++;  // ISR 카운터 증가
+
+      // 1. CS High (전송 완료)
+      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_SET);
+
+      // 2. 데이터 조립
+      g_rx_packet_tracking.raw = (rx_buff[0] << 24) | (rx_buff[1] << 16) |
+                                 (rx_buff[2] << 8) | rx_buff[3];
+
+      // 3. Event 발행 (FreeRTOS ISR-safe)
+      osMessagePut(trackingEventMsgBox, EVENT_FPGA_DATA_RECEIVED, 0);
+
+      // 4. 다음 수신 준비 (연속 수신)
+      tx_index = 0;
+      rx_index = 0;
+      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_RESET);  // CS Low
+      SPI1->DR = tx_buff[0];  // 첫 바이트 전송 시작
+  }
+
+  return;  // HAL_SPI_IRQHandler 호출 안 함 (직접 처리)
 
   /* USER CODE END SPI1_IRQn 0 */
   HAL_SPI_IRQHandler(&hspi1);

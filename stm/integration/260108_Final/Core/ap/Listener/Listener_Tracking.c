@@ -9,7 +9,7 @@
 /**
  * @brief  include 파일
  */
-#include <stdioio.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "Listener_Tracking.h"
 #include "stm32f4xx_hal.h"

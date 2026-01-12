@@ -86,8 +86,8 @@ typedef union {
  */
 typedef struct {
 	/// @brief 현재 타겟 좌표
-	uint10_t x_pos;
-	uint9_t y_pos;
+	uint16_t  x_pos;
+	uint16_t  y_pos;
 
 	/// @brief 서보모터 각도
 	float angle_pan; 
@@ -129,5 +129,7 @@ void Model_Tracking_UpdateXY(tracking_t* model, uint16_t x, uint16_t y);      	/
 void Model_Tracking_UpdateAngles(tracking_t* model, int16_t pan, int16_t tilt); // 서보모터 각도 업데이트 (Controller에서 호출)
 void Model_SetTrackingState(trackingState_t state);
 trackingState_t Model_GetTrackingState();
+// 검증용
+//uint8_t Model_Tracking_ValidateRx(Model_Tracking_t* model);
 
 #endif /* AP_MODEL_MODEL_TRACKING_H_ */

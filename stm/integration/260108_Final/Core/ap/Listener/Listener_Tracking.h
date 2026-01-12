@@ -33,6 +33,7 @@
 #define BTN_DEBUG_PAN_MINUS_PIN		GPIO_PIN_12
 
 void Listener_Tracking_Init();
+void Listener_Tracking_StartReceive();  // SPI 인터럽트 시작
 void Listener_Tracking_Excute();
 void Listener_Tracking_CheckButton();
 void Listener_Tracking_TIM_ISR();
