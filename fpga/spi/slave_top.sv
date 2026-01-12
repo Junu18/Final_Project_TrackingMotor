@@ -25,17 +25,14 @@ module slave_top (
     logic [31:0] miso_data_frame;
     logic [31:0] mosi_data_frame;
 
-    assign mortor_xdata = mosi_data_frame[31:24];
-    assign mortor_ydata = mosi_data_frame[23:17];
-    assign mosi_etc = mosi_data_frame[16:0];
 
     spi_packer u_packer (
         .clk       (clk),
         .reset     (reset),
         .req       (req),
-        .xdata     (xdata),
-        .ydata     (ydata),
-        .etc       (etc),
+        .xdata     (enemy_xdata),
+        .ydata     (enemy_ydata),
+        .etc       (miso_etc),
         .data_frame(miso_data_frame)
     );
 

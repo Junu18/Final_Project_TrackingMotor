@@ -13,19 +13,14 @@ module spi_packer (
     output logic [31:0] data_frame
 );
 
-    logic [15:0] x_reg;
-    logic [15:0] y_reg;
-
-    assign xdata_tx = x_reg;
-    assign ydata_tx = y_reg;
-
     always_ff @(posedge clk, posedge reset) begin
         if (reset) begin
-            x_reg <= '0;
-            y_reg <= '0;
+            data_frame <= '0;
         end else begin
             if (req) begin
                 data_frame <= {xdata, ydata, etc};
+            end else begin
+                data_frame <= data_frame;
             end
         end
     end
