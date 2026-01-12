@@ -1,0 +1,40 @@
+/*
+ * Controller_Traking.h
+ *
+ *  Created on: Jan 7, 2026
+ *      Author: kccistc
+ */
+
+#ifndef AP_CONTROLLER_CONTROLLER_TRACKING_H_
+#define AP_CONTROLLER_CONTROLLER_TRACKING_H_
+
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+#include "cmsis_os.h"
+#include "../Common/Common.h"
+#include "../Model/Model_Tracking.h"
+#include "../../driver/lcd/lcd.h"
+#include "i2c.h"
+
+#define GAIN_X		0.1f
+#define GAIN_Y		0.1f
+#define MIN_X		0
+#define MIN_Y		0
+#define MAX_X		640
+#define MAX_Y		320
+
+void Controller_Tracking_Init();
+void Controller_Tracking_Excute();
+void Controller_Tracking_HandleSignal(uint16_t currEvent);
+void Controller_Tracking_UpdateState(uint16_t currEvent);
+void Controller_Tracking_Idle(uint16_t currEvent);
+void Controller_Tracking_Search(uint16_t currEvent);
+void Controller_Tracking_Follow(uint16_t currEvent);
+void Controller_Tracking_Lost(uint16_t currEvent);
+void Controller_Tracking_Aimed(uint16_t currEvent);
+void Controller_Tracking_ResetData();
+void Controller_Tracking_ComputeServoAngle();
+void Controller_Tracking_PushData();
+
+#endif /* AP_CONTROLLER_CONTROLLER_TRACKING_H_ */
