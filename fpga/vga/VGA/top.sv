@@ -17,6 +17,7 @@ module top (
     output logic       SIO_C,
     output logic       SIO_D,
     output logic       aim_detected_led,   // LED[0]
+    output logic       red_detect_spi_out,
     output logic       target_locked_led,  // LED[14]
     output logic       target_off,         // LED[15]
 
@@ -25,10 +26,10 @@ module top (
 
     output logic debug_ps2clk,
     output logic debug_ps2data,
-    input  logic        sclk,
-    input  logic        mosi,
-    output logic        miso,
-    input  logic        cs
+    input  logic sclk,
+    input  logic mosi,
+    output logic miso,
+    input  logic cs
 );
 
     logic             sys_clk;
@@ -56,16 +57,21 @@ module top (
     logic click_l, click_r, click_m;
 
     // 락온 제어 정보 (Controller <-> Pixel Mixer)
-    logic       is_locked;
-    logic [3:0] locked_idx;
-    logic       center_hit;
+    logic        is_locked;
+    logic [ 3:0] locked_idx;
+    logic        center_hit;
+
+    /////predict module port
+    logic [15:0] x_real_in;
+    logic [15:0] y_real_in;
+    logic [15:0] final_enemy_xdata;
+    logic [15:0] final_enemy_ydata;
+    
 
     ///spi module
-    logic [ 9:0] final_enemy_xdata;
-    logic [ 8:0] final_enemy_ydata;
     logic [ 7:0] mortor_xdata;
     logic [ 6:0] mortor_ydata;
-    logic        mosi_valid ;
+    logic        mosi_valid;
 
 
     assign xclk = sys_clk;
@@ -221,28 +227,40 @@ module top (
         .b_port(b_port),
 
         // stm에 보낼 최종 좌표
-        .target_x_coor(final_enemy_xdata),
-        .target_y_coor(final_enemy_ydata)
+        .target_x_coor(x_real_in),
+        .target_y_coor(y_real_in)
     );
 
-    
+
+    enemy_predict_2s U_Predict (
+        .clk(clk),
+        .reset(reset),
+        .v_sync(v_sync),
+        .x_real_in(x_real_in),
+        .y_real_in(y_real_in),
+        .red_detect_in(aim_detected_led),
+        .x_predict_out(final_enemy_xdata),
+        .y_predict_out(final_enemy_ydata),
+        .red_detect_spi_out(red_detect_spi_out)
+    );
+
 
     slave_top U_SPI_Slave (
-        .clk  (clk),
+        .clk(clk),
         .reset(reset),
         /////// spi protocol port
-        .sclk (sclk),
-        .mosi (mosi),
-        .miso (miso),
-        .cs   (cs),
+        .sclk(sclk),
+        .mosi(mosi),
+        .miso(miso),
+        .cs(cs),
         ////// miso data
         .enemy_xdata(final_enemy_xdata),
         .enemy_ydata(final_enemy_ydata),
-        .miso_etc  ({aim_detected,raser_shoot,11'b000_0000_0000}),
+        .miso_etc({red_detect_spi_out, raser_shoot, 11'b000_0000_0000}),
         ////// mosi data
         .mortor_xdata(mortor_xdata),
         .mortor_ydata(mortor_ydata),
-        .mosi_valid(mosi_valid),//valid when mosi_valid is 1.
+        .mosi_valid(mosi_valid),  //valid when mosi_valid is 1.
         .mosi_etc(17'b0_0000_0000_0000_0000)
 
         /* miso_etc bit frame(26-01-11 ver)
