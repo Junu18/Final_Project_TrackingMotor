@@ -1,5 +1,0 @@
-../Core/ap/Presenter/Presenter_Tracking.c:23:6:Presenter_Tracking_Init	8	static
-../Core/ap/Presenter/Presenter_Tracking.c:39:6:Presenter_Tracking_Excute	48	static
-../Core/ap/Presenter/Presenter_Tracking.c:73:6:Presenter_Tracking_UpdateState	24	static
-../Core/ap/Presenter/Presenter_Tracking.c:95:6:Presenter_Tracking_ManageServoPower	16	static
-../Core/ap/Presenter/Presenter_Tracking.c:115:6:Presenter_Tracking_DispLCD	64	static
