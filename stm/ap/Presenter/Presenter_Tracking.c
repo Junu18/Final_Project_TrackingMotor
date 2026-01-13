@@ -15,6 +15,7 @@ void Presenter_Tracking_Init() {
 	Servo_SetAngle(&hServo, 90.0f);
 	Servo_Enable(&hServo);
 	printf("[PRES] Init OK\r\n");
+	for(volatile int i = 0; i < 100000; i++);
 }
 
 void Presenter_Tracking_Excute() {
@@ -26,12 +27,12 @@ void Presenter_Tracking_Excute() {
 		pTrackingData = (tracking_t *)evt.value.p;
 		g_servo_count++;
 
-		// 매 1000회마다 디버깅 출력
-		if (g_servo_count % 1000 == 0) {
-			printf("[PRES] Servo updates: %ld | Pan: %d, Tilt: %d\r\n", 
-				   g_servo_count, (int)pTrackingData->angle_pan, (int)pTrackingData->angle_tilt);
+		// 매 100회마다 디버깅 출력 (자주 출력)
+		if (g_servo_count % 100 == 0) {
+			printf("[SERVO] Pan:%d\r\n", (int)pTrackingData->angle_pan);
 		}
 
+		// 서보모터 제어
 		Servo_SetAngle(&hServo, pTrackingData->angle_pan);
 		osPoolFree(poolTrackingData, pTrackingData);
 	}

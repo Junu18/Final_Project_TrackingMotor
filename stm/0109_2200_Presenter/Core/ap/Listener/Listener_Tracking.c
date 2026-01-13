@@ -6,40 +6,37 @@
  */
 
 #include "Listener_Tracking.h"
+#include <stdio.h>
 
-extern osPoolId poolTrackingData;
-
-void Listener_Tracking_Init()
-{
-
+void Listener_Tracking_Init() {
+	/* SPI interrupt is initialized in MX_SPI1_Init() */
+	/* No button handling needed - using SPI interrupt instead */
+	printf("[LIST] Init OK\r\n");
+	for(volatile int i = 0; i < 100000; i++);
 }
 
-void Listener_Tracking_Excute()
-{
-	static int current_angle_x = 0;
-	static int current_angle_y = 0;
+void Listener_Tracking_Excute() {
+	/* SPI data reception is handled by interrupt handler */
+	/* No polling needed */
+}
 
-	tracking_t *pData = (tracking_t *) osPoolAlloc(poolTrackingData);
-	//메모리할당 osPoolAllco는 주소의 데이터만큼 메모리를 정확히 할다함
-
-	if(pData != NULL)
-	{
-		pData-> x_angle = current_angle_x;
-		current_angle_x += 20;
-		if(current_angle_x > 180)
-		{
-			current_angle_x = 0;
-		}
-
-		pData-> y_angle = current_angle_y;
-		current_angle_y += 20;
-		if(current_angle_y > 180)
-		{
-			current_angle_y = 0;
-		}
-		osMessagePut(trackingDataMsgBox, (uint32_t)pData, osWaitForever);
-	}
-	osDelay(500);
+void Listener_Tracking_StartReceive() {
+	/* Start SPI in interrupt mode */
+	/* Configure SPI1 for continuous reception */
+	
+	/* SPI1 configuration for interrupt-driven reception */
+	SPI1->CR1 = 0;
+	SPI1->CR1 |= SPI_CR1_MSTR;      // Master mode
+	SPI1->CR1 |= SPI_CR1_SPE;       // SPI enable
+	
+	/* SPI1 interrupt enable */
+	SPI1->CR2 = 0;
+	SPI1->CR2 |= SPI_CR2_RXNEIE;    // RX interrupt enable
+	SPI1->CR2 |= SPI_CR2_ERRIE;     // Error interrupt enable
+	
+	/* Start first SPI reception */
+	SPI1->DR;  // Clear RX buffer
+	SPI1->CR1 |= SPI_CR1_SPE;
 }
 
 

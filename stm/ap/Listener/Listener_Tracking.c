@@ -6,10 +6,13 @@
  */
 
 #include "Listener_Tracking.h"
+#include <stdio.h>
 
 void Listener_Tracking_Init() {
 	/* SPI interrupt is initialized in MX_SPI1_Init() */
 	/* No button handling needed - using SPI interrupt instead */
+	printf("[LIST] Init OK\r\n");
+	for(volatile int i = 0; i < 100000; i++);
 }
 
 void Listener_Tracking_Excute() {

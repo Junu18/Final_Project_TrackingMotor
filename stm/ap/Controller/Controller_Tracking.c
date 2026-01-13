@@ -7,6 +7,7 @@
 
 #include "Controller_Tracking.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 tracking_t trackingData;
 static uint32_t g_event_rx_count = 0;
@@ -14,16 +15,27 @@ static uint32_t g_event_rx_count = 0;
 void Controller_Tracking_Init() {
 	Common_StartTIMInterrupt();
 	Controller_Tracking_ResetData();
-	printf("[CTRL] Initialized\r\n");
+	printf("[CTRL] Init OK\r\n");
+	for(volatile int i = 0; i < 100000; i++);
 }
 
 void Controller_Tracking_Excute() {
 	// Event 수신 (non-blocking, timeout=0)
 	osEvent evt = osMessageGet(trackingEventMsgBox, 0);
 	uint16_t currEvent;
-	if (evt.status != osEventMessage)
-		return;
+	
+	// [DEBUG] 이벤트 받는지 확인
+	static uint32_t loop_count = 0;
+	loop_count++;
+	if (loop_count % 500 == 0) {
+		printf("[CTRL] Loop running (no event received)\r\n");
+	}
+	
+	if (evt.status != osEventMessage) {
+		return;  // 이벤트 없음 (정상)
+	}
 	currEvent = evt.value.v;
+	printf("[CTRL] Event RX: %d\r\n", currEvent);  // 이벤트 받을 때마다 프린트
 
 	// 상태 업데이트
 	Controller_Tracking_UpdateState(currEvent);
@@ -37,16 +49,23 @@ void Controller_Tracking_HandleSignal(uint16_t currEvent) {
 
 	// 매 1000회마다 디버깅 출력
 	if (g_event_rx_count % 1000 == 0) {
-		printf("[CTRL] Event count: %ld\r\n", g_event_rx_count);
+		printf("[CTRL] Evt=%d\r\n", currEvent);
 	}
 
+	// 1. SPI에서 FPGA 데이터 수신
 	if (currEvent == EVENT_FPGA_DATA_RECEIVED) {
-		// SPI에서 받은 데이터 처리 및 언패킹
+		// 패킷에서 x, y 좌표 추출
 		Controller_Tracking_Unpack();
+		printf("[DATA] X:%d Y:%d\r\n", trackingData.x_pos, trackingData.y_pos);
 	}
 
+	// 2. 20ms 주기 Servo 업데이트 (TIM3 인터럽트)
 	if (currEvent == EVENT_SERVO_TICK) {
-		// 20ms 주기 Servo 업데이트
+		// 좌표 → 각도 계산
+		Controller_Tracking_ComputeServoAngle();
+		printf("[ANGLE] Pan:%d\r\n", (int)trackingData.angle_pan);
+		
+		// Presenter에 데이터 전송
 		Controller_Tracking_PushData();
 	}
 }
@@ -117,12 +136,41 @@ void Controller_Tracking_ResetData() {
 }
 
 void Controller_Tracking_ComputeServoAngle() {
-	// 각도 계산 로직
+	// 화면 중심과의 차이 계산
+	int diff_x = trackingData.x_pos - CENTER_X;
+	int diff_y = trackingData.y_pos - CENTER_Y;
+
+	// 데드존 적용 (떨림 방지)
+	if (abs(diff_x) < 5) diff_x = 0;
+	if (abs(diff_y) < 5) diff_y = 0;
+
+	// 각도 계산: 중심에서 ±90도 범위
+	trackingData.angle_pan = CENTER_PAN + (diff_x * GAIN_X);
+	trackingData.angle_tilt = CENTER_TILT + (diff_y * GAIN_Y);
+
+	// 각도 범위 제한 (0~180도)
+	if (trackingData.angle_pan < 0) trackingData.angle_pan = 0;
+	if (trackingData.angle_pan > 180) trackingData.angle_pan = 180;
+	if (trackingData.angle_tilt < 0) trackingData.angle_tilt = 0;
+	if (trackingData.angle_tilt > 180) trackingData.angle_tilt = 180;
 }
 
 void Controller_Tracking_Unpack() {
-	// FPGA 패킷 언패킹
-	// SPI ISR에서 g_rx_packet_tracking이 저장됨
+	// SPI ISR에서 저장한 FPGA 패킷 참조
+	extern RxPacket_t g_rx_packet_tracking;
+	
+	// 패킷에서 헤더 검증 (0x55)
+	if (g_rx_packet_tracking.fields.header != 0x55) {
+		trackingData.rx_error_count++;
+		return;
+	}
+
+	// 좌표 추출
+	trackingData.x_pos = g_rx_packet_tracking.fields.x_pos;
+	trackingData.y_pos = g_rx_packet_tracking.fields.y_pos;
+	trackingData.rx_packet.raw = g_rx_packet_tracking.raw;
+	trackingData.rx_count++;
+	trackingData.is_Detected = true;
 }
 
 void Controller_Tracking_PushData() {
