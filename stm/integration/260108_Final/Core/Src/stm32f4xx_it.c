@@ -48,6 +48,13 @@
 /* USER CODE BEGIN PV */
 volatile uint32_t g_isr_count = 0;  // ISR 호출 횟수 카운터
 volatile uint32_t g_spi_debug_interval = 0;  // 디버깅 출력 주기 제어 (매 100회마다)
+
+// SPI 관련 변수 (전역 정의)
+RxPacket_t g_rx_packet_tracking;
+uint8_t rx_buff[4] = {0};
+uint8_t tx_buff[4] = {0};
+static volatile uint8_t rx_index = 0;
+static volatile uint8_t tx_index = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -222,9 +229,6 @@ void SPI1_IRQHandler(void)
   // HAL 우회하여 CR2 문제 해결
   // ========================================
 
-  extern uint8_t tx_buff[4];
-  extern uint8_t rx_buff[4];
-  extern RxPacket_t g_rx_packet_tracking;
   extern osMessageQId trackingEventMsgBox;
 
   static uint8_t tx_index = 0;

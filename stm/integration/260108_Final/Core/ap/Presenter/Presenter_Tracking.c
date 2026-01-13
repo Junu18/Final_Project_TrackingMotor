@@ -6,78 +6,38 @@
  */
 
 #include "Presenter_Tracking.h"
+#include <stdio.h>
 
+Servo_t hServo;
+static uint32_t g_servo_count = 0;
 
-/**
- * @brief 서보모터 초기화 및 중앙 위치 설정
- * @note  Servo_t 구조체는 ServoMotor.h에 정의
- */
-Servo_t hServoPan;
-Servo_t hServoTilt;
-
-
-/**
- * @brief Presenter 초기화
- * @note  LCD 없이 LCD 초기화 제거 (UART 디버깅 사용)
- */
 void Presenter_Tracking_Init() {
-	Servo_Init(&hServoPan, &htim3, TIM_CHANNEL_1);
-	Servo_SetAngle(&hServoPan, CENTER_PAN);
-	Servo_Disable(&hServoPan);
-
-	Servo_Init(&hServoTilt, &htim3, TIM_CHANNEL_2);
-	Servo_SetAngle(&hServoTilt, CENTER_TILT);
-	Servo_Disable(&hServoTilt);
-
-	printf("[Presenter] Tracking Presenter Initialized\r\n");
+	Servo_Init(&hServo, &htim3, TIM_CHANNEL_1);
+	Servo_SetAngle(&hServo, 90.0f);
+	Servo_Enable(&hServo);
+	printf("[PRES] Init OK\r\n");
+	for(volatile int i = 0; i < 100000; i++);
 }
 
-
-/**
- * @brief Presenter Tracking Execute
- * @note  Data 수신 → 서보 업데이트 → LCD 업데이트 → Pool 해제
- */
 void Presenter_Tracking_Excute() {
-	static int freeCount = 0;
-	static uint32_t data_overflow_count = 0;
-
-	// ① Controller에서 보낸 메시지(포인터) 수신 (non-blocking)
-	osEvent evt = osMessageGet(trackingDataMsgBox, 0);
 	tracking_t *pTrackingData;
-	
-	/* Queue Overflow 모니터링 */
-	if (evt.status != osEventMessage) {
-		if (evt.status != osEventTimeout) {
-			// Timeout이 아닌 다른 에러 (Overflow 등)
-			data_overflow_count++;
-			if (data_overflow_count % 100 == 0) {
-				printf("[WARNING] Data Queue Error: %lu (Status: %x)\r\n", 
-					   data_overflow_count, evt.status);
-			}
+	osEvent evt;
+	evt = osMessageGet(trackingDataMsgBox, 0);
+
+	if (evt.status == osEventMessage) {
+		pTrackingData = (tracking_t *)evt.value.p;
+		g_servo_count++;
+
+		// 매 100회마다 디버깅 출력 (자주 출력)
+		if (g_servo_count % 100 == 0) {
+			printf("[SERVO] Pan:%d\r\n", (int)pTrackingData->angle_pan);
 		}
-		return;
+
+		// 서보모터 제어
+		Servo_SetAngle(&hServo, pTrackingData->angle_pan);
+		osPoolFree(poolTrackingData, pTrackingData);
 	}
-
-	// ② 포인터 추출 (Controller가 보낸 tracking_t* 주소)
-	pTrackingData = (tracking_t*) evt.value.p;
-
-	// ③ 상태 갱신 + 서보 제어
-	Presenter_Tracking_UpdateState(pTrackingData);
-
-	// ④ UART 디버깅 출력
-	printf("[Presenter] X:%u Y:%u | Pan:%d Tilt:%d | RX:%lu\r\n",
-		   pTrackingData->x_pos,
-		   pTrackingData->y_pos,
-		   pTrackingData->angle_pan,
-		   pTrackingData->angle_tilt,
-		   pTrackingData->rx_count);
-
-	// ⑤ 메모리 반환 (Controller가 할당한 메모리 풀 블록 해제)
-	if (osPoolFree(poolTrackingData, pTrackingData) == osOK) {
-		freeCount++;
-		if (freeCount % 100 == 0) { // 100번에 한 번만
-			printf("[PoolFree] Count: %d\r\n", freeCount);
-		}
+}
 	}
 }
 

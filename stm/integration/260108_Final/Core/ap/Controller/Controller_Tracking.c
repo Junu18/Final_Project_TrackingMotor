@@ -6,28 +6,11 @@
  */
 
 #include "Controller_Tracking.h"
-#include "stm32f4xx_hal.h"
-#include "usart.h"
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 
-
-/**
- * @brief model data 전역변수
- * @note  tracking_t 구조체는 Model/Model_Tracking.h에 정의
- *        각도 변환 게인을 조정하기 위한 상수 정의
- * @see   Model_Tracking.h
- */
-#define DEBUG_GAIN_X_POS	10
-#define DEBUG_GAIN_Y_POS	10
-#define SCREEN_CENTER_X  320  // 화면 중심 X (640/2)
-#define SCREEN_CENTER_Y  240  // 화면 중심 Y (480/2)
-
-#define ANGLE_GAIN       0.1f // 각도 변환 게인 (조정 가능)
-
-/**
- * @brief model data 전역변수
+tracking_t trackingData;
+static uint32_t g_event_rx_count = 0;
  */
 tracking_t trackingData;
 
@@ -44,31 +27,30 @@ void Controller_Tracking_Init() {
 
 
 /**
- * @brief Controller Tracking 실행
- * @note Event 수신 → 상태 업데이트 → 신호 처리
- */
+void Controller_Tracking_Init() {
+	Common_StartTIMInterrupt();
+	Controller_Tracking_ResetData();
+	printf("[CTRL] Init OK\r\n");
+	for(volatile int i = 0; i < 100000; i++);
+}
+
 void Controller_Tracking_Excute() {
 	// Event 수신 (non-blocking, timeout=0)
 	osEvent evt = osMessageGet(trackingEventMsgBox, 0);
 	uint16_t currEvent;
 	
-	/* Queue Overflow 모니터링 */
-	static uint32_t event_overflow_count = 0;
-	if (evt.status == osEventTimeout) {
-		// Queue에서 받지 못한 경우는 정상
-		return;
-	}
-	if (evt.status != osEventMessage) {
-		// 다른 에러 발생 (Overflow 등)
-		event_overflow_count++;
-		if (event_overflow_count % 100 == 0) {
-			printf("[WARNING] Event Queue Error: %lu (Status: %x)\r\n", 
-				   event_overflow_count, evt.status);
-		}
-		return;
+	// [DEBUG] 이벤트 받는지 확인
+	static uint32_t loop_count = 0;
+	loop_count++;
+	if (loop_count % 500 == 0) {
+		printf("[CTRL] Loop running (no event received)\r\n");
 	}
 	
+	if (evt.status != osEventMessage) {
+		return;  // 이벤트 없음 (정상)
+	}
 	currEvent = evt.value.v;
+	printf("[CTRL] Event RX: %d\r\n", currEvent);  // 이벤트 받을 때마다 프린트
 
 	// 상태 업데이트
 	Controller_Tracking_UpdateState(currEvent);
@@ -77,74 +59,32 @@ void Controller_Tracking_Excute() {
 	Controller_Tracking_HandleSignal(currEvent);
 }
 
-
-/**
- * @brief Controller Tracking 실행
- * @note  신호 처리: 데이터 수신(좌표 저장) vs 타이밍 분리(서보 업데이트)
- */
 void Controller_Tracking_HandleSignal(uint16_t currEvent) {
-	trackingState_t state = Model_GetTrackingState();
-	static trackingState_t prevState = TRACKING_IDLE;
+	g_event_rx_count++;
 
-	// ========================================
-	// 1. 상태 변화 시 즉시 업데이트
-	// ========================================
-	if (state != prevState) {
-		Controller_Tracking_PushData();
-		prevState = state;
+	// 매 1000회마다 디버깅 출력
+	if (g_event_rx_count % 1000 == 0) {
+		printf("[CTRL] Evt=%d\r\n", currEvent);
 	}
 
-	// ========================================
-	// 2. SERVO_TICK (20ms 주기): 최신 좌표로 서보 업데이트
-	// ========================================
-	if (currEvent == EVENT_SERVO_TICK) {
-		if (state != TRACKING_IDLE) {
-			Controller_Tracking_PushData();  // 20ms마다 한 번만 호출
-		}
-	}
-
-	// ========================================
-	// 3. FPGA_DATA_RECEIVED: 좌표만 저장 (아직 업데이트 안 함)
-	// ========================================
+	// 1. SPI에서 FPGA 데이터 수신
 	if (currEvent == EVENT_FPGA_DATA_RECEIVED) {
-		// FPGA에서 받은 SPI 데이터 처리
-		extern RxPacket_t g_rx_packet_tracking;
-		extern uint8_t rx_buff[4];
-		extern volatile uint32_t g_isr_count;
-		static uint32_t rx_count = 0;
-		static uint32_t valid_count = 0;
+		// 패킷에서 x, y 좌표 추출
+		Controller_Tracking_Unpack();
+		printf("[DATA] X:%d Y:%d\r\n", trackingData.x_pos, trackingData.y_pos);
+	}
 
-		rx_count++;
-
-		// 디버그 출력 (10000번에 한 번) - ISR 호출 횟수 추적
-		if (rx_count % 10000 == 0) {
-			printf("[FPGA] RX #%lu (ISR=%lu): [0x%02X 0x%02X 0x%02X 0x%02X] Raw=0x%08lX\r\n",
-				   rx_count, g_isr_count, rx_buff[0], rx_buff[1], rx_buff[2], rx_buff[3],
-				   g_rx_packet_tracking.raw);
-		}
-
-		// 헤더 검증
-		if (g_rx_packet_tracking.fields.header == 0x55) {
-			uint16_t x = g_rx_packet_tracking.fields.x_pos;
-			uint16_t y = g_rx_packet_tracking.fields.y_pos;
-
-			valid_count++;
-
-			// 좌표 업데이트만 수행 (아직 Servo 업데이트 안 함!)
-			// → EVENT_SERVO_TICK에서 20ms 주기로만 업데이트
-			Controller_Tracking_Unpack();
-
-			if (rx_count % 10000 == 0) {
-				printf("[FPGA] Valid #%lu: X=%u, Y=%u (Pending update...)\r\n", valid_count, x, y);
-			}
-		}
+	// 2. 20ms 주기 Servo 업데이트 (TIM3 인터럽트)
+	if (currEvent == EVENT_SERVO_TICK) {
+		// 좌표 → 각도 계산
+		Controller_Tracking_ComputeServoAngle();
+		printf("[ANGLE] Pan:%d\r\n", (int)trackingData.angle_pan);
+		
+		// Presenter에 데이터 전송
+		Controller_Tracking_PushData();
 	}
 }
 
-/**
- * @brief Controller State update
- * @note  Controller FSM 구현
- */
 void Controller_Tracking_UpdateState(uint16_t currEvent) {
 	trackingState_t state = Model_GetTrackingState();
 
@@ -165,81 +105,42 @@ void Controller_Tracking_UpdateState(uint16_t currEvent) {
 		Controller_Tracking_Aimed(currEvent);
 		break;
 	}
-	trackingState_t currState = Model_GetTrackingState();
-	const char *stateNames[] = { "IDLE", "SEARCH", "FOLLOW", "LOST", "AIMED" };
-	char str[50];
-	if (state != currState) {
-		sprintf(str, "\r\n[EVENT: %d] STATE CHANGE: %s -> %s\r\n", currEvent,
-				stateNames[state], stateNames[currState]);
-		HAL_UART_Transmit(&huart2, (uint8_t*) str, strlen(str), 10);
-	}
 }
 
-
-/**
- * @brief IDlE
- * @note  EVENT_START 수신 시 SEARCH 상태로 전이
- */
 void Controller_Tracking_Idle(uint16_t currEvent) {
 	if (currEvent == EVENT_START) {
-		Model_SetTrackingState(TRACKING_SEARCH);			// start 이벤트 수신 시 SEARCH 상태로 전이
+		Model_SetTrackingState(TRACKING_SEARCH);
 	}
 }
 
-
-/**
- * @brief SEARCH
- * @note  EVENT_STOP 수신 시 IDLE 상태로 전이
- *        EVENT_TARGET_ON 수신 시 FOLLOW 상태로 전이
- */
 void Controller_Tracking_Search(uint16_t currEvent) {
 	if (currEvent == EVENT_STOP) {
-		Model_SetTrackingState(TRACKING_IDLE);				// stop 이벤트 수신 시 IDLE 상태로 전이
+		Model_SetTrackingState(TRACKING_IDLE);
 	} else if (currEvent == EVENT_TARGET_ON) {
-		Model_SetTrackingState(TRACKING_FOLLOW); 			// target 감지 시 FOLLOW 상태로 전이
+		Model_SetTrackingState(TRACKING_FOLLOW);
 	}
 }
 
-
-/**
- * @brief FOLLOW
- * @note  EVENT_TARGET_LOST 수신 시 LOST 상태로 전이
- *        EVENT_TARGET_AIMED 수신 시 AIMED 상태로 전이
- */
 void Controller_Tracking_Follow(uint16_t currEvent) {
 	if (currEvent == EVENT_TARGET_LOST) {
-		Model_SetTrackingState(TRACKING_LOST);				// target 잃어버리면 LOST 상태로 전이
+		Model_SetTrackingState(TRACKING_LOST);
 	} else if (currEvent == EVENT_TARGET_AIMED) {
-		Model_SetTrackingState(TRACKING_AIMED);				// target 조준 완료 시 AIMED 상태로 전이
+		Model_SetTrackingState(TRACKING_AIMED);
 	}
 }
 
-/**
- * @brief LOST
- * @note  EVENT_TARGET_ON 수신 시 FOLLOW 상태로 전이
- */
 void Controller_Tracking_Lost(uint16_t currEvent) {
 	if (currEvent == EVENT_TARGET_ON) {
-		Model_SetTrackingState(TRACKING_FOLLOW);    		// target 재감지 시 FOLLOW 상태로 전이
-															// 왜 이게 재감지 이지?
+		Model_SetTrackingState(TRACKING_FOLLOW);
 	}
 }
 
-
-/**
- * @brief AIMED
- * @note  EVENT_CLEAR 수신 시 SEARCH 상태로 전이
- */
 void Controller_Tracking_Aimed(uint16_t currEvent) {
 	if (currEvent == EVENT_CLEAR) {
-		Model_SetTrackingState(TRACKING_SEARCH);         // clear 이벤트 수신 시 SEARCH 상태로 전이
+		Model_SetTrackingState(TRACKING_SEARCH);
 	}
 }
 
-/**
- * @brief Controller Tracking 데이터 리셋
- * @note  tracking_t 구조체의 모든 필드를 초기값으로 설정
- */
 void Controller_Tracking_ResetData() {
 	trackingData.x_pos = CENTER_X;
 	trackingData.y_pos = CENTER_Y;
@@ -249,78 +150,50 @@ void Controller_Tracking_ResetData() {
 	trackingData.is_Aimed = false;
 }
 
-
-/**
- * @brief 서보모터 각도 계산
- * @note  현재 타겟 좌표를 기반으로 서보모터 각도 계산
- *        GAIN_X/Y 상수를 조정하여 반응 속도 변경 가능
- *        Deadzone 적용으로 떨림 방지
- */
 void Controller_Tracking_ComputeServoAngle() {
+	// 화면 중심과의 차이 계산
 	int diff_x = trackingData.x_pos - CENTER_X;
 	int diff_y = trackingData.y_pos - CENTER_Y;
 
-	// Apply Deadzone  (Protect from vibration)
-	if (abs(diff_x) < 5)
-		diff_x = 0;
-	if (abs(diff_y) < 5)
-		diff_y = 0;
+	// 데드존 적용 (떨림 방지)
+	if (abs(diff_x) < 5) diff_x = 0;
+	if (abs(diff_y) < 5) diff_y = 0;
 
-	trackingData.angle_pan += (float)diff_x * GAIN_X;
-	trackingData.angle_tilt += (float)diff_y * GAIN_Y;
+	// 각도 계산: 중심에서 ±90도 범위
+	trackingData.angle_pan = CENTER_PAN + (diff_x * GAIN_X);
+	trackingData.angle_tilt = CENTER_TILT + (diff_y * GAIN_Y);
+
+	// 각도 범위 제한 (0~180도)
+	if (trackingData.angle_pan < 0) trackingData.angle_pan = 0;
+	if (trackingData.angle_pan > 180) trackingData.angle_pan = 180;
+	if (trackingData.angle_tilt < 0) trackingData.angle_tilt = 0;
+	if (trackingData.angle_tilt > 180) trackingData.angle_tilt = 180;
 }
 
+void Controller_Tracking_Unpack() {
+	// SPI ISR에서 저장한 FPGA 패킷 참조
+	extern RxPacket_t g_rx_packet_tracking;
+	
+	// 패킷에서 헤더 검증 (0x55)
+	if (g_rx_packet_tracking.fields.header != 0x55) {
+		trackingData.rx_error_count++;
+		return;
+	}
 
-/**
- * @brief Tracking Data 전송
- * @note  Pool에서 할당된 Data를 Message Queue로 전송
- *        prevData와 비교하여 변경된 경우에만 전송
- *        Presenter에서 수신하여 서보모터 제어 및 LCD 업데이트 수행
- */
+	// 좌표 추출
+	trackingData.x_pos = g_rx_packet_tracking.fields.x_pos;
+	trackingData.y_pos = g_rx_packet_tracking.fields.y_pos;
+	trackingData.rx_packet.raw = g_rx_packet_tracking.raw;
+	trackingData.rx_count++;
+	trackingData.is_Detected = true;
+}
 
 void Controller_Tracking_PushData() {
-	static tracking_t prevData;
-
-//	if (!memcmp(&trackingData, &prevData, sizeof(tracking_t)))
-//		return;
-	memcpy(&prevData, &trackingData, sizeof(tracking_t));
-
 	tracking_t *pTrackingData = osPoolAlloc(poolTrackingData);
 	if (pTrackingData != NULL) {
 		memcpy(pTrackingData, &trackingData, sizeof(tracking_t));
-		osMessagePut(trackingDataMsgBox, (uint32_t) pTrackingData, 0);
+		osMessagePut(trackingDataMsgBox, (uint32_t)pTrackingData, 0);
 	}
-}
-
-
-/**
- * @brief FPGA 패킷 언패킹 (Unpack received FPGA packet)
- * @note  RxPacket_t에서 데이터를 추출하여 tracking_t 구조체에 저장
- */
-void Controller_Tracking_Unpack() {
-	// 1. 외부 전역 변수 참조 (ISR에서 저장한 패킷)
-	extern RxPacket_t g_rx_packet_tracking;
-
-	// 2. 패킷에서 X, Y 좌표 추출
-	uint16_t x = g_rx_packet_tracking.fields.x_pos;
-	uint16_t y = g_rx_packet_tracking.fields.y_pos;
-
-	// 3. tracking_t 구조체에 저장
-	trackingData.x_pos = x;
-	trackingData.y_pos = y;
-
-	// 4. 수신 횟수 증가
-	trackingData.rx_count++;
-
-	// 5. 패킷 원본 데이터 저장 (디버깅용)
-	trackingData.rx_packet.raw = g_rx_packet_tracking.raw;
-
-	// 6. 타겟 감지 상태 업데이트
-	// TODO: 팀원과 협의하여 isDetected, isAimed 비트 추가 필요 시 구현
-	trackingData.is_Detected = true;  // 데이터 수신 = 타겟 감지됨
-
-	// 7. 각도 계산 (필요 시 호출)
-	// Controller_Tracking_ComputeServoAngle();
 }
 
 
