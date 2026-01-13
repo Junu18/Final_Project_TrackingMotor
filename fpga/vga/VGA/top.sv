@@ -8,7 +8,6 @@ module top (
     input  logic       href,
     input  logic       vsync,
     input  logic [7:0] data,
-    input  logic       btnR,
     output logic       h_sync,
     output logic       v_sync,
     output logic [3:0] r_port,
@@ -16,19 +15,11 @@ module top (
     output logic [3:0] b_port,
     output logic       SIO_C,
     output logic       SIO_D,
-    output logic       aim_detected_led,   // LED[0]
-    output logic       target_locked_led,  // LED[14]
-    output logic       target_off,         // LED[15]
+    output logic       target_off,
 
-    inout logic PS2Clk,
-    inout logic PS2Data,
-
-    output logic debug_ps2clk,
-    output logic debug_ps2data,
-    input  logic        sclk,
-    input  logic        mosi,
-    output logic        miso,
-    input  logic        cs
+    // keyboard
+    input logic ps2_clk_keyboard,
+    input logic ps2_data_keyboard
 );
 
     logic             sys_clk;
@@ -45,32 +36,33 @@ module top (
     logic [15:0]      rData;
     logic [11:0]      img_cam;
 
-    // 16개 타겟 정보
+    // keyboard
+    logic [ 7:0]      w_keyboard_data;
+
+    // manual_multi 16개 타겟 배열 신호
     logic [15:0][9:0] aim_x_all;
     logic [15:0][9:0] aim_y_all;
     logic [15:0]      aim_detected_all;
     logic [15:0][11:0] x_min_all, x_max_all, y_min_all, y_max_all;
+    logic target_off_manual;
 
-    // 마우스 정보
-    logic [9:0] mouse_x, mouse_y;
-    logic click_l, click_r, click_m;
+    // auto_single
+    logic [9:0] aim_x, aim_y;
+    logic aim_detected;
+    logic [11:0] box_x_min, box_x_max, box_y_min, box_y_max;
 
-    // 락온 제어 정보 (Controller <-> Pixel Mixer)
-    logic       is_locked;
-    logic [3:0] locked_idx;
-    logic       center_hit;
+    logic [3:0] r_port_auto;
+    logic [3:0] g_port_auto;
+    logic [3:0] b_port_auto;
 
-    ///spi module
-    logic [ 9:0] final_enemy_xdata;
-    logic [ 8:0] final_enemy_ydata;
-    logic [ 7:0] mortor_xdata;
-    logic [ 6:0] mortor_ydata;
-    logic        mosi_valid ;
+    logic [3:0] r_port_manual;
+    logic [3:0] g_port_manual;
+    logic [3:0] b_port_manual;
+    logic       target_off_auto;
 
-
+    // led debug
     assign xclk = sys_clk;
 
-    // --- 1. System & Camera Modules ---
     sccb U_SCCB (
         .clk  (clk),
         .reset(reset),
@@ -82,7 +74,6 @@ module top (
         .reset(reset),
         .pclk (sys_clk)
     );
-
     VGA_Syncher U_VGA_SYNCHER (
         .clk(sys_clk),
         .reset(reset),
@@ -92,7 +83,6 @@ module top (
         .x_pixel(x_pixel),
         .y_pixel(y_pixel)
     );
-
     image_reader U_IMG_ROM_READER (
         .DE(DE),
         .x_pixel(x_pixel),
@@ -103,7 +93,6 @@ module top (
         .g_port(img_cam[7:4]),
         .b_port(img_cam[3:0])
     );
-
     frame_buffer U_FRAME_BUFFER (
         .wclk(pclk),
         .we(we),
@@ -114,7 +103,6 @@ module top (
         .rAddr(rAddr),
         .rData(rData)
     );
-
     OV7670_controller U_OV7670_MEM_CONTROLLER (
         .pclk(pclk),
         .reset(reset),
@@ -126,137 +114,112 @@ module top (
         .wData(wData)
     );
 
-    // --- 2. Mouse Input Module ---
-    ps2_top U_PS2_TOP (
-        .clk(clk),
-        .reset(reset),
-        .btnR(btnR),
-        .PS2Clk(PS2Clk),
-        .PS2Data(PS2Data),
-        .mouse_x_pixel(mouse_x),
-        .mouse_y_pixel(mouse_y),
-        .click_l(click_l),
-        .click_r(click_r),
-        .click_m(click_m),
-        .debug_ps2clk(debug_ps2clk),
-        .debug_ps2data(debug_ps2data)
-    );
-
-    // --- 3. Vision Processing (Red Tracker) ---
-    red_tracker U_RED_TRACKER (
-        .clk(sys_clk),
-        .reset(reset),
-        .v_sync(v_sync),
-        .DE(DE),
-        .x_pixel(x_pixel),
-        .y_pixel(y_pixel),
-        .data(rData),
-
-        .aim_x_all(aim_x_all),
-        .aim_y_all(aim_y_all),
-        .aim_detected_all(aim_detected_all),
-        .x_min_all(x_min_all),
-        .x_max_all(x_max_all),
-        .y_min_all(y_min_all),
-        .y_max_all(y_max_all),
-        .target_off(target_off)
-    );
-
-    // --- 4. Target Control Logic (FSM & Handover) ---
-    target_controller U_TARGET_CONTROLLER (
-        .clk  (sys_clk),
-        .reset(reset),
-
-        // Mouse Input
-        .mouse_x(mouse_x),
-        .mouse_y(mouse_y),
-        .click_l(click_l),
-        .click_r(click_r),
-
-        // Tracker Input
-        .aim_x_all(aim_x_all),
-        .aim_y_all(aim_y_all),
-        .aim_detected_all(aim_detected_all),
-        .x_min_all(x_min_all),
-        .x_max_all(x_max_all),
-        .y_min_all(y_min_all),
-        .y_max_all(y_max_all),
-
-        // Outputs
-        .is_locked(is_locked),
-        .locked_idx(locked_idx),
-        .center_hit(center_hit),
-        .aim_detected_led(aim_detected_led),
-        .target_locked_led(target_locked_led)
-    );
-
-    // --- 5. UI Display (Pixel Mixer) ---
-    pixel_mixer U_PIXEL_MIXER (
+    // Pixel Mixer 연결
+    pixel_mixer_manual U_PIXEL_MIXER_MANUAL (
         .img_bg(img_cam),
 
-        .aim_x_all(aim_x_all),
-        .aim_y_all(aim_y_all),
+        .aim_x_all       (aim_x_all),
+        .aim_y_all       (aim_y_all),
         .aim_detected_all(aim_detected_all),
+
         .box_x_min_all(x_min_all),
         .box_x_max_all(x_max_all),
         .box_y_min_all(y_min_all),
         .box_y_max_all(y_max_all),
+        .x_pixel      (x_pixel),
+        .y_pixel      (y_pixel),
+        .keyboard_data(w_keyboard_data),
 
-        .mouse_x_pixel(mouse_x),
-        .mouse_y_pixel(mouse_y),
-        .click_l(click_l),
-        .click_r(click_r),
-        .click_m(click_m),
-
-        // Controller에서 온 신호들
-        .is_locked (is_locked),
-        .locked_idx(locked_idx),
-        .center_hit(center_hit),
-
-        .target_off(target_off),
-        .x_pixel(x_pixel),
-        .y_pixel(y_pixel),
-        .r_port(r_port),
-        .g_port(g_port),
-        .b_port(b_port),
-
-        // stm에 보낼 최종 좌표
-        .target_x_coor(final_enemy_xdata),
-        .target_y_coor(final_enemy_ydata)
+        .r_port(r_port_manual),
+        .g_port(g_port_manual),
+        .b_port(b_port_manual)
     );
 
-    
+    // Red Tracker 연결
+    red_tracker_manual U_RED_TRACKER_MANUAL (
+        .clk    (sys_clk),
+        .reset  (reset),
+        .v_sync (v_sync),
+        .DE     (DE),
+        .x_pixel(x_pixel),
+        .y_pixel(y_pixel),
+        .data   (rData),
 
-    slave_top U_SPI_Slave (
-        .clk  (clk),
-        .reset(reset),
-        /////// spi protocol port
-        .sclk (sclk),
-        .mosi (mosi),
-        .miso (miso),
-        .cs   (cs),
-        ////// miso data
-        .enemy_xdata(final_enemy_xdata),
-        .enemy_ydata(final_enemy_ydata),
-        .miso_etc  ({aim_detected,raser_shoot,11'b000_0000_0000}),
-        ////// mosi data
-        .mortor_xdata(mortor_xdata),
-        .mortor_ydata(mortor_ydata),
-        .mosi_valid(mosi_valid),//valid when mosi_valid is 1.
-        .mosi_etc(17'b0_0000_0000_0000_0000)
+        .aim_x_all       (aim_x_all),
+        .aim_y_all       (aim_y_all),
+        .aim_detected_all(aim_detected_all),
 
-        /* miso_etc bit frame(26-01-11 ver)
-        12: red_detected
-        11: target_on_box
-        10: laser_fire_complete
-        9~0: blank 
-        */
+        .x_min_all(x_min_all),
+        .x_max_all(x_max_all),
+        .y_min_all(y_min_all),
+        .y_max_all(y_max_all),
 
-        /* mosi_etc bit frame(26-01-11 ver)
-        16~14: stm_state?
-        13: laser_fire_flag
-        12~0: blank
-        */
+        .target_off(target_off_manual)
+    );
+
+    pixel_mixer_auto U_PIXEL_MIXER_AUTO (
+        .img_bg      (img_cam),
+        .aim_x       (aim_x),
+        .aim_y       (aim_y),
+        .aim_detected(aim_detected),
+        .x_pixel     (x_pixel),
+        .y_pixel     (y_pixel),
+
+        .box_x_min(box_x_min),
+        .box_x_max(box_x_max),
+        .box_y_min(box_y_min),
+        .box_y_max(box_y_max),
+        .r_port   (r_port_auto),
+        .g_port   (g_port_auto),
+        .b_port   (b_port_auto)
+    );
+
+    red_tracker_auto U_RED_TRACKER_AUTO (
+        .clk    (sys_clk),
+        .reset  (reset),
+        .v_sync (v_sync),
+        .DE     (DE),
+        .x_pixel(x_pixel),
+        .y_pixel(y_pixel),
+        .data   (rData),
+
+        .aim_x       (aim_x),
+        .aim_y       (aim_y),
+        .aim_detected(aim_detected),
+
+        .x_min_out(box_x_min),
+        .x_max_out(box_x_max),
+        .y_min_out(box_y_min),
+        .y_max_out(box_y_max),
+
+        .target_off(target_off_auto)
+    );
+
+    ps2_keyboard_only_top U_ps2_keyboard_only_top (
+        .clk              (clk),
+        .reset            (reset),
+        .ps2_clk_keyboard (ps2_clk_keyboard),
+        .ps2_data_keyboard(ps2_data_keyboard),
+        .keyboard_data    (w_keyboard_data)
+    );
+
+    mux_nx1 U_mux_nx1 (
+        .clk              (sys_clk),
+        .reset            (reset),
+        .keyboard_data    (w_keyboard_data),
+        .target_off_auto  (target_off_auto),
+        .target_off_manual(target_off_manual),
+        .r_port_auto      (r_port_auto),
+        .g_port_auto      (g_port_auto),
+        .b_port_auto      (b_port_auto),
+        .r_port_manual    (r_port_manual),
+        .g_port_manual    (g_port_manual),
+        .b_port_manual    (b_port_manual),
+
+        .target_off(target_off),
+        .r_port    (r_port),
+        .g_port    (g_port),
+        .b_port    (b_port)
     );
 
 endmodule
