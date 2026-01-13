@@ -8,16 +8,6 @@
 #include "Controller_Tracking.h"
 #include <stdio.h>
 
-/**
- * @brief 각도 변환 게인 및 화면 설정
- * @note  조정 가능한 상수
- */
-#define DEBUG_GAIN_X_POS	10
-#define DEBUG_GAIN_Y_POS	10
-#define SCREEN_CENTER_X		320  // 화면 중심 X (640/2)
-#define SCREEN_CENTER_Y		240  // 화면 중심 Y (480/2)
-#define ANGLE_GAIN			0.1f // 각도 변환 게인
-
 tracking_t trackingData;
 static uint32_t g_event_rx_count = 0;
 
@@ -118,7 +108,12 @@ void Controller_Tracking_Aimed(uint16_t currEvent) {
 }
 
 void Controller_Tracking_ResetData() {
-	trackingData.angle = 90.0f;
+	trackingData.x_pos = CENTER_X;
+	trackingData.y_pos = CENTER_Y;
+	trackingData.angle_pan = CENTER_PAN;
+	trackingData.angle_tilt = CENTER_TILT;
+	trackingData.is_Detected = false;
+	trackingData.is_Aimed = false;
 }
 
 void Controller_Tracking_ComputeServoAngle() {
@@ -127,8 +122,7 @@ void Controller_Tracking_ComputeServoAngle() {
 
 void Controller_Tracking_Unpack() {
 	// FPGA 패킷 언패킹
-	extern RxPacket_t g_rx_packet_tracking;
-	// 필요한 데이터 처리
+	// SPI ISR에서 g_rx_packet_tracking이 저장됨
 }
 
 void Controller_Tracking_PushData() {

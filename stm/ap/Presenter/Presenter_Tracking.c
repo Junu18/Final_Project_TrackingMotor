@@ -13,8 +13,8 @@ static uint32_t g_servo_count = 0;
 void Presenter_Tracking_Init() {
 	Servo_Init(&hServo, &htim3, TIM_CHANNEL_1);
 	Servo_SetAngle(&hServo, 90.0f);
-	Servo_Start(&hServo);
-	printf("[PRES] Init - Servo at 90.0 degrees\r\n");
+	Servo_Enable(&hServo);
+	printf("[PRES] Init OK\r\n");
 }
 
 void Presenter_Tracking_Excute() {
@@ -28,11 +28,11 @@ void Presenter_Tracking_Excute() {
 
 		// 매 1000회마다 디버깅 출력
 		if (g_servo_count % 1000 == 0) {
-			printf("[PRES] Servo updates: %ld | Angle: %d\r\n", 
-				   g_servo_count, (int)pTrackingData->angle);
+			printf("[PRES] Servo updates: %ld | Pan: %d, Tilt: %d\r\n", 
+				   g_servo_count, (int)pTrackingData->angle_pan, (int)pTrackingData->angle_tilt);
 		}
 
-		Servo_SetAngle(&hServo, pTrackingData->angle);
+		Servo_SetAngle(&hServo, pTrackingData->angle_pan);
 		osPoolFree(poolTrackingData, pTrackingData);
 	}
 }
