@@ -8,12 +8,14 @@
 #include "Presenter_Tracking.h"
 
 Servo_t hServo;
+static uint32_t g_servo_count = 0;
 
 void Presenter_Tracking_Init() {
-	LCD_Init(&hi2c1);
 	Servo_Init(&hServo, &htim3, TIM_CHANNEL_1);
 	Servo_SetAngle(&hServo, 90.0f);
-	Servo_Start(&hServo);
+	Servo_Enable(&hServo);
+	printf("[PRES] Init OK\r\n");
+	for(volatile int i = 0; i < 100000; i++);
 }
 
 void Presenter_Tracking_Excute() {
@@ -22,11 +24,16 @@ void Presenter_Tracking_Excute() {
 	evt = osMessageGet(trackingDataMsgBox, 0);
 
 	if (evt.status == osEventMessage) {
-		pTrackingData = evt.value.p;
-		char str[50];
-		sprintf(str, "%03d", (int)pTrackingData->angle);
-		LCD_WriteStringXY(1, 0, str);
-		Servo_SetAngle(&hServo, pTrackingData->angle);
+		pTrackingData = (tracking_t *)evt.value.p;
+		g_servo_count++;
+
+		// 매 100회마다 디버깅 출력 (자주 출력)
+		if (g_servo_count % 100 == 0) {
+			printf("[SERVO] Pan:%d\r\n", (int)pTrackingData->angle_pan);
+		}
+
+		// 서보모터 제어
+		Servo_SetAngle(&hServo, pTrackingData->angle_pan);
 		osPoolFree(poolTrackingData, pTrackingData);
 	}
 }

@@ -15,11 +15,29 @@ module top (
     output logic [3:0] b_port,
     output logic       SIO_C,
     output logic       SIO_D,
+<<<<<<< HEAD
     output logic       target_off,
 
     // keyboard
     input logic ps2_clk_keyboard,
     input logic ps2_data_keyboard
+=======
+    output logic       target_locked_led,  // LED[14]
+    output logic       target_off,         // LED[15]
+
+    inout logic PS2Clk,
+    inout logic PS2Data,
+
+    output logic debug_ps2clk,
+    output logic debug_ps2data,
+    input  logic sclk,
+    input  logic mosi,
+    output logic miso,
+    input  logic cs,
+
+    output logic [3:0] fnd_com,
+    output logic [7:0] fnd_seg
+>>>>>>> 09cd8b49095b117816de4e7bdcde7f1b29e98cce
 );
 
     logic             sys_clk;
@@ -51,9 +69,28 @@ module top (
     logic aim_detected;
     logic [11:0] box_x_min, box_x_max, box_y_min, box_y_max;
 
+<<<<<<< HEAD
     logic [3:0] r_port_auto;
     logic [3:0] g_port_auto;
     logic [3:0] b_port_auto;
+=======
+    // 락온 제어 정보 (Controller <-> Pixel Mixer)
+    logic        is_locked;
+    logic [ 3:0] locked_idx;
+    logic        center_hit;
+
+    /////predict module port
+    logic [15:0] x_real_in;
+    logic [15:0] y_real_in;
+    logic [15:0] final_enemy_xdata;
+    logic [15:0] final_enemy_ydata;
+
+
+    ///spi module
+    logic [ 7:0] mortor_xdata;
+    logic [ 6:0] mortor_ydata;
+    logic        mosi_valid;
+>>>>>>> 09cd8b49095b117816de4e7bdcde7f1b29e98cce
 
     logic [3:0] r_port_manual;
     logic [3:0] g_port_manual;
@@ -130,6 +167,7 @@ module top (
         .y_pixel      (y_pixel),
         .keyboard_data(w_keyboard_data),
 
+<<<<<<< HEAD
         .r_port(r_port_manual),
         .g_port(g_port_manual),
         .b_port(b_port_manual)
@@ -148,6 +186,61 @@ module top (
         .aim_x_all       (aim_x_all),
         .aim_y_all       (aim_y_all),
         .aim_detected_all(aim_detected_all),
+=======
+        .mouse_x_pixel(mouse_x),
+        .mouse_y_pixel(mouse_y),
+        .click_l(click_l),
+        .click_r(click_r),
+        .click_m(click_m),
+
+        // Controller에서 온 신호들
+        .is_locked (is_locked),
+        .locked_idx(locked_idx),
+        .center_hit(center_hit),
+
+        .target_off(target_off),
+        .x_pixel(x_pixel),
+        .y_pixel(y_pixel),
+        .r_port(r_port),
+        .g_port(g_port),
+        .b_port(b_port),
+
+        // stm에 보낼 최종 좌표
+        .target_x_coor(x_real_in),
+        .target_y_coor(y_real_in)
+    );
+
+
+    enemy_predict_2s U_Predict (
+        .clk(clk),
+        .reset(reset),
+        .x_meas_now(x_real_in),
+        .y_meas_now(y_real_in),
+        .red_detect_in(aim_detected_led),
+        .x_predict_out(final_enemy_xdata),
+        .y_predict_out(final_enemy_ydata),
+        .vir_red_detect(vir_red_detect)
+    );
+
+
+    slave_top U_SPI_Slave (
+        .clk(clk),
+        .reset(reset),
+        /////// spi protocol port
+        .sclk(sclk),
+        .mosi(mosi),
+        .miso(miso),
+        .cs(cs),
+        ////// miso data
+        .enemy_xdata(final_enemy_xdata),
+        .enemy_ydata(final_enemy_ydata),
+        .miso_etc({vir_red_detect, raser_shoot, 11'b000_0000_0000}),
+        ////// mosi data
+        .mortor_xdata(mortor_xdata),
+        .mortor_ydata(mortor_ydata),
+        .mosi_valid(mosi_valid),  //valid when mosi_valid is 1.
+        .mosi_etc(17'b0_0000_0000_0000_0000)
+>>>>>>> 09cd8b49095b117816de4e7bdcde7f1b29e98cce
 
         .x_min_all(x_min_all),
         .x_max_all(x_max_all),
@@ -220,6 +313,14 @@ module top (
         .r_port    (r_port),
         .g_port    (g_port),
         .b_port    (b_port)
+    );
+
+    fnd_controller U_FND (
+        .clk(clk),
+        .reset(reset),
+        .cnt_data({6'b0,mortor_xdata}),
+        .fnd_com(fnd_com),
+        .fnd_seg(fnd_seg)
     );
 
 endmodule

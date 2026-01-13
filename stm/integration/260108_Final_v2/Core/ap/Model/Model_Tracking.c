@@ -1,0 +1,99 @@
+/*
+ * Model_Tracking.c
+ *
+ *  Created on: Jan 7, 2026
+ *      Author: kccistc
+ */
+
+ /**
+ * @brief  include 파일
+ */
+#include "Model_Tracking.h"
+#include <string.h>
+
+
+/**
+ * @brief  FreeRTOS Queue & Pool 정의
+ * @note   Reference Architecture: Queue는 Model에서 관리
+ *         Event Queue 크기: 
+ *         - SPI 인터럽트 (100Hz) + TIM3 인터럽트 (50Hz)
+ *         - 최악의 경우 20ms 안에 3개 이벤트 가능
+ *         - 안전마진 2배 → 크기 8로 설정
+ */
+trackingState_t trackingState = TRACKING_IDLE;
+
+/* Event Queue: Listener → Controller */
+osMessageQId trackingEventMsgBox;
+osMessageQDef(trackingEventQue, 16, trackingEvent_t);  // 4 → 16 (안전마진)
+
+/* Data Queue: Controller → Presenter */
+osMessageQId trackingDataMsgBox;
+osMessageQDef(trackingDataQue, 8, tracking_t);  // 4 → 8 (안전마진)
+
+/* Memory Pool: 동적 메모리 할당 */
+osPoolDef(poolTrackingData, 16, tracking_t);
+osPoolId poolTrackingData;
+
+
+/**
+ * @brief  Queue/Pool 초기화 (main.c에서 호출)
+ */
+void Model_TrackingInit() {
+	poolTrackingData = osPoolCreate(osPool(poolTrackingData));
+	trackingEventMsgBox = osMessageCreate(osMessageQ(trackingEventQue), NULL);
+	trackingDataMsgBox = osMessageCreate(osMessageQ(trackingDataQue), NULL);
+}
+
+/**
+ * @brief XY 좌표 업데이트 (Listener에서 호출)
+ */
+void Model_Tracking_UpdateXY(tracking_t* model, uint16_t x, uint16_t y) {
+    model->x_pos = x;
+    model->y_pos = y;
+    model->is_Detected = 1;  // 타겟 감지됨
+    model->rx_count++;
+}
+
+/**
+ * @brief 서보모터 각도 업데이트 (Controller에서 호출)
+ */
+void Model_Tracking_UpdateAngles(tracking_t* model, int16_t pan, int16_t tilt) {
+    model->angle_pan = pan;
+    model->angle_tilt= tilt;
+
+    // 송신 패킷 구성 (추후 FPGA로 전송용)
+    model->tx_packet.fields.header = 0xAA;
+    model->tx_packet.fields.angle_pan = pan;
+    model->tx_packet.fields.angle_tilt= tilt;
+}
+
+
+/**
+ * @brief  IDEL 상태 설정 함수
+ * @return void
+ */
+void Model_SetTrackingState(trackingState_t state) {
+	trackingState = state;										 // IDEL state set
+}
+
+
+/**
+ * @brief  trackingState 읽기 함수
+ * @return trackingState_t 현재 상태 반환
+ */
+trackingState_t Model_GetTrackingState() {
+	return trackingState;
+}
+
+
+///**
+// * @brief 수신 데이터 검증 (헤더 체크)
+// */
+//uint8_t Model_Tracking_ValidateRx(Model_Tracking_t* model) {
+//    if (model->rx_packet.fields.header == 0x55) {
+//        return 1;  // 유효함
+//    } else {
+//        model->rx_error_count++;
+//        return 0;  // 무효함
+//    }
+//}

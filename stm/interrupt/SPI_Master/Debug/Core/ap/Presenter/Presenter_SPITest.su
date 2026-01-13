@@ -1,0 +1,2 @@
+../Core/ap/Presenter/Presenter_SPITest.c:8:6:Presenter_SPITest_Init	16	static
+../Core/ap/Presenter/Presenter_SPITest.c:12:6:Presenter_SPITest_SyncData	24	static

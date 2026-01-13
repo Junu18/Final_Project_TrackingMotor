@@ -1,0 +1,6 @@
+../Core/Src/freertos.c:77:6:vApplicationGetIdleTaskMemory	1
+../Core/Src/freertos.c:91:6:MX_FREERTOS_Init	1
+../Core/Src/freertos.c:143:6:StartDefaultTask	1
+../Core/Src/freertos.c:160:6:Listener	1
+../Core/Src/freertos.c:179:6:Controller	1
+../Core/Src/freertos.c:198:6:Presenter	1

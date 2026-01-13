@@ -22,6 +22,10 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdio.h"
+#include "stdlib.h"
+#include "cmsis_os.h"
+#include "../ap/Model/Model_Tracking.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,7 +45,12 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+// SPI 관련 변수
+RxPacket_t g_rx_packet_tracking;
+uint8_t rx_buff[4] = {0};
+uint8_t tx_buff[4] = {0};
+static volatile uint8_t rx_index = 0;
+static volatile uint32_t g_isr_count = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -200,8 +209,49 @@ void TIM3_IRQHandler(void)
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
-
+	// TIM3 Overflow 인터럽트에서 주기적으로 이벤트 발생
+	if (__HAL_TIM_GET_FLAG(&htim3, TIM_FLAG_UPDATE)) {
+		__HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
+		osMessagePut(trackingEventMsgBox, EVENT_SERVO_TICK, 0);
+	}
   /* USER CODE END TIM3_IRQn 1 */
+}
+
+/**
+  * @brief This function handles SPI1 global interrupt.
+  */
+void SPI1_IRQHandler(void)
+{
+	/* USER CODE BEGIN SPI1_IRQn 0 */
+	g_isr_count++;
+	
+	// SPI1 RX 데이터 수신
+	if (SPI1->SR & SPI_SR_RXNE) {
+		uint8_t data = (uint8_t)SPI1->DR;
+		rx_buff[rx_index] = data;
+		rx_index++;
+		
+		// 4바이트 수신 완료 (완전한 패킷)
+		if (rx_index >= 4) {
+			rx_index = 0;
+			
+			// 패킷 저장
+			g_rx_packet_tracking.raw = (rx_buff[0] << 24) | (rx_buff[1] << 16) | 
+										(rx_buff[2] << 8) | rx_buff[3];
+			
+			// 이벤트 발생: FPGA 데이터 수신됨
+			osMessagePut(trackingEventMsgBox, EVENT_FPGA_DATA_RECEIVED, 0);
+		}
+	}
+	
+	// SPI1 에러 처리
+	if (SPI1->SR & (SPI_SR_OVR | SPI_SR_MODF)) {
+		uint32_t temp = SPI1->DR;
+		temp = SPI1->SR;
+		SPI1->SR &= ~(SPI_SR_OVR | SPI_SR_MODF);
+	}
+	
+	/* USER CODE END SPI1_IRQn 0 */
 }
 
 /* USER CODE BEGIN 1 */

@@ -1,0 +1,4 @@
+../Core/ap/Presenter/PresenterTrakcing.c:16:6:Presenter_Tracking_Init	1
+../Core/ap/Presenter/PresenterTrakcing.c:29:6:Presenter_Tracking_Excute	3
+../Core/ap/Presenter/PresenterTrakcing.c:80:6:Presenter_Tracking_UpdateServo	1
+../Core/ap/Presenter/PresenterTrakcing.c:97:6:Presenter_Tracking_UpdateLCD	1
