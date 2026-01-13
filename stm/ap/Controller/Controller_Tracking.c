@@ -6,8 +6,10 @@
  */
 
 #include "Controller_Tracking.h"
+#include <stdio.h>
 
 tracking_t trackingData;
+static uint32_t g_event_count = 0;  // Event 수신 횟수
 
 void Controller_Tracking_Init() {
 	trackingData.angle = 90.0f;
@@ -39,14 +41,23 @@ void Controller_Tracking_PutAngle() {
 
 	if (evt.status == osEventMessage) {
 		evtState = evt.value.v;
+		g_event_count++;
 
-		if (evtState == EVENT_0) {
-			Model_SetTrackingState(TRACKING_0);
-		} else if (evtState == EVENT_90) {
-			Model_SetTrackingState(TRACKING_90);
-		} else if (evtState == EVENT_180) {
-			Model_SetTrackingState(TRACKING_180);
+		// ===== DEBUG: Event 수신 =====
+		if (g_event_count % 100 == 0) {
+			printf("[CTRL_EVENT] Count: %ld | Event: 0x%04X\r\n", g_event_count, evtState);
 		}
+
+		if (evtState == EVENT_FPGA_DATA_RECEIVED) {
+			// SPI에서 받은 데이터 처리
+			printf("[CTRL_SPI_DATA] X: %d, Y: %d | Angle: %.1f\r\n",
+				   g_rx_packet_tracking.x, g_rx_packet_tracking.y, trackingData.angle);
+		} else if (evtState == EVENT_SERVO_TICK) {
+			// 20ms 주기 Servo 업데이트 신호
+			printf("[CTRL_SERVO_TICK] Sending servo update - Angle: %.1f\r\n", trackingData.angle);
+		}
+	} else if (evt.status != osOK && g_event_count % 100 == 0) {
+		printf("[CTRL_ERROR] Queue receive error (no message)\r\n");
 	}
 
 	static tracking_t prevTrackingData;

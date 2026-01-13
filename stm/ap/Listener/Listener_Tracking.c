@@ -7,26 +7,31 @@
 
 #include "Listener_Tracking.h"
 
-hBtn hbtn0;
-hBtn hbtn90;
-hBtn hbtn180;
-
 void Listener_Tracking_Init() {
-	Button_Init(&hbtn0, BTN_0_GPIO, BTN_0_PIN);
-	Button_Init(&hbtn90, BTN_90_GPIO, BTN_90_PIN);
-	Button_Init(&hbtn180, BTN_180_GPIO, BTN_180_PIN);
+	/* SPI interrupt is initialized in MX_SPI1_Init() */
+	/* No button handling needed - using SPI interrupt instead */
 }
 
 void Listener_Tracking_Excute() {
-	Listener_Tracking_CheckButton();
+	/* SPI data reception is handled by interrupt handler */
+	/* No polling needed */
 }
 
-void Listener_Tracking_CheckButton() {
-	if (Button_GetState(&hbtn0) == ACT_PUSHED) {
-		osMessagePut(trackingEventMsgBox, EVENT_0, 0);
-	} else if (Button_GetState(&hbtn90) == ACT_PUSHED) {
-		osMessagePut(trackingEventMsgBox, EVENT_90, 0);
-	} else if (Button_GetState(&hbtn180) == ACT_PUSHED) {
-		osMessagePut(trackingEventMsgBox, EVENT_180, 0);
-	}
+void Listener_Tracking_StartReceive() {
+	/* Start SPI in interrupt mode */
+	/* Configure SPI1 for continuous reception */
+	
+	/* SPI1 configuration for interrupt-driven reception */
+	SPI1->CR1 = 0;
+	SPI1->CR1 |= SPI_CR1_MSTR;      // Master mode
+	SPI1->CR1 |= SPI_CR1_SPE;       // SPI enable
+	
+	/* SPI1 interrupt enable */
+	SPI1->CR2 = 0;
+	SPI1->CR2 |= SPI_CR2_RXNEIE;    // RX interrupt enable
+	SPI1->CR2 |= SPI_CR2_ERRIE;     // Error interrupt enable
+	
+	/* Start first SPI reception */
+	SPI1->DR;  // Clear RX buffer
+	SPI1->CR1 |= SPI_CR1_SPE;
 }

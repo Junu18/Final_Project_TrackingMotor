@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "cmsis_os.h"
+#include <stdio.h>
 #include "../ap/Common/Common.h"
 #include "../ap/Model/Model_Tracking.h"
 #include "../ap/Listener/Listener_Tracking.h"
@@ -45,7 +46,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-volatile uint32_t g_isr_count = 0;  // ISR 호출 횟수 카운터 (전역 변수)
+volatile uint32_t g_isr_count = 0;  // ISR 호출 횟수 카운터
+volatile uint32_t g_spi_debug_interval = 0;  // 디버깅 출력 주기 제어 (매 100회마다)
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -258,6 +260,13 @@ void SPI1_IRQHandler(void)
 
       // 3. Event 발행 (FreeRTOS ISR-safe)
       osMessagePut(trackingEventMsgBox, EVENT_FPGA_DATA_RECEIVED, 0);
+
+      // ===== DEBUG: 매 100회마다 출력 =====
+      if (g_isr_count % 100 == 0) {
+          printf("[SPI_ISR] Count: %ld | RX_Data: 0x%02X 0x%02X 0x%02X 0x%02X | Raw: 0x%08lX\r\n",
+                 g_isr_count, rx_buff[0], rx_buff[1], rx_buff[2], rx_buff[3], 
+                 g_rx_packet_tracking.raw);
+      }
 
       // 4. 다음 수신 준비 (연속 수신)
       tx_index = 0;
