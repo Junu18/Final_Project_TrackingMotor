@@ -16,8 +16,6 @@ module top (
     output logic [3:0] b_port,
     output logic       SIO_C,
     output logic       SIO_D,
-    output logic       aim_detected_led,   // LED[0]
-    output logic       red_detect_spi_out,
     output logic       target_locked_led,  // LED[14]
     output logic       target_off,         // LED[15]
 
@@ -29,7 +27,10 @@ module top (
     input  logic sclk,
     input  logic mosi,
     output logic miso,
-    input  logic cs
+    input  logic cs,
+
+    output logic [3:0] fnd_com,
+    output logic [7:0] fnd_seg
 );
 
     logic             sys_clk;
@@ -66,7 +67,7 @@ module top (
     logic [15:0] y_real_in;
     logic [15:0] final_enemy_xdata;
     logic [15:0] final_enemy_ydata;
-    
+
 
     ///spi module
     logic [ 7:0] mortor_xdata;
@@ -235,13 +236,12 @@ module top (
     enemy_predict_2s U_Predict (
         .clk(clk),
         .reset(reset),
-        .v_sync(v_sync),
-        .x_real_in(x_real_in),
-        .y_real_in(y_real_in),
+        .x_meas_now(x_real_in),
+        .y_meas_now(y_real_in),
         .red_detect_in(aim_detected_led),
         .x_predict_out(final_enemy_xdata),
         .y_predict_out(final_enemy_ydata),
-        .red_detect_spi_out(red_detect_spi_out)
+        .vir_red_detect(vir_red_detect)
     );
 
 
@@ -256,7 +256,7 @@ module top (
         ////// miso data
         .enemy_xdata(final_enemy_xdata),
         .enemy_ydata(final_enemy_ydata),
-        .miso_etc({red_detect_spi_out, raser_shoot, 11'b000_0000_0000}),
+        .miso_etc({vir_red_detect, raser_shoot, 11'b000_0000_0000}),
         ////// mosi data
         .mortor_xdata(mortor_xdata),
         .mortor_ydata(mortor_ydata),
@@ -275,6 +275,14 @@ module top (
         13: laser_fire_flag
         12~0: blank
         */
+    );
+
+    fnd_controller U_FND (
+        .clk(clk),
+        .reset(reset),
+        .cnt_data({6'b0,mortor_xdata}),
+        .fnd_com(fnd_com),
+        .fnd_seg(fnd_seg)
     );
 
 endmodule
