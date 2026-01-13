@@ -42,6 +42,7 @@ typedef struct {
 	int y_pos;
 	bool isDetected;
 	bool isAimed;
+
 } tracking_t;
 
 extern trackingState_t trackingState;

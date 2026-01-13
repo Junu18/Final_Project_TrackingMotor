@@ -1,0 +1,8 @@
+../Core/driver/SPI/SPI.h:35:20:SPI_CS_Low	1
+../Core/driver/SPI/SPI.h:38:20:SPI_CS_High	1
+../Core/driver/SPI/SPI.c:12:6:SPI_Init	1
+../Core/driver/SPI/SPI.c:18:6:SPI_RegisterCallback	1
+../Core/driver/SPI/SPI.c:22:10:SPI_GetRxBuffer	1
+../Core/driver/SPI/SPI.c:26:6:SPI_SetTxData	1
+../Core/driver/SPI/SPI.c:30:6:SPI_StartTransfer_DMA	3
+../Core/driver/SPI/SPI.c:37:6:HAL_SPI_TxRxCpltCallback	4

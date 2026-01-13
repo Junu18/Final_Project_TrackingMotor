@@ -15,12 +15,21 @@
 #include "../Model/Model_Tracking.h"
 #include "spi.h"
 
-#define BTN_START_GPIO				GPIOC
-#define BTN_START_PIN				GPIO_PIN_10
-#define BTN_STOP_GPIO				GPIOC
-#define BTN_STOP_PIN				GPIO_PIN_11
-#define BTN_CLEAR_GPIO				GPIOC
-#define BTN_CLEAR_PIN				GPIO_PIN_12
+//#define BTN_START_GPIO				GPIOC
+//#define BTN_START_PIN				GPIO_PIN_10
+//#define BTN_STOP_GPIO				GPIOC
+//#define BTN_STOP_PIN				GPIO_PIN_11
+//#define BTN_CLEAR_GPIO				GPIOC
+//#define BTN_CLEAR_PIN				GPIO_PIN_12
+
+#define BTN_START_GPIO				GPIOB
+#define BTN_START_PIN				GPIO_PIN_13
+#define BTN_STOP_GPIO				GPIOB
+#define BTN_STOP_PIN				GPIO_PIN_14
+#define BTN_CLEAR_GPIO				GPIOB
+#define BTN_CLEAR_PIN				GPIO_PIN_15
+
+// 여기서 부터 일단 안씀
 #define BTN_TARGET_ON_GPIO			GPIOC
 #define BTN_TARGET_ON_PIN			GPIO_PIN_9
 #define BTN_TARGET_LOST_GPIO		GPIOC

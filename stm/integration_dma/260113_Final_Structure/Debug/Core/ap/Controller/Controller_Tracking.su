@@ -1,0 +1,13 @@
+../Core/ap/Controller/Controller_Tracking.c:22:6:Controller_Tracking_Init	8	static
+../Core/ap/Controller/Controller_Tracking.c:27:6:Controller_Tracking_Excute	24	static
+../Core/ap/Controller/Controller_Tracking.c:38:6:Controller_Tracking_HandleSignal	48	static
+../Core/ap/Controller/Controller_Tracking.c:84:6:Controller_Tracking_UpdateState	112	static
+../Core/ap/Controller/Controller_Tracking.c:114:6:Controller_Tracking_Idle	16	static
+../Core/ap/Controller/Controller_Tracking.c:120:6:Controller_Tracking_Search	16	static
+../Core/ap/Controller/Controller_Tracking.c:128:6:Controller_Tracking_Follow	16	static
+../Core/ap/Controller/Controller_Tracking.c:136:6:Controller_Tracking_Lost	16	static
+../Core/ap/Controller/Controller_Tracking.c:142:6:Controller_Tracking_Aimed	16	static
+../Core/ap/Controller/Controller_Tracking.c:148:6:Controller_Tracking_ResetData	4	static
+../Core/ap/Controller/Controller_Tracking.c:157:6:Controller_Tracking_ComputeServoAngle	16	static
+../Core/ap/Controller/Controller_Tracking.c:171:6:Controller_Tracking_PushData	24	static
+../Core/ap/Controller/Controller_Tracking.c:191:6:Controller_Tracking_Unpack	24	static

@@ -41,10 +41,16 @@ void Listener_Tracking_Excute() {
 
 void Listener_Tracking_CheckButton() {
 	if (Button_GetState(&hbtnStart) == ACT_PUSHED) {
+		char *msg = "[DEBUG] Button: START Pushed!\r\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
 		osMessagePut(trackingEventMsgBox, EVENT_START, 0);
 	} else if (Button_GetState(&hbtnStop) == ACT_PUSHED) {
+		char *msg = "[DEBUG] Button: START Pushed!\r\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
 		osMessagePut(trackingEventMsgBox, EVENT_STOP, 0);
 	} else if (Button_GetState(&hbtnClear) == ACT_PUSHED) {
+		char *msg = "[DEBUG] Button: START Pushed!\r\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
 		osMessagePut(trackingEventMsgBox, EVENT_CLEAR, 0);
 	} else if (Button_GetState(&hbtnTargetOn) == ACT_PUSHED) {
 		osMessagePut(trackingEventMsgBox, EVENT_TARGET_ON, 0);

@@ -33,7 +33,12 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+int _write(int file, char *ptr, int len) {
+    for (int i = 0; i < len; i++) {
+        ITM_SendChar((*ptr++)); // 한 글자씩 디버거로 전송
+    }
+    return len;
+}
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/

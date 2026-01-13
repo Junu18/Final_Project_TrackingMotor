@@ -143,6 +143,9 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
+	printf("\r\n========================================\r\n");
+	printf(" [SYSTEM] Booting Complete... Alive!\r\n");
+	printf("========================================\r\n");
 	/* Infinite loop */
 	for (;;) {
 		osDelay(1);
