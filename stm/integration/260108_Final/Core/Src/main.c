@@ -58,11 +58,11 @@ extern I2C_HandleTypeDef hi2c1;
 extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart2;
 
-/* RTOS Task Handles */
-osThreadId defaultTaskHandle;
-osThreadId Listener_TaskHandle;
-osThreadId Controller_TaskHandle;
-osThreadId Presenter_TaskHandle;
+/* RTOS Task Handles - defined in freertos.c */
+extern osThreadId defaultTaskHandle;
+extern osThreadId ListenerTaskHandle;
+extern osThreadId ControllerTaskHandle;
+extern osThreadId PresenterTaskHandle;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,7 +70,6 @@ void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
 
 /* Task function prototypes */
-void StartDefaultTask(void const * argument);
 void Listener(void const * argument);
 void Controller(void const * argument);
 void Presenter(void const * argument);
@@ -141,19 +140,6 @@ int main(void)
 
   /* USER CODE END 2 */
 
-  /* Create RTOS Tasks */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-
-  osThreadDef(Listener_Task, Listener, osPriorityNormal, 0, 128);
-  Listener_TaskHandle = osThreadCreate(osThread(Listener_Task), NULL);
-
-  osThreadDef(Controller_Task, Controller, osPriorityNormal, 0, 256);
-  Controller_TaskHandle = osThreadCreate(osThread(Controller_Task), NULL);
-
-  osThreadDef(Presenter_Task, Presenter, osPriorityNormal, 0, 512);
-  Presenter_TaskHandle = osThreadCreate(osThread(Presenter_Task), NULL);
-
   /* Call init function for freertos objects (in cmsis_os2.c) */
   MX_FREERTOS_Init();
 
@@ -220,54 +206,9 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 /**
- * @brief Default task
- */
-void StartDefaultTask(void const * argument)
-{
-  for(;;) {
-    osDelay(1000);
-  }
-}
-
-/**
  * @brief Listener Task
  */
-void Listener(void const * argument)
-{
-  Listener_Tracking_Init();
-  Listener_Tracking_StartReceive();
-
-  for(;;) {
-    Listener_Tracking_Excute();
-    osDelay(10);
-  }
-}
-
-/**
- * @brief Controller Task
- */
-void Controller(void const * argument)
-{
-  Controller_Tracking_Init();
-
-  for(;;) {
-    Controller_Tracking_Excute();
-    osDelay(10);
-  }
-}
-
-/**
- * @brief Presenter Task
- */
-void Presenter(void const * argument)
-{
-  Presenter_Tracking_Init();
-
-  for(;;) {
-    Presenter_Tracking_Excute();
-    osDelay(10);
-  }
-}
+/* Task implementations are in freertos.c */
 
 /* USER CODE END 4 */
 
@@ -289,7 +230,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-  /* Removed TIM3 callback - using SPI interrupt instead */
+	if (htim->Instance == TIM3) {
+		// TIM3 인터럽트 (20ms 주기)로 EVENT_SERVO_TICK 발행
+		// → Servo 업데이트를 20ms 주기로 정확하게 제어
+		osMessagePut(trackingEventMsgBox, EVENT_SERVO_TICK, 0);
+	}
   /* USER CODE END Callback 1 */
 }
 

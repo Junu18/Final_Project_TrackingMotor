@@ -36,6 +36,8 @@ tracking_t trackingData;
  * @brief Controller 초기화
  */
 void Controller_Tracking_Init() {
+	// TIM3 Base Interrupt 시작 (20ms 주기로 Servo 업데이트)
+	// → SPI 인터럽트와 타이밍 분리
 	Common_StartTIMInterrupt();
 	Controller_Tracking_ResetData();
 }
@@ -49,8 +51,23 @@ void Controller_Tracking_Excute() {
 	// Event 수신 (non-blocking, timeout=0)
 	osEvent evt = osMessageGet(trackingEventMsgBox, 0);
 	uint16_t currEvent;
-	if (evt.status != osEventMessage)
+	
+	/* Queue Overflow 모니터링 */
+	static uint32_t event_overflow_count = 0;
+	if (evt.status == osEventTimeout) {
+		// Queue에서 받지 못한 경우는 정상
 		return;
+	}
+	if (evt.status != osEventMessage) {
+		// 다른 에러 발생 (Overflow 등)
+		event_overflow_count++;
+		if (event_overflow_count % 100 == 0) {
+			printf("[WARNING] Event Queue Error: %lu (Status: %x)\r\n", 
+				   event_overflow_count, evt.status);
+		}
+		return;
+	}
+	
 	currEvent = evt.value.v;
 
 	// 상태 업데이트
@@ -63,22 +80,32 @@ void Controller_Tracking_Excute() {
 
 /**
  * @brief Controller Tracking 실행
+ * @note  신호 처리: 데이터 수신(좌표 저장) vs 타이밍 분리(서보 업데이트)
  */
 void Controller_Tracking_HandleSignal(uint16_t currEvent) {
 	trackingState_t state = Model_GetTrackingState();
 	static trackingState_t prevState = TRACKING_IDLE;
 
+	// ========================================
+	// 1. 상태 변화 시 즉시 업데이트
+	// ========================================
 	if (state != prevState) {
 		Controller_Tracking_PushData();
 		prevState = state;
 	}
 
+	// ========================================
+	// 2. SERVO_TICK (20ms 주기): 최신 좌표로 서보 업데이트
+	// ========================================
 	if (currEvent == EVENT_SERVO_TICK) {
 		if (state != TRACKING_IDLE) {
-			Controller_Tracking_PushData();
+			Controller_Tracking_PushData();  // 20ms마다 한 번만 호출
 		}
 	}
 
+	// ========================================
+	// 3. FPGA_DATA_RECEIVED: 좌표만 저장 (아직 업데이트 안 함)
+	// ========================================
 	if (currEvent == EVENT_FPGA_DATA_RECEIVED) {
 		// FPGA에서 받은 SPI 데이터 처리
 		extern RxPacket_t g_rx_packet_tracking;
@@ -103,11 +130,12 @@ void Controller_Tracking_HandleSignal(uint16_t currEvent) {
 
 			valid_count++;
 
-			// 좌표 업데이트 및 패킷 언패킹
+			// 좌표 업데이트만 수행 (아직 Servo 업데이트 안 함!)
+			// → EVENT_SERVO_TICK에서 20ms 주기로만 업데이트
 			Controller_Tracking_Unpack();
 
 			if (rx_count % 10000 == 0) {
-				printf("[FPGA] Valid #%lu: X=%u, Y=%u\r\n", valid_count, x, y);
+				printf("[FPGA] Valid #%lu: X=%u, Y=%u (Pending update...)\r\n", valid_count, x, y);
 			}
 		}
 	}

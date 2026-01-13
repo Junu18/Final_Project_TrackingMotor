@@ -152,59 +152,53 @@ void StartDefaultTask(void const * argument)
 
 /* USER CODE BEGIN Header_Listener */
 /**
- * @brief Function implementing the ListenerTask thread.
- * @param argument: Not used
+ * @brief  Function implementing the ListenerTask thread.
+ * @param  argument: Not used
  * @retval None
  */
 /* USER CODE END Header_Listener */
 void Listener(void const * argument)
 {
-  /* USER CODE BEGIN Listener */
-	Listener_Init();
-	/* Infinite loop */
-	for (;;) {
-		Listener_Excute();
-		osDelay(1);
-	}
-  /* USER CODE END Listener */
+  Listener_Tracking_Init();
+  Listener_Tracking_StartReceive();
+
+  for(;;) {
+    osDelay(1);
+  }
 }
 
 /* USER CODE BEGIN Header_Controller */
 /**
- * @brief Function implementing the ControllerTask thread.
- * @param argument: Not used
+ * @brief  Function implementing the ControllerTask thread.
+ * @param  argument: Not used
  * @retval None
  */
 /* USER CODE END Header_Controller */
 void Controller(void const * argument)
 {
-  /* USER CODE BEGIN Controller */
-	Controller_Init();
-	/* Infinite loop */
-	for (;;) {
-		Controller_Excute();
-		osDelay(1);
-	}
-  /* USER CODE END Controller */
+  Controller_Tracking_Init();
+
+  for(;;) {
+    Controller_Tracking_Excute();
+    osDelay(10);
+  }
 }
 
 /* USER CODE BEGIN Header_Presenter */
 /**
- * @brief Function implementing the PresenterTask thread.
- * @param argument: Not used
+ * @brief  Function implementing the PresenterTask thread.
+ * @param  argument: Not used
  * @retval None
  */
 /* USER CODE END Header_Presenter */
 void Presenter(void const * argument)
 {
-  /* USER CODE BEGIN Presenter */
-	Presenter_Init();
-	/* Infinite loop */
-	for (;;) {
-		Presenter_Excute();
-		osDelay(1);
-	}
-  /* USER CODE END Presenter */
+  Presenter_Tracking_Init();
+
+  for(;;) {
+    Presenter_Tracking_Excute();
+    osDelay(10);
+  }
 }
 
 /* Private application code --------------------------------------------------*/

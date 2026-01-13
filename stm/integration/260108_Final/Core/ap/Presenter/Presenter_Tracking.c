@@ -39,13 +39,24 @@ void Presenter_Tracking_Init() {
  */
 void Presenter_Tracking_Excute() {
 	static int freeCount = 0;
+	static uint32_t data_overflow_count = 0;
 
 	// ① Controller에서 보낸 메시지(포인터) 수신 (non-blocking)
 	osEvent evt = osMessageGet(trackingDataMsgBox, 0);
 	tracking_t *pTrackingData;
-	// 메시지 수신 실패 시 조기 리턴
-	if (evt.status != osEventMessage)
+	
+	/* Queue Overflow 모니터링 */
+	if (evt.status != osEventMessage) {
+		if (evt.status != osEventTimeout) {
+			// Timeout이 아닌 다른 에러 (Overflow 등)
+			data_overflow_count++;
+			if (data_overflow_count % 100 == 0) {
+				printf("[WARNING] Data Queue Error: %lu (Status: %x)\r\n", 
+					   data_overflow_count, evt.status);
+			}
+		}
 		return;
+	}
 
 	// ② 포인터 추출 (Controller가 보낸 tracking_t* 주소)
 	pTrackingData = (tracking_t*) evt.value.p;

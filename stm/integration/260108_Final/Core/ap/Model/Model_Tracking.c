@@ -15,16 +15,20 @@
 /**
  * @brief  FreeRTOS Queue & Pool 정의
  * @note   Reference Architecture: Queue는 Model에서 관리
+ *         Event Queue 크기: 
+ *         - SPI 인터럽트 (100Hz) + TIM3 인터럽트 (50Hz)
+ *         - 최악의 경우 20ms 안에 3개 이벤트 가능
+ *         - 안전마진 2배 → 크기 8로 설정
  */
 trackingState_t trackingState = TRACKING_IDLE;
 
 /* Event Queue: Listener → Controller */
 osMessageQId trackingEventMsgBox;
-osMessageQDef(trackingEventQue, 4, trackingEvent_t);
+osMessageQDef(trackingEventQue, 16, trackingEvent_t);  // 4 → 16 (안전마진)
 
 /* Data Queue: Controller → Presenter */
 osMessageQId trackingDataMsgBox;
-osMessageQDef(trackingDataQue, 4, tracking_t);
+osMessageQDef(trackingDataQue, 8, tracking_t);  // 4 → 8 (안전마진)
 
 /* Memory Pool: 동적 메모리 할당 */
 osPoolDef(poolTrackingData, 16, tracking_t);
