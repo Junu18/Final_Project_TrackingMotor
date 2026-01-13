@@ -261,13 +261,6 @@ void SPI1_IRQHandler(void)
       // 3. Event 발행 (FreeRTOS ISR-safe)
       osMessagePut(trackingEventMsgBox, EVENT_FPGA_DATA_RECEIVED, 0);
 
-      // ===== DEBUG: 매 100회마다 출력 =====
-      if (g_isr_count % 100 == 0) {
-          printf("[SPI_ISR] Count: %ld | RX_Data: 0x%02X 0x%02X 0x%02X 0x%02X | Raw: 0x%08lX\r\n",
-                 g_isr_count, rx_buff[0], rx_buff[1], rx_buff[2], rx_buff[3], 
-                 g_rx_packet_tracking.raw);
-      }
-
       // 4. 다음 수신 준비 (연속 수신)
       tx_index = 0;
       rx_index = 0;
