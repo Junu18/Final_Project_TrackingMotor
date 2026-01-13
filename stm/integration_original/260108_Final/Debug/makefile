@@ -17,7 +17,6 @@ RM := rm -rf
 -include Core/driver/lcd/subdir.mk
 -include Core/driver/button/subdir.mk
 -include Core/driver/ServoMotor/subdir.mk
--include Core/driver/SPI/subdir.mk
 -include Core/ap/Presenter/subdir.mk
 -include Core/ap/Model/subdir.mk
 -include Core/ap/Listener/subdir.mk
@@ -73,8 +72,8 @@ all: main-build
 main-build: 260108_Final.elf secondary-outputs
 
 # Tool invocations
-260108_Final.elf 260108_Final.map: $(OBJS) $(USER_OBJS) D:\workspace\STM32\260108_Final\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "260108_Final.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\workspace\STM32\260108_Final\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="260108_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+260108_Final.elf 260108_Final.map: $(OBJS) $(USER_OBJS) D:\work\STM32\260108_Final\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "260108_Final.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\work\STM32\260108_Final\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="260108_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

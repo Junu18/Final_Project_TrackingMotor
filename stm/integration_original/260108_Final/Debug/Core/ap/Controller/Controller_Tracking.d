@@ -53,7 +53,6 @@ Core/ap/Controller/Controller_Tracking.o: \
  ../Core/Inc/tim.h ../Core/Inc/main.h \
  ../Core/ap/Controller/../Common/../Controller/Controller_Tracking.h \
  ../Core/ap/Controller/../Model/Model_Tracking.h \
- ../Core/ap/Controller/../Model/../Common/Common.h \
  ../Core/ap/Controller/../../driver/lcd/lcd.h ../Core/Inc/i2c.h \
  ../Core/Inc/usart.h
 ../Core/ap/Controller/Controller_Tracking.h:
@@ -110,7 +109,6 @@ Core/ap/Controller/Controller_Tracking.o: \
 ../Core/Inc/main.h:
 ../Core/ap/Controller/../Common/../Controller/Controller_Tracking.h:
 ../Core/ap/Controller/../Model/Model_Tracking.h:
-../Core/ap/Controller/../Model/../Common/Common.h:
 ../Core/ap/Controller/../../driver/lcd/lcd.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/usart.h:

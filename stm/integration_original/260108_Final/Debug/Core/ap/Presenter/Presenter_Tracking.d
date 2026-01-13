@@ -18,9 +18,8 @@ Core/ap/Presenter/Presenter_Tracking.o: \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/ap/Presenter/../Model/Model_Tracking.h \
- ../Core/ap/Presenter/../Model/../Common/Common.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ ../Core/ap/Presenter/../Model/Model_Tracking.h ../Core/Inc/usart.h \
+ ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -51,14 +50,9 @@ Core/ap/Presenter/Presenter_Tracking.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/tim.h ../Core/Inc/main.h \
- ../Core/ap/Presenter/../Model/../Common/../Controller/Controller_Tracking.h \
- ../Core/ap/Presenter/../Model/../Common/../Controller/../Common/Common.h \
- ../Core/ap/Presenter/../Model/../Common/../Controller/../Model/Model_Tracking.h \
- ../Core/ap/Presenter/../Model/../Common/../Controller/../../driver/lcd/lcd.h \
- ../Core/Inc/i2c.h ../Core/Inc/usart.h \
  ../Core/ap/Presenter/../../driver/lcd/lcd.h \
- ../Core/ap/Presenter/../../driver/ServoMotor/ServoMotor.h
+ ../Core/ap/Presenter/../../driver/ServoMotor/ServoMotor.h \
+ ../Core/Inc/tim.h ../Core/Inc/i2c.h
 ../Core/ap/Presenter/Presenter_Tracking.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
@@ -78,7 +72,8 @@ Core/ap/Presenter/Presenter_Tracking.o: \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Core/ap/Presenter/../Model/Model_Tracking.h:
-../Core/ap/Presenter/../Model/../Common/Common.h:
+../Core/Inc/usart.h:
+../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -110,13 +105,7 @@ Core/ap/Presenter/Presenter_Tracking.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Inc/tim.h:
-../Core/Inc/main.h:
-../Core/ap/Presenter/../Model/../Common/../Controller/Controller_Tracking.h:
-../Core/ap/Presenter/../Model/../Common/../Controller/../Common/Common.h:
-../Core/ap/Presenter/../Model/../Common/../Controller/../Model/Model_Tracking.h:
-../Core/ap/Presenter/../Model/../Common/../Controller/../../driver/lcd/lcd.h:
-../Core/Inc/i2c.h:
-../Core/Inc/usart.h:
 ../Core/ap/Presenter/../../driver/lcd/lcd.h:
 ../Core/ap/Presenter/../../driver/ServoMotor/ServoMotor.h:
+../Core/Inc/tim.h:
+../Core/Inc/i2c.h:

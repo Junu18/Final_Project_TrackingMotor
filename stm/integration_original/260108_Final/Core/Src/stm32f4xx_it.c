@@ -22,10 +22,6 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "cmsis_os.h"
-#include "../ap/Common/Common.h"
-#include "../ap/Model/Model_Tracking.h"
-#include "../ap/Listener/Listener_Tracking.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -224,6 +220,7 @@ void SPI1_IRQHandler(void)
   extern uint8_t rx_buff[4];
   extern RxPacket_t g_rx_packet_tracking;
   extern osMessageQId trackingEventMsgBox;
+  // g_isr_count는 이 파일에 정의되어 있음 (line 44)
 
   static uint8_t tx_index = 0;
   static uint8_t rx_index = 0;
@@ -247,6 +244,8 @@ void SPI1_IRQHandler(void)
 
   // 4바이트 송수신 완료
   if (tx_index >= 4 && rx_index >= 4) {
+      // BSY 대기 제거 - Full-Duplex에서 마지막 RXNE면 전송 완료
+
       g_isr_count++;  // ISR 카운터 증가
 
       // 1. CS High (전송 완료)

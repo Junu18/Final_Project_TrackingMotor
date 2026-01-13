@@ -14,27 +14,44 @@
 
 /**
  * @brief  FreeRTOS Queue & Pool 정의
- * @note   Reference Architecture: Queue는 Model에서 관리
+ * @note   
  */
-trackingState_t trackingState = TRACKING_IDLE;
+trackingState_t trackingState = TRACKING_IDLE; // state shared memory
 
-/* Event Queue: Listener → Controller */
+
+/**
+ * @brief  Event Queue
+ * @note   Listener → Controller
+ */
 osMessageQId trackingEventMsgBox;
-osMessageQDef(trackingEventQue, 4, trackingEvent_t);
+osMessageQDef(trackingEventQue, 100, trackingEvent_t);  // 16 → 100 (overflow 방지)
 
-/* Data Queue: Controller → Presenter */
+
+/**
+ * @brief  Data Queue
+ * @note   Controller → Presenter
+ * 		   tracking_t 구조체는 header에 정의
+ */
 osMessageQId trackingDataMsgBox;
-osMessageQDef(trackingDataQue, 4, tracking_t);
+osMessageQDef(trackingDataQue, 100, tracking_t);  // 16 → 100 (overflow 방지) 
 
-/* Memory Pool: 동적 메모리 할당 */
-osPoolDef(poolTrackingData, 16, tracking_t);
+
+/**
+ * @brief  Memory Pool
+ * @note   동적 메모리 할당 (Dynamic memory allocation provided by RTOS)
+ * 		    
+ */
+osPoolDef(poolTrackingEvent, 16, trackingEvent_t);
+osPoolId poolTrackingEvent;
+osPoolDef(poolTrackingData, 32, tracking_t);
 osPoolId poolTrackingData;
 
 
 /**
- * @brief  Queue/Pool 초기화 (main.c에서 호출)
+ * @brief  Queue/Pool 초기화 (freertos.c의 MX_FREERTOS_Init에서 호출)
  */
 void Model_TrackingInit() {
+	poolTrackingEvent = osPoolCreate(osPool(poolTrackingEvent));
 	poolTrackingData = osPoolCreate(osPool(poolTrackingData));
 	trackingEventMsgBox = osMessageCreate(osMessageQ(trackingEventQue), NULL);
 	trackingDataMsgBox = osMessageCreate(osMessageQ(trackingDataQue), NULL);

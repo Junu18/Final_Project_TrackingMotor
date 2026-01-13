@@ -18,7 +18,8 @@ Core/ap/Listener/Listener.o: ../Core/ap/Listener/Listener.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/ap/Listener/../Model/../Common/Common.h \
+ ../Core/ap/Listener/Listener_Tracking.h \
+ ../Core/ap/Listener/../../driver/button/button.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -49,14 +50,7 @@ Core/ap/Listener/Listener.o: ../Core/ap/Listener/Listener.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/tim.h ../Core/Inc/main.h \
- ../Core/ap/Listener/../Model/../Common/../Controller/Controller_Tracking.h \
- ../Core/ap/Listener/../Model/../Common/../Controller/../Common/Common.h \
- ../Core/ap/Listener/../Model/../Common/../Controller/../Model/Model_Tracking.h \
- ../Core/ap/Listener/../Model/../Common/../Controller/../../driver/lcd/lcd.h \
- ../Core/Inc/i2c.h ../Core/ap/Listener/Listener_Tracking.h \
- ../Core/ap/Listener/../../driver/button/button.h
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 ../Core/ap/Listener/Listener.h:
 ../Core/ap/Listener/../Model/Model_Tracking.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
@@ -76,7 +70,8 @@ Core/ap/Listener/Listener.o: ../Core/ap/Listener/Listener.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
-../Core/ap/Listener/../Model/../Common/Common.h:
+../Core/ap/Listener/Listener_Tracking.h:
+../Core/ap/Listener/../../driver/button/button.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -108,12 +103,3 @@ Core/ap/Listener/Listener.o: ../Core/ap/Listener/Listener.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Inc/tim.h:
-../Core/Inc/main.h:
-../Core/ap/Listener/../Model/../Common/../Controller/Controller_Tracking.h:
-../Core/ap/Listener/../Model/../Common/../Controller/../Common/Common.h:
-../Core/ap/Listener/../Model/../Common/../Controller/../Model/Model_Tracking.h:
-../Core/ap/Listener/../Model/../Common/../Controller/../../driver/lcd/lcd.h:
-../Core/Inc/i2c.h:
-../Core/ap/Listener/Listener_Tracking.h:
-../Core/ap/Listener/../../driver/button/button.h:

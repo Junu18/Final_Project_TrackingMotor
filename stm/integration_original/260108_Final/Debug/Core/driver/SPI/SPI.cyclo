@@ -1,4 +1,0 @@
-../Core/driver/SPI/SPI.c:13:6:SPI_Init	1
-../Core/driver/SPI/SPI.c:18:6:SPI_CS_Low	1
-../Core/driver/SPI/SPI.c:22:6:SPI_CS_High	1
-../Core/driver/SPI/SPI.c:27:19:SPI_Transfer32	1

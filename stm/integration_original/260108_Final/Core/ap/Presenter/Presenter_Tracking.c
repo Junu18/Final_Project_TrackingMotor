@@ -18,9 +18,10 @@ Servo_t hServoTilt;
 
 /**
  * @brief Presenter 초기화
- * @note  LCD 없이 LCD 초기화 제거 (UART 디버깅 사용)
+ * @note  
  */
 void Presenter_Tracking_Init() {
+	LCD_Init(&hi2c1);
 	Servo_Init(&hServoPan, &htim3, TIM_CHANNEL_1);
 	Servo_SetAngle(&hServoPan, CENTER_PAN);
 	Servo_Disable(&hServoPan);
@@ -28,8 +29,6 @@ void Presenter_Tracking_Init() {
 	Servo_Init(&hServoTilt, &htim3, TIM_CHANNEL_2);
 	Servo_SetAngle(&hServoTilt, CENTER_TILT);
 	Servo_Disable(&hServoTilt);
-
-	printf("[Presenter] Tracking Presenter Initialized\r\n");
 }
 
 
@@ -40,32 +39,28 @@ void Presenter_Tracking_Init() {
 void Presenter_Tracking_Excute() {
 	static int freeCount = 0;
 
-	// ① Controller에서 보낸 메시지(포인터) 수신 (non-blocking)
-	osEvent evt = osMessageGet(trackingDataMsgBox, 0);
+	// ① Controller에서 보낸 메시지(포인터) 수신 (대기)
+	osEvent evt = osMessageGet(trackingDataMsgBox, osWaitForever);
 	tracking_t *pTrackingData;
-	// 메시지 수신 실패 시 조기 리턴
+	 // 메시지 수신 실패 시 조기 리턴
 	if (evt.status != osEventMessage)
 		return;
 
 	// ② 포인터 추출 (Controller가 보낸 tracking_t* 주소)
+	// 포인터를 추출 하는 이유는 메시지 큐에 구조체 전체를 복사하는 것은 비효율적이기 때문
 	pTrackingData = (tracking_t*) evt.value.p;
 
 	// ③ 상태 갱신 + 서보 제어
 	Presenter_Tracking_UpdateState(pTrackingData);
-
-	// ④ UART 디버깅 출력
-	printf("[Presenter] X:%u Y:%u | Pan:%d Tilt:%d | RX:%lu\r\n",
-		   pTrackingData->x_pos,
-		   pTrackingData->y_pos,
-		   pTrackingData->angle_pan,
-		   pTrackingData->angle_tilt,
-		   pTrackingData->rx_count);
+//	Presenter_Tracking_DispLCD(pTrackingData);
 
 	// ⑤ 메모리 반환 (Controller가 할당한 메모리 풀 블록 해제)
 	if (osPoolFree(poolTrackingData, pTrackingData) == osOK) {
 		freeCount++;
-		if (freeCount % 100 == 0) { // 100번에 한 번만
-			printf("[PoolFree] Count: %d\r\n", freeCount);
+		if (freeCount % 10 == 0) { // 너무 자주 찍히면 느려지니까 10번에 한 번만
+			char buf[20];
+			sprintf(buf, "Free OK: %d\r\n", freeCount);
+			HAL_UART_Transmit(&huart2, (uint8_t*) buf, strlen(buf), 10);
 		}
 	}
 }

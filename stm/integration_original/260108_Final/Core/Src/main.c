@@ -27,13 +27,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
-#include <stdbool.h>
-#include "../ap/Common/Common.h"
 #include "../ap/Listener/Listener_Tracking.h"
-#include "../ap/Model/Model_Tracking.h"
-#include "../ap/Controller/Controller_Tracking.h"
-#include "../ap/Presenter/Presenter_Tracking.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,37 +51,18 @@
 extern I2C_HandleTypeDef hi2c1;
 extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart2;
-
-/* RTOS Task Handles */
-osThreadId defaultTaskHandle;
-osThreadId Listener_TaskHandle;
-osThreadId Controller_TaskHandle;
-osThreadId Presenter_TaskHandle;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
-
-/* Task function prototypes */
-void StartDefaultTask(void const * argument);
-void Listener(void const * argument);
-void Controller(void const * argument);
-void Presenter(void const * argument);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-/**
-  * @brief printf redirection to UART2
-  */
-int _write(int file, char *ptr, int len)
-{
-    HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len, 10);
-    return len;
-}
+
 /* USER CODE END 0 */
 
 /**
@@ -127,32 +102,13 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
-  // UART test message
-  printf("\r\n");
+  // UART 테스트 메시지 (시스템 시작 확인)
   printf("========================================\r\n");
   printf("  STM32 System Initialized\r\n");
   printf("  UART2 Working - Baud: 115200\r\n");
   printf("========================================\r\n");
-  printf("\r\n");
-
-  /* Model Queue/Pool initialization */
-  extern void Model_TrackingInit(void);
-  Model_TrackingInit();
 
   /* USER CODE END 2 */
-
-  /* Create RTOS Tasks */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-
-  osThreadDef(Listener_Task, Listener, osPriorityNormal, 0, 128);
-  Listener_TaskHandle = osThreadCreate(osThread(Listener_Task), NULL);
-
-  osThreadDef(Controller_Task, Controller, osPriorityNormal, 0, 256);
-  Controller_TaskHandle = osThreadCreate(osThread(Controller_Task), NULL);
-
-  osThreadDef(Presenter_Task, Presenter, osPriorityNormal, 0, 512);
-  Presenter_TaskHandle = osThreadCreate(osThread(Presenter_Task), NULL);
 
   /* Call init function for freertos objects (in cmsis_os2.c) */
   MX_FREERTOS_Init();
@@ -161,6 +117,14 @@ int main(void)
   osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
+
+
+
+/**
+ * @brief 무한 루프
+ * @note  
+ *       
+ */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -219,56 +183,6 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
-/**
- * @brief Default task
- */
-void StartDefaultTask(void const * argument)
-{
-  for(;;) {
-    osDelay(1000);
-  }
-}
-
-/**
- * @brief Listener Task
- */
-void Listener(void const * argument)
-{
-  Listener_Tracking_Init();
-  Listener_Tracking_StartReceive();
-
-  for(;;) {
-    Listener_Tracking_Excute();
-    osDelay(10);
-  }
-}
-
-/**
- * @brief Controller Task
- */
-void Controller(void const * argument)
-{
-  Controller_Tracking_Init();
-
-  for(;;) {
-    Controller_Tracking_Excute();
-    osDelay(10);
-  }
-}
-
-/**
- * @brief Presenter Task
- */
-void Presenter(void const * argument)
-{
-  Presenter_Tracking_Init();
-
-  for(;;) {
-    Presenter_Tracking_Excute();
-    osDelay(10);
-  }
-}
-
 /* USER CODE END 4 */
 
 /**
@@ -289,7 +203,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-  /* Removed TIM3 callback - using SPI interrupt instead */
+	if (htim->Instance == TIM3) {
+		Listener_Tracking_TIM_ISR();
+	}
   /* USER CODE END Callback 1 */
 }
 

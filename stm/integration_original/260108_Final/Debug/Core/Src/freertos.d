@@ -49,16 +49,15 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Core/Src/../ap/Listener/Listener.h \
  ../Core/Src/../ap/Listener/../Model/Model_Tracking.h \
- ../Core/Src/../ap/Listener/../Model/../Common/Common.h ../Core/Inc/tim.h \
- ../Core/Inc/main.h \
- ../Core/Src/../ap/Listener/../Model/../Common/../Controller/Controller_Tracking.h \
- ../Core/Src/../ap/Listener/../Model/../Common/../Controller/../Common/Common.h \
- ../Core/Src/../ap/Listener/../Model/../Common/../Controller/../Model/Model_Tracking.h \
- ../Core/Src/../ap/Listener/../Model/../Common/../Controller/../../driver/lcd/lcd.h \
- ../Core/Inc/i2c.h ../Core/Src/../ap/Listener/Listener_Tracking.h \
+ ../Core/Src/../ap/Listener/Listener_Tracking.h \
  ../Core/Src/../ap/Listener/../../driver/button/button.h \
  ../Core/Src/../ap/Controller/Controller.h \
  ../Core/Src/../ap/Controller/Controller_Tracking.h \
+ ../Core/Src/../ap/Controller/../Common/Common.h ../Core/Inc/tim.h \
+ ../Core/Inc/main.h \
+ ../Core/Src/../ap/Controller/../Common/../Controller/Controller_Tracking.h \
+ ../Core/Src/../ap/Controller/../Model/Model_Tracking.h \
+ ../Core/Src/../ap/Controller/../../driver/lcd/lcd.h ../Core/Inc/i2c.h \
  ../Core/Src/../ap/Presenter/Presenter.h \
  ../Core/Src/../ap/Presenter/Presenter_Tracking.h \
  ../Core/Src/../ap/Presenter/../Model/Model_Tracking.h \
@@ -116,18 +115,17 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Core/Src/../ap/Listener/Listener.h:
 ../Core/Src/../ap/Listener/../Model/Model_Tracking.h:
-../Core/Src/../ap/Listener/../Model/../Common/Common.h:
-../Core/Inc/tim.h:
-../Core/Inc/main.h:
-../Core/Src/../ap/Listener/../Model/../Common/../Controller/Controller_Tracking.h:
-../Core/Src/../ap/Listener/../Model/../Common/../Controller/../Common/Common.h:
-../Core/Src/../ap/Listener/../Model/../Common/../Controller/../Model/Model_Tracking.h:
-../Core/Src/../ap/Listener/../Model/../Common/../Controller/../../driver/lcd/lcd.h:
-../Core/Inc/i2c.h:
 ../Core/Src/../ap/Listener/Listener_Tracking.h:
 ../Core/Src/../ap/Listener/../../driver/button/button.h:
 ../Core/Src/../ap/Controller/Controller.h:
 ../Core/Src/../ap/Controller/Controller_Tracking.h:
+../Core/Src/../ap/Controller/../Common/Common.h:
+../Core/Inc/tim.h:
+../Core/Inc/main.h:
+../Core/Src/../ap/Controller/../Common/../Controller/Controller_Tracking.h:
+../Core/Src/../ap/Controller/../Model/Model_Tracking.h:
+../Core/Src/../ap/Controller/../../driver/lcd/lcd.h:
+../Core/Inc/i2c.h:
 ../Core/Src/../ap/Presenter/Presenter.h:
 ../Core/Src/../ap/Presenter/Presenter_Tracking.h:
 ../Core/Src/../ap/Presenter/../Model/Model_Tracking.h:

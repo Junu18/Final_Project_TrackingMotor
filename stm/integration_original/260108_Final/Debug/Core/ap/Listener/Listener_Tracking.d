@@ -50,15 +50,8 @@ Core/ap/Listener/Listener_Tracking.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/ap/Listener/../Model/Model_Tracking.h \
- ../Core/ap/Listener/../Model/../Common/Common.h ../Core/Inc/tim.h \
- ../Core/Inc/main.h \
- ../Core/ap/Listener/../Model/../Common/../Controller/Controller_Tracking.h \
- ../Core/ap/Listener/../Model/../Common/../Controller/../Common/Common.h \
- ../Core/ap/Listener/../Model/../Common/../Controller/../Model/Model_Tracking.h \
- ../Core/ap/Listener/../Model/../Common/../Controller/../../driver/lcd/lcd.h \
- ../Core/Inc/i2c.h ../Core/Inc/usart.h ../Core/Inc/main.h \
- ../Core/Inc/spi.h
+ ../Core/ap/Listener/../Model/Model_Tracking.h ../Core/Inc/usart.h \
+ ../Core/Inc/main.h
 ../Core/ap/Listener/Listener_Tracking.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
@@ -110,14 +103,5 @@ Core/ap/Listener/Listener_Tracking.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../Core/ap/Listener/../Model/Model_Tracking.h:
-../Core/ap/Listener/../Model/../Common/Common.h:
-../Core/Inc/tim.h:
-../Core/Inc/main.h:
-../Core/ap/Listener/../Model/../Common/../Controller/Controller_Tracking.h:
-../Core/ap/Listener/../Model/../Common/../Controller/../Common/Common.h:
-../Core/ap/Listener/../Model/../Common/../Controller/../Model/Model_Tracking.h:
-../Core/ap/Listener/../Model/../Common/../Controller/../../driver/lcd/lcd.h:
-../Core/Inc/i2c.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
-../Core/Inc/spi.h:
