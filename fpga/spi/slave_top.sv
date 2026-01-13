@@ -18,13 +18,16 @@ module slave_top (
     output logic [ 7:0] mortor_xdata,
     output logic [ 6:0] mortor_ydata,
     output logic [16:0] mosi_etc,
-    output logic        mosi_valid 
+    output logic        mosi_valid
 );
 
     logic        req;
     logic [31:0] miso_data_frame;
     logic [31:0] mosi_data_frame;
 
+    assign mortor_xdata = mosi_data_frame[31:24];
+    assign mortor_ydata = mosi_data_frame[23:17];
+    assign mosi_etc     = mosi_data_frame[16:0];
 
     spi_packer u_packer (
         .clk       (clk),
