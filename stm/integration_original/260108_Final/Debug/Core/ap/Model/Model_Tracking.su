@@ -1,0 +1,5 @@
+../Core/ap/Model/Model_Tracking.c:53:6:Model_TrackingInit	8	static
+../Core/ap/Model/Model_Tracking.c:63:6:Model_Tracking_UpdateXY	16	static
+../Core/ap/Model/Model_Tracking.c:73:6:Model_Tracking_UpdateAngles	16	static
+../Core/ap/Model/Model_Tracking.c:88:6:Model_SetTrackingState	16	static
+../Core/ap/Model/Model_Tracking.c:97:17:Model_GetTrackingState	4	static
