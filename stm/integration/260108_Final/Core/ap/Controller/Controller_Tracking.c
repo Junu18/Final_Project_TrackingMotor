@@ -10,7 +10,6 @@
 #include <stdlib.h>
 
 tracking_t trackingData;
-static uint32_t g_event_rx_count = 0;
 
 // ========================================
 // Averaging Buffer (평균값 계산용)
@@ -211,6 +210,24 @@ void Controller_Tracking_ComputeServoAngle() {
 	if (trackingData.angle_pan > 180) trackingData.angle_pan = 180;
 	if (trackingData.angle_tilt < 0) trackingData.angle_tilt = 0;
 	if (trackingData.angle_tilt > 180) trackingData.angle_tilt = 180;
+}
+
+void Controller_Tracking_Unpack() {
+	// SPI ISR에서 저장한 FPGA 패킷 참조
+	extern RxPacket_t g_rx_packet_tracking;
+	
+	// 패킷에서 헤더 검증 (0x55)
+	if (g_rx_packet_tracking.fields.header != 0x55) {
+		trackingData.rx_error_count++;
+		return;
+	}
+
+	// 좌표 추출
+	trackingData.x_pos = g_rx_packet_tracking.fields.x_pos;
+	trackingData.y_pos = g_rx_packet_tracking.fields.y_pos;
+	trackingData.rx_packet.raw = g_rx_packet_tracking.raw;
+	trackingData.rx_count++;
+	trackingData.is_Detected = true;
 }
 
 void Controller_Tracking_PushData() {
