@@ -1,20 +1,18 @@
 `timescale 1ns / 1ps
 
 module slave_top (
-    /////// global
     input  logic        clk,
     input  logic        reset,
-    /////// spi protocol port
+
     input  logic        sclk,
     input  logic        mosi,
     output logic        miso,
     input  logic        cs,
-    ////// miso data
+
     input  logic [ 9:0] enemy_xdata,
     input  logic [ 8:0] enemy_ydata,
     input  logic [12:0] miso_etc,
-    ////// mosi data
-    //valid when mosi_valid is 1.
+
     output logic [ 7:0] mortor_xdata,
     output logic [ 6:0] mortor_ydata,
     output logic [16:0] mosi_etc,
@@ -29,6 +27,28 @@ module slave_top (
     assign mortor_ydata = mosi_data_frame[23:17];
     assign mosi_etc     = mosi_data_frame[16:0];
 
+    logic sclk_sync0, sclk_sync1;
+    logic cs_sync0,   cs_sync1;
+    logic mosi_sync0, mosi_sync1;
+
+    always_ff @(posedge clk, posedge reset) begin
+        if (reset) begin
+            sclk_sync0 <= 1'b0;
+            sclk_sync1 <= 1'b0;
+            cs_sync0   <= 1'b1;
+            cs_sync1   <= 1'b1;
+            mosi_sync0 <= 1'b0;
+            mosi_sync1 <= 1'b0;
+        end else begin
+            sclk_sync0 <= sclk;
+            sclk_sync1 <= sclk_sync0;
+            cs_sync0   <= cs;
+            cs_sync1   <= cs_sync0;
+            mosi_sync0 <= mosi;
+            mosi_sync1 <= mosi_sync0;
+        end
+    end
+
     spi_packer u_packer (
         .clk       (clk),
         .reset     (reset),
@@ -42,9 +62,9 @@ module slave_top (
     spi_slave u_spi (
         .clk       (clk),
         .reset     (reset),
-        .sclk      (sclk),
-        .mosi      (mosi),
-        .cs        (cs),
+        .sclk      (sclk_sync1),
+        .mosi      (mosi_sync1),
+        .cs        (cs_sync1),
         .miso      (miso),
         .data_frame(miso_data_frame),
         .req       (req),

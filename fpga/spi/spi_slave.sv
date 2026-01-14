@@ -10,16 +10,15 @@ module spi_slave (
     output logic        miso,
 
     input  logic [31:0] data_frame,
-    output logic        req, //miso 데이터 버퍼 요청
+    output logic        req,
 
     output logic [31:0] rx_data,
     output logic        rx_valid
 );
 
-    //////////////////////////////// double ff -> sync
-    logic sclk_sync0, sclk_sync1;
-    logic cs_sync0,   cs_sync1;
-    logic mosi_sync0, mosi_sync1;
+    logic sclk_sync0, sclk_sync1, sclk_sync2;
+    logic cs_sync0,   cs_sync1,   cs_sync2;
+    logic mosi_sync0, mosi_sync1, mosi_sync2;
 
     logic sclk_rise, sclk_fall;
     logic cs_fall, cs_rise;
@@ -28,28 +27,35 @@ module spi_slave (
         if (reset) begin
             sclk_sync0 <= 1'b0;
             sclk_sync1 <= 1'b0;
+            sclk_sync2 <= 1'b0;
+
             cs_sync0   <= 1'b1;
             cs_sync1   <= 1'b1;
+            cs_sync2   <= 1'b1;
+
             mosi_sync0 <= 1'b0;
             mosi_sync1 <= 1'b0;
+            mosi_sync2 <= 1'b0;
         end else begin
             sclk_sync0 <= sclk;
             sclk_sync1 <= sclk_sync0;
+            sclk_sync2 <= sclk_sync1;
+
             cs_sync0   <= cs;
             cs_sync1   <= cs_sync0;
+            cs_sync2   <= cs_sync1;
+
             mosi_sync0 <= mosi;
             mosi_sync1 <= mosi_sync0;
+            mosi_sync2 <= mosi_sync1;
         end
     end
 
-    assign sclk_rise =  sclk_sync0 & ~sclk_sync1;
-    assign sclk_fall = ~sclk_sync0 &  sclk_sync1;
+    assign sclk_rise =  sclk_sync1 & ~sclk_sync2;
+    assign sclk_fall = ~sclk_sync1 &  sclk_sync2;
 
-    assign cs_fall   = ~cs_sync0 &  cs_sync1;
-    assign cs_rise   =  cs_sync0 & ~cs_sync1;
-    //////////////////////////////////////////////////
-
-
+    assign cs_fall   = ~cs_sync1 &  cs_sync2;
+    assign cs_rise   =  cs_sync1 & ~cs_sync2;
 
     typedef enum logic [1:0] {ST_IDLE, ST_PREP, ST_SHIFT, ST_HOLD} state_t;
     state_t state, state_next;
@@ -66,7 +72,7 @@ module spi_slave (
     logic [31:0] rx_data_reg, rx_data_next;
     logic        rx_valid_reg, rx_valid_next;
 
-    assign miso     = cs_sync0 ? 1'b0 : miso_reg; //안정화시 miso 전송 시작
+    assign miso     = cs_sync1 ? 1'b0 : miso_reg;
     assign req      = req_reg;
     assign rx_data  = rx_data_reg;
     assign rx_valid = rx_valid_reg;
@@ -74,7 +80,7 @@ module spi_slave (
     always_ff @(posedge clk, posedge reset) begin
         if (reset) begin
             state        <= ST_IDLE;
-            tx_shift     <= '0;
+            tx_shift     <= 32'b01_0011_1111_0_1110_1111_0000000000000;
             rx_shift     <= '0;
             bit_cnt      <= '0;
             prep_cnt     <= '0;
@@ -139,7 +145,7 @@ module spi_slave (
                 end
 
                 ST_SHIFT: begin
-                    if (sclk_rise) begin
+                    if (sclk_fall) begin
                         rx_shift_next = {rx_shift[30:0], mosi_sync1};
                         if (bit_cnt == 6'd31) begin
                             rx_data_next  = {rx_shift[30:0], mosi_sync1};
@@ -162,4 +168,5 @@ module spi_slave (
             endcase
         end
     end
+
 endmodule
