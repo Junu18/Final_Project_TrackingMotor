@@ -1,0 +1,5 @@
+../Core/driver/ServoMotor/ServoMotor.c:10:6:Servo_Init	24	static
+../Core/driver/ServoMotor/ServoMotor.c:22:6:Servo_SetAngle	24	static
+../Core/driver/ServoMotor/ServoMotor.c:37:6:Servo_Enable	16	static
+../Core/driver/ServoMotor/ServoMotor.c:41:6:Servo_Disable	16	static
+../Core/driver/ServoMotor/ServoMotor.c:45:6:Servo_AddAngle	24	static
