@@ -46,7 +46,7 @@ module slave_top (
         .mosi      (mosi),
         .cs        (cs),
         .miso      (miso),
-        .data_frame(miso_data_frame),
+        .data_frame(32'h55fa_507c),
         .req       (req),
         .rx_data   (mosi_data_frame),
         .rx_valid  (mosi_valid)
