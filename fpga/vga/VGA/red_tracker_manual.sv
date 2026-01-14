@@ -13,6 +13,7 @@ module red_tracker_manual (
     output logic [15:0][9:0] aim_x_all,
     output logic [15:0][9:0] aim_y_all,
     output logic [15:0]      aim_detected_all,
+    output logic             aim_detect,
 
     output logic [15:0][11:0] x_min_all,
     x_max_all,
@@ -83,7 +84,9 @@ module red_tracker_manual (
             if (aim_detected_all != 0) begin
                 target_cnt <= 0;
                 target_off <= 0;
+                aim_detect <= 1;
             end else begin
+                aim_detect <= 0;
                 if (target_cnt < SEC_3) target_cnt <= target_cnt + 1;
                 else target_off <= 1'b1;
             end

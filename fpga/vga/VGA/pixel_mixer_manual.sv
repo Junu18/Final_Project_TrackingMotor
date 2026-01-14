@@ -25,7 +25,11 @@ module pixel_mixer_manual (
 
     output logic [3:0] r_port,
     output logic [3:0] g_port,
-    output logic [3:0] b_port
+    output logic [3:0] b_port,
+
+    output logic [9:0] x_coor,
+    output logic [9:0] y_coor,
+    output logic       shoot
 );
     // --- 색상 정의 ---
     localparam logic [11:0] RED = 12'hF00;
@@ -143,6 +147,10 @@ module pixel_mixer_manual (
     // 조준선 그리기를 위한 절대거리 변수
     int dist_x, dist_y;
 
+    // assign y_coor = keyboard_data[0] ? 10'd190 : keyboard_data[2] ? 10'd290 : 10'd240;
+    // assign x_coor = keyboard_data[1] ? 10'd270 : keyboard_data[3] ? 10'd370 : 10'd320;
+    // assign shoot  = keyboard_data[4] ? 1'b1 : 1'b0;
+
     // =================================================================
     // 3. 로직 구현
     // =================================================================
@@ -160,28 +168,41 @@ module pixel_mixer_manual (
         end
     end
 
+    // miso signal
+    always_comb begin
+        x_coor = 10'd320;
+        y_coor = 10'd240;
+        shoot  = 1'b0;
+        if(keyboard_data[0]) y_coor = 10'd190;
+        else if(keyboard_data[2]) y_coor = 10'd290;
+        else if(keyboard_data[1]) x_coor = 10'd270;
+        else if(keyboard_data[3]) x_coor = 10'd320;
+        else if(keyboard_data[4]) shoot  = 1'b1; 
+    end
+
     // (2) 화면 그리기 로직
     always_comb begin
         // 초기화
-        on_box = 0;
-        on_aim = 0;
+        on_box       = 0;
+        on_aim       = 0;
         on_crosshair = 0;
-        is_wasd_ui = 0;
+        is_wasd_ui   = 0;
         is_wasd_char = 0;
-        wasd_color = WHITE;
-        is_l_ui = 0;
-        is_l_char = 0;
-        l_color = WHITE;
-        is_lock_ui = 0;
+        wasd_color   = WHITE;
+        is_l_ui      = 0;
+        is_l_char    = 0;
+        l_color      = WHITE;
+        is_lock_ui   = 0;
         is_lock_icon = 0;
-        rel_x = 0;
-        rel_y = 0;
-        char_x = 0;
-        char_y = 0;
+        rel_x        = 0;
+        rel_y        = 0;
+        char_x       = 0;
+        char_y       = 0;
+
 
         // --- A. 중앙 조준선 (이미지 스타일 구현) ---
-        dist_x = (x_pixel > CX) ? (x_pixel - CX) : (CX - x_pixel);
-        dist_y = (y_pixel > CY) ? (y_pixel - CY) : (CY - y_pixel);
+        dist_x       = (x_pixel > CX) ? (x_pixel - CX) : (CX - x_pixel);
+        dist_y       = (y_pixel > CY) ? (y_pixel - CY) : (CY - y_pixel);
 
         // 1. 중앙 원
         if ((dist_x * dist_x + dist_y * dist_y) <= 36) on_crosshair = 1;
@@ -208,7 +229,14 @@ module pixel_mixer_manual (
                     on_aim = 1;
             end
         end
-
+        // keyboard_data[0] = W 
+        // keyboard_data[1] = A
+        // keyboard_data[2] = S 
+        // keyboard_data[3] = D 
+        // keyboard_data[4] = L
+        // keyboard_data[5] = F1
+        // keyboard_data[6] = F2
+        // keyboard_data[7] = F3
         // --- C. WASD UI ---
         if (x_pixel >= WX1 && x_pixel < WX1 + KEY_SIZE && y_pixel >= WY1 && y_pixel < WY1 + KEY_SIZE) begin
             is_wasd_ui = 1;
@@ -297,7 +325,7 @@ module pixel_mixer_manual (
         end else if (is_l_ui) begin
             pixel_color = is_l_char ? BLACK : l_color;
         end else if (on_crosshair) begin
-            pixel_color = BLACK; // 중앙 조준선
+            pixel_color = BLACK;  // 중앙 조준선
         end else if (on_aim) begin
             pixel_color = AIM_COLOR;
         end else if (on_box) begin

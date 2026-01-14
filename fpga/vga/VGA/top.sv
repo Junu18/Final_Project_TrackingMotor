@@ -15,29 +15,21 @@ module top (
     output logic [3:0] b_port,
     output logic       SIO_C,
     output logic       SIO_D,
-<<<<<<< HEAD
     output logic       target_off,
 
     // keyboard
     input logic ps2_clk_keyboard,
-    input logic ps2_data_keyboard
-=======
-    output logic       target_locked_led,  // LED[14]
-    output logic       target_off,         // LED[15]
+    input logic ps2_data_keyboard,
 
-    inout logic PS2Clk,
-    inout logic PS2Data,
-
-    output logic debug_ps2clk,
-    output logic debug_ps2data,
+    //spi
     input  logic sclk,
     input  logic mosi,
     output logic miso,
     input  logic cs,
 
-    output logic [3:0] fnd_com,
-    output logic [7:0] fnd_seg
->>>>>>> 09cd8b49095b117816de4e7bdcde7f1b29e98cce
+    //fnd
+    output logic [ 3:0] fnd_com,
+    output logic [ 7:0] fnd_seg
 );
 
     logic             sys_clk;
@@ -61,41 +53,33 @@ module top (
     logic [15:0][9:0] aim_x_all;
     logic [15:0][9:0] aim_y_all;
     logic [15:0]      aim_detected_all;
+    logic             aim_detect_manual;
     logic [15:0][11:0] x_min_all, x_max_all, y_min_all, y_max_all;
-    logic target_off_manual;
+    logic       target_off_manual;
+    logic [9:0] x_coor_manual;
+    logic [9:0] y_coor_manual;
+    logic       shoot_manual;
 
     // auto_single
     logic [9:0] aim_x, aim_y;
-    logic aim_detected;
+    logic aim_detect_auto;
+    logic shoot_auto;
     logic [11:0] box_x_min, box_x_max, box_y_min, box_y_max;
 
-<<<<<<< HEAD
     logic [3:0] r_port_auto;
     logic [3:0] g_port_auto;
     logic [3:0] b_port_auto;
-=======
-    // 락온 제어 정보 (Controller <-> Pixel Mixer)
-    logic        is_locked;
-    logic [ 3:0] locked_idx;
-    logic        center_hit;
-
-    /////predict module port
-    logic [15:0] x_real_in;
-    logic [15:0] y_real_in;
-    logic [15:0] final_enemy_xdata;
-    logic [15:0] final_enemy_ydata;
-
-
-    ///spi module
-    logic [ 7:0] mortor_xdata;
-    logic [ 6:0] mortor_ydata;
-    logic        mosi_valid;
->>>>>>> 09cd8b49095b117816de4e7bdcde7f1b29e98cce
 
     logic [3:0] r_port_manual;
     logic [3:0] g_port_manual;
     logic [3:0] b_port_manual;
     logic       target_off_auto;
+
+    // miso signal
+    logic [9:0] x_coor;
+    logic [9:0] y_coor;
+    logic       red_detect;
+    logic       shoot;
 
     // led debug
     assign xclk = sys_clk;
@@ -167,10 +151,13 @@ module top (
         .y_pixel      (y_pixel),
         .keyboard_data(w_keyboard_data),
 
-<<<<<<< HEAD
         .r_port(r_port_manual),
         .g_port(g_port_manual),
-        .b_port(b_port_manual)
+        .b_port(b_port_manual),
+
+        .x_coor(x_coor_manual),
+        .y_coor(y_coor_manual),
+        .shoot (shoot_manual)
     );
 
     // Red Tracker 연결
@@ -186,67 +173,13 @@ module top (
         .aim_x_all       (aim_x_all),
         .aim_y_all       (aim_y_all),
         .aim_detected_all(aim_detected_all),
-=======
-        .mouse_x_pixel(mouse_x),
-        .mouse_y_pixel(mouse_y),
-        .click_l(click_l),
-        .click_r(click_r),
-        .click_m(click_m),
-
-        // Controller에서 온 신호들
-        .is_locked (is_locked),
-        .locked_idx(locked_idx),
-        .center_hit(center_hit),
-
-        .target_off(target_off),
-        .x_pixel(x_pixel),
-        .y_pixel(y_pixel),
-        .r_port(r_port),
-        .g_port(g_port),
-        .b_port(b_port),
-
-        // stm에 보낼 최종 좌표
-        .target_x_coor(x_real_in),
-        .target_y_coor(y_real_in)
-    );
-
-
-    enemy_predict_2s U_Predict (
-        .clk(clk),
-        .reset(reset),
-        .x_meas_now(x_real_in),
-        .y_meas_now(y_real_in),
-        .red_detect_in(aim_detected_led),
-        .x_predict_out(final_enemy_xdata),
-        .y_predict_out(final_enemy_ydata),
-        .vir_red_detect(vir_red_detect)
-    );
-
-
-    slave_top U_SPI_Slave (
-        .clk(clk),
-        .reset(reset),
-        /////// spi protocol port
-        .sclk(sclk),
-        .mosi(mosi),
-        .miso(miso),
-        .cs(cs),
-        ////// miso data
-        .enemy_xdata(final_enemy_xdata),
-        .enemy_ydata(final_enemy_ydata),
-        .miso_etc({vir_red_detect, raser_shoot, 11'b000_0000_0000}),
-        ////// mosi data
-        .mortor_xdata(mortor_xdata),
-        .mortor_ydata(mortor_ydata),
-        .mosi_valid(mosi_valid),  //valid when mosi_valid is 1.
-        .mosi_etc(17'b0_0000_0000_0000_0000)
->>>>>>> 09cd8b49095b117816de4e7bdcde7f1b29e98cce
 
         .x_min_all(x_min_all),
         .x_max_all(x_max_all),
         .y_min_all(y_min_all),
         .y_max_all(y_max_all),
 
+        .aim_detect(aim_detect_manual),
         .target_off(target_off_manual)
     );
 
@@ -254,7 +187,7 @@ module top (
         .img_bg      (img_cam),
         .aim_x       (aim_x),
         .aim_y       (aim_y),
-        .aim_detected(aim_detected),
+        .aim_detected(aim_detect_auto),
         .x_pixel     (x_pixel),
         .y_pixel     (y_pixel),
 
@@ -278,7 +211,8 @@ module top (
 
         .aim_x       (aim_x),
         .aim_y       (aim_y),
-        .aim_detected(aim_detected),
+        .aim_detected(aim_detect_auto),
+        .shoot       (shoot_auto),
 
         .x_min_out(box_x_min),
         .x_max_out(box_x_max),
@@ -300,27 +234,66 @@ module top (
         .clk              (sys_clk),
         .reset            (reset),
         .keyboard_data    (w_keyboard_data),
+        // auto
         .target_off_auto  (target_off_auto),
-        .target_off_manual(target_off_manual),
         .r_port_auto      (r_port_auto),
         .g_port_auto      (g_port_auto),
         .b_port_auto      (b_port_auto),
+        // miso auto
+        .x_coor_auto      (aim_x),
+        .y_coor_auto      (aim_y),
+        .red_detect_auto  (aim_detect_auto),
+        .shoot_auto       (shoot_auto),
+        // manual
+        .target_off_manual(target_off_manual),
         .r_port_manual    (r_port_manual),
         .g_port_manual    (g_port_manual),
         .b_port_manual    (b_port_manual),
-
-        .target_off(target_off),
-        .r_port    (r_port),
-        .g_port    (g_port),
-        .b_port    (b_port)
+        // miso manual
+        .x_coor_manual    (x_coor_manual),
+        .y_coor_manual    (y_coor_manual),
+        .red_detect_manual(aim_detect_manual),
+        .shoot_manual     (shoot_manual),
+        // output
+        .target_off       (target_off),
+        .r_port           (r_port),
+        .g_port           (g_port),
+        .b_port           (b_port),
+        // miso output
+        .x_coor           (x_coor),
+        .y_coor           (y_coor),
+        .red_detect       (red_detect),
+        .shoot            (shoot)
     );
 
-    fnd_controller U_FND (
+    logic [ 7:0] mortor_xdata;
+    logic [ 6:0] mortor_ydata;
+    logic [16:0] mosi_etc;
+    logic        mosi_valid;
+
+    slave_top U_SPI (
         .clk(clk),
         .reset(reset),
-        .cnt_data({6'b0,mortor_xdata}),
-        .fnd_com(fnd_com),
-        .fnd_seg(fnd_seg)
+        .sclk(sclk),
+        .mosi(mosi),
+        .miso(miso),
+        .cs(cs),
+        .enemy_xdata(x_coor),
+        .enemy_ydata(y_coor[8:0]),
+        .miso_etc({red_detect,shoot,11'b000_0000_0000}),
+        .mortor_xdata(mortor_xdata),
+        .mortor_ydata(mortor_ydata),
+        .mosi_etc(mosi_etc),
+        .mosi_valid(mosi_valid)
     );
+
+
+fnd_controller U_FND(
+    .clk(clk),
+    .reset(reset),
+    .cnt_data({4'b0000,x_coor}), // 14BIT
+    .fnd_com(fnd_com),
+    .fnd_seg(fnd_seg)
+);
 
 endmodule
