@@ -11,8 +11,8 @@
 #include <stdint.h>
 #include "stm32f4xx_hal.h"
 
-#define GPIO_BUZZER		GPIOB
-#define GPIO_PIN_BUZZER	GPIO_PIN_1
+#define GPIO_BUZZER		GPIOA
+#define GPIO_PIN_BUZZER	GPIO_PIN_11
 
 typedef struct {
 	GPIO_TypeDef*	GPIOx;
