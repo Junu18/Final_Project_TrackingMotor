@@ -17,7 +17,9 @@ module pixel_mixer_auto (
 
     output logic [3:0] r_port,
     output logic [3:0] g_port,
-    output logic [3:0] b_port
+    output logic [3:0] b_port,
+
+    output logic       shoot
 );
 
     // --- 색상 정의 ---
@@ -134,6 +136,7 @@ module pixel_mixer_auto (
         is_lock_ui = 0;
         is_lock_icon = 0;
         is_locked_on = 0;
+        shoot        = 0;
         rel_x = 0;
         rel_y = 0;
         char_x = 0;
@@ -144,6 +147,7 @@ module pixel_mixer_auto (
             if ( (aim_x > CX - LOCK_ZONE) && (aim_x < CX + LOCK_ZONE) &&
                  (aim_y > CY - LOCK_ZONE) && (aim_y < CY + LOCK_ZONE) ) begin
                 is_locked_on = 1;
+                shoot        = 1;
             end
         end
 

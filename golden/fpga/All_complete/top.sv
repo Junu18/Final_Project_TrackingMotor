@@ -202,7 +202,8 @@ module top (
         .box_y_max(box_y_max),
         .r_port   (r_port_auto),
         .g_port   (g_port_auto),
-        .b_port   (b_port_auto)
+        .b_port   (b_port_auto),
+        .shoot    (shoot_auto)
     );
 
     red_tracker_auto U_RED_TRACKER_AUTO (
@@ -217,7 +218,6 @@ module top (
         .aim_x       (aim_x),
         .aim_y       (aim_y),
         .aim_detected(aim_detect_auto),
-        .shoot       (shoot_auto),
 
         .x_min_out(box_x_min),
         .x_max_out(box_x_max),

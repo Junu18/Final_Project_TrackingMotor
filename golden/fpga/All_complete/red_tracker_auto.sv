@@ -11,7 +11,6 @@ module red_tracker_auto (
     output logic [ 9:0] aim_x,
     output logic [ 9:0] aim_y,
     output logic        aim_detected,
-    output logic        shoot,
     output logic [11:0] x_min_out,
     output logic [11:0] x_max_out,
     output logic [11:0] y_min_out,
@@ -75,7 +74,6 @@ module red_tracker_auto (
             aim_x        <= 320;
             aim_y        <= 240;
             aim_detected <= 0;
-            shoot        <= 0;
             x_min        <= 12'd4095;
             x_max        <= 0;
             y_min        <= 12'd4095;
@@ -89,7 +87,6 @@ module red_tracker_auto (
             if (vsync_start) begin
                 if (pixel_count > 50) begin
                     aim_detected <= 1'b1;
-                    shoot        <= 1'b1;
                     center_x = (x_min + x_max) >> 1;
                     center_y = (y_min + y_max) >> 1;
 
