@@ -1,0 +1,637 @@
+
+*** Running vivado
+    with args -log top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+
+
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source top.tcl -notrace
+Command: synth_design -top top -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 13004
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1106.387 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'top' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/top.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'sccb' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/sccb.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'tick_gen_800kHz' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/sccb.sv:35]
+INFO: [Synth 8-6155] done synthesizing module 'tick_gen_800kHz' (1#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/sccb.sv:35]
+INFO: [Synth 8-6157] synthesizing module 'sccb_controller' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/sccb.sv:60]
+	Parameter SLAVE_ADDR_WRITE bound to: 8'b01000010 
+	Parameter SLAVE_ADDR_READ bound to: 8'b01000011 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/sccb.sv:184]
+INFO: [Synth 8-6155] done synthesizing module 'sccb_controller' (2#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/sccb.sv:60]
+INFO: [Synth 8-6157] synthesizing module 'sccb_rom' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/sccb.sv:468]
+INFO: [Synth 8-6155] done synthesizing module 'sccb_rom' (3#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/sccb.sv:468]
+INFO: [Synth 8-6155] done synthesizing module 'sccb' (4#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/sccb.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.runs/synth_1/.Xil/Vivado-15572-DESKTOP-7CFQ9ND/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (5#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.runs/synth_1/.Xil/Vivado-15572-DESKTOP-7CFQ9ND/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'VGA_Syncher' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/VGA_Syncher.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'pixel_counter' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/VGA_Syncher.sv:21]
+	Parameter H_MAX bound to: 800 - type: integer 
+	Parameter V_MAX bound to: 525 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'pixel_counter' (6#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/VGA_Syncher.sv:21]
+INFO: [Synth 8-6157] synthesizing module 'vga_decoder' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/VGA_Syncher.sv:54]
+	Parameter H_Visible_area bound to: 640 - type: integer 
+	Parameter H_Front_porch bound to: 16 - type: integer 
+	Parameter H_Sync_pulse bound to: 96 - type: integer 
+	Parameter H_Back_porch bound to: 48 - type: integer 
+	Parameter V_Visible_area bound to: 480 - type: integer 
+	Parameter V_Front_porch bound to: 10 - type: integer 
+	Parameter V_Sync_pulse bound to: 2 - type: integer 
+	Parameter V_Back_porch bound to: 33 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'vga_decoder' (7#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/VGA_Syncher.sv:54]
+INFO: [Synth 8-6155] done synthesizing module 'VGA_Syncher' (8#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/VGA_Syncher.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'image_reader' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/image_reader.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'image_reader' (9#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/image_reader.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'frame_buffer' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/frame_buffer.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'frame_buffer' (10#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/frame_buffer.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'OV7670_controller' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/OV7670_controller.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'OV7670_controller' (11#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/OV7670_controller.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'pixel_mixer_manual' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/pixel_mixer_manual.sv:6]
+	Parameter RED bound to: 12'b111100000000 
+	Parameter GREEN bound to: 12'b000011110000 
+	Parameter YELLOW bound to: 12'b111111110000 
+	Parameter WHITE bound to: 12'b111111111111 
+	Parameter BLACK bound to: 12'b000000000000 
+	Parameter AIM_COLOR bound to: 12'b111100000000 
+	Parameter BOX_COLOR bound to: 12'b000011110000 
+	Parameter CHAR_W bound to: 64'b1100001111000011110000111100001111011011110110110110011000000000 
+	Parameter CHAR_A bound to: 64'b0011110001100110110000111111111111111111110000111100001100000000 
+	Parameter CHAR_S bound to: 64'b0111111011000011110000000111111000000011000000111100001101111110 
+	Parameter CHAR_D bound to: 64'b1111110011000011110000111100001111000011110000111111110000000000 
+	Parameter CHAR_L bound to: 64'b1100000011000000110000001100000011000000110000001111111111111111 
+	Parameter ICON_LOCK bound to: 64'b0011110001000010100110011010010110100101100110010100001000111100 
+	Parameter KEY_SIZE bound to: 32'sb00000000000000000000000000011110 
+	Parameter GAP bound to: 32'sb00000000000000000000000000000101 
+	Parameter CHAR_OFFSET bound to: 32'sb00000000000000000000000000000111 
+	Parameter WASD_X bound to: 32'sb00000000000000000000000000011110 
+	Parameter WASD_Y bound to: 32'sb00000000000000000000000101111100 
+	Parameter AX1 bound to: 32'sb00000000000000000000000000011110 
+	Parameter AY1 bound to: 32'sb00000000000000000000000110011111 
+	Parameter SX1 bound to: 32'sb00000000000000000000000001000001 
+	Parameter SY1 bound to: 32'sb00000000000000000000000110011111 
+	Parameter DX1 bound to: 32'sb00000000000000000000000001100100 
+	Parameter DY1 bound to: 32'sb00000000000000000000000110011111 
+	Parameter WX1 bound to: 32'sb00000000000000000000000001000001 
+	Parameter WY1 bound to: 32'sb00000000000000000000000101111100 
+	Parameter L_X bound to: 32'sb00000000000000000000000000011110 
+	Parameter L_Y bound to: 32'sb00000000000000000000000000011110 
+	Parameter LOCK_UI_X bound to: 32'sb00000000000000000000001001000100 
+	Parameter LOCK_UI_Y bound to: 32'sb00000000000000000000000000011110 
+	Parameter CX bound to: 32'sb00000000000000000000000101000000 
+	Parameter CY bound to: 32'sb00000000000000000000000011110000 
+	Parameter LOCK_ZONE bound to: 32'sb00000000000000000000000000011110 
+INFO: [Synth 8-6155] done synthesizing module 'pixel_mixer_manual' (12#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/pixel_mixer_manual.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'red_tracker_manual' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/red_tracker_manual.sv:3]
+	Parameter SEC_3 bound to: 75000000 - type: integer 
+	Parameter THRESHOLD bound to: 32'sb00000000000000000000000000001010 
+INFO: [Synth 8-6155] done synthesizing module 'red_tracker_manual' (13#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/red_tracker_manual.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'pixel_mixer_auto' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/pixel_mixer_auto.sv:3]
+	Parameter RED bound to: 12'b111100000000 
+	Parameter GREEN bound to: 12'b000011110000 
+	Parameter BLUE bound to: 12'b000000001111 
+	Parameter WHITE bound to: 12'b111111111111 
+	Parameter BLACK bound to: 12'b000000000000 
+	Parameter YELLOW bound to: 12'b111111110000 
+	Parameter AIM_COLOR bound to: 12'b111100000000 
+	Parameter TEXT_COLOR bound to: 12'b000011110000 
+	Parameter BOX_COLOR bound to: 12'b000011110000 
+	Parameter THK bound to: 1 - type: integer 
+	Parameter LEN bound to: 10 - type: integer 
+	Parameter CX bound to: 32'sb00000000000000000000000101000000 
+	Parameter CY bound to: 32'sb00000000000000000000000011110000 
+	Parameter LOCK_ZONE bound to: 32'sb00000000000000000000000000011110 
+	Parameter KEY_SIZE bound to: 32'sb00000000000000000000000000011110 
+	Parameter CHAR_OFFSET bound to: 32'sb00000000000000000000000000000111 
+	Parameter LOCK_UI_X bound to: 32'sb00000000000000000000001001000100 
+	Parameter LOCK_UI_Y bound to: 32'sb00000000000000000000000000011110 
+	Parameter ICON_LOCK bound to: 64'b0011110001000010100110011010010110100101100110010100001000111100 
+	Parameter w bound to: 8 - type: integer 
+	Parameter h bound to: 16 - type: integer 
+	Parameter scale bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'pixel_mixer_auto' (14#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/pixel_mixer_auto.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'red_tracker_auto' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/red_tracker_auto.sv:3]
+	Parameter TIME_3SEC_LIMIT bound to: 32'sb00000100011110000110100011000000 
+INFO: [Synth 8-6155] done synthesizing module 'red_tracker_auto' (15#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/red_tracker_auto.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'ps2_keyboard_only_top' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/ps2_keyboard_only_top.v:3]
+INFO: [Synth 8-6157] synthesizing module 'ps2_rx_keyboard' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/ps2_rx_keyboard.v:3]
+	Parameter RX_IDLE bound to: 3 - type: integer 
+	Parameter RX_DATA bound to: 2 - type: integer 
+	Parameter RX_PARITY bound to: 1 - type: integer 
+	Parameter RX_STOP bound to: 0 - type: integer 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/ps2_rx_keyboard.v:99]
+INFO: [Synth 8-6155] done synthesizing module 'ps2_rx_keyboard' (16#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/ps2_rx_keyboard.v:3]
+INFO: [Synth 8-6157] synthesizing module 'ps2_keyboard' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/ps2_keyboard.v:3]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/ps2_keyboard.v:22]
+INFO: [Synth 8-6155] done synthesizing module 'ps2_keyboard' (17#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/ps2_keyboard.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'ps2_keyboard_only_top' (18#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/ps2_keyboard_only_top.v:3]
+INFO: [Synth 8-6157] synthesizing module 'mux_nx1' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/mux_nx1.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'mux_nx1' (19#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/mux_nx1.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'slave_top' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/slave_top.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'spi_packer' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/spi_packer.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'spi_packer' (20#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/spi_packer.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'spi_slave' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/spi_slave.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'spi_slave' (21#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/spi_slave.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'slave_top' (22#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/slave_top.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'fnd_controller' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:3]
+	Parameter MAX bound to: 10000 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'fnd_counter' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:129]
+	Parameter COUNT bound to: 4 - type: integer 
+	Parameter FREQ bound to: 1000 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'fnd_tick_gen' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:164]
+	Parameter FREQ bound to: 1000 - type: integer 
+	Parameter F_COUNT bound to: 100000 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'fnd_tick_gen' (23#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:164]
+INFO: [Synth 8-6155] done synthesizing module 'fnd_counter' (24#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:129]
+INFO: [Synth 8-6157] synthesizing module 'digit_splitter' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:80]
+	Parameter MAX bound to: 10000 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'digit_splitter' (25#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:80]
+INFO: [Synth 8-6157] synthesizing module 'mux_4x1' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:36]
+INFO: [Synth 8-226] default block is never used [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:49]
+INFO: [Synth 8-6155] done synthesizing module 'mux_4x1' (26#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:36]
+INFO: [Synth 8-6157] synthesizing module 'decoder_2x4' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:60]
+INFO: [Synth 8-226] default block is never used [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:69]
+INFO: [Synth 8-6155] done synthesizing module 'decoder_2x4' (27#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:60]
+INFO: [Synth 8-6157] synthesizing module 'bcd_decoder' [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:97]
+INFO: [Synth 8-226] default block is never used [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:106]
+INFO: [Synth 8-6155] done synthesizing module 'bcd_decoder' (28#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:97]
+INFO: [Synth 8-6155] done synthesizing module 'fnd_controller' (29#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/fnd.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'top' (30#1) [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/sources_1/imports/260114_VGA_SPI/top.sv:3]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1129.582 ; gain = 23.195
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1129.582 ; gain = 23.195
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1129.582 ; gain = 23.195
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.075 . Memory (MB): peak = 1129.582 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [c:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'u_clk_wiz'
+Finished Parsing XDC File [c:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'u_clk_wiz'
+Parsing XDC File [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/constrs_1/imports/260114_VGA_SPI/Basys-3-Master.xdc]
+Finished Parsing XDC File [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/constrs_1/imports/260114_VGA_SPI/Basys-3-Master.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.srcs/constrs_1/imports/260114_VGA_SPI/Basys-3-Master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1256.656 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1256.656 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1256.656 ; gain = 150.270
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1256.656 ; gain = 150.270
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  c:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 3).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  c:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 4).
+Applied set_property KEEP_HIERARCHY = SOFT for u_clk_wiz. (constraint file  auto generated constraint).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1256.656 ; gain = 150.270
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'sccb_controller'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'ps2_rx_keyboard'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'spi_slave'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                            00000 | 00000000000000000000000000000000
+                  START1 |                            00001 | 00000000000000000000000000000001
+                  START2 |                            00010 | 00000000000000000000000000000010
+               SLV_ADDR1 |                            00011 | 00000000000000000000000000000011
+               SLV_ADDR2 |                            00100 | 00000000000000000000000000000100
+               SLV_ADDR3 |                            00101 | 00000000000000000000000000000101
+               SLV_ADDR4 |                            00110 | 00000000000000000000000000000110
+                 SA_ACK1 |                            00111 | 00000000000000000000000000000111
+                 SA_ACK2 |                            01000 | 00000000000000000000000000001000
+                 SA_ACK3 |                            01001 | 00000000000000000000000000001001
+                 SA_ACK4 |                            01010 | 00000000000000000000000000001010
+               REG_ADDR1 |                            01011 | 00000000000000000000000000001011
+               REG_ADDR2 |                            01100 | 00000000000000000000000000001100
+               REG_ADDR3 |                            01101 | 00000000000000000000000000001101
+               REG_ADDR4 |                            01110 | 00000000000000000000000000001110
+                 RA_ACK1 |                            01111 | 00000000000000000000000000001111
+                 RA_ACK2 |                            10000 | 00000000000000000000000000010000
+                 RA_ACK3 |                            10001 | 00000000000000000000000000010001
+                 RA_ACK4 |                            10010 | 00000000000000000000000000010010
+               REG_DATA1 |                            10011 | 00000000000000000000000000010011
+               REG_DATA2 |                            10100 | 00000000000000000000000000010100
+               REG_DATA3 |                            10101 | 00000000000000000000000000010101
+               REG_DATA4 |                            10110 | 00000000000000000000000000010110
+                 RD_ACK1 |                            10111 | 00000000000000000000000000010111
+                 RD_ACK2 |                            11000 | 00000000000000000000000000011000
+                 RD_ACK3 |                            11001 | 00000000000000000000000000011001
+                 RD_ACK4 |                            11010 | 00000000000000000000000000011010
+                   STOP1 |                            11011 | 00000000000000000000000000011111
+                   STOP2 |                            11100 | 00000000000000000000000000100000
+                RESTART1 |                            11101 | 00000000000000000000000000011011
+                RESTART2 |                            11110 | 00000000000000000000000000011100
+                RESTART3 |                            11111 | 00000000000000000000000000011101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'sccb_controller'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 RX_IDLE |                               00 |                              011
+                 RX_DATA |                               01 |                              010
+               RX_PARITY |                               10 |                              001
+                 RX_STOP |                               11 |                              000
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'ps2_rx_keyboard'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 ST_IDLE |                               00 |                               00
+                 ST_PREP |                               01 |                               01
+                ST_SHIFT |                               10 |                               10
+                 ST_HOLD |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'spi_slave'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 1256.656 ; gain = 150.270
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input   32 Bit       Adders := 32    
+	   2 Input   32 Bit       Adders := 92    
+	   2 Input   17 Bit       Adders := 3     
+	   2 Input   14 Bit       Adders := 1     
+	   2 Input   13 Bit       Adders := 56    
+	   2 Input   12 Bit       Adders := 2     
+	   2 Input   11 Bit       Adders := 68    
+	   2 Input   10 Bit       Adders := 2     
+	   3 Input   10 Bit       Adders := 2     
+	   2 Input    8 Bit       Adders := 1     
+	   2 Input    7 Bit       Adders := 1     
+	   2 Input    6 Bit       Adders := 10    
+	   2 Input    4 Bit       Adders := 2     
+	   2 Input    3 Bit       Adders := 1     
+	   2 Input    2 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 4     
+	               17 Bit    Registers := 18    
+	               16 Bit    Registers := 4     
+	               14 Bit    Registers := 1     
+	               12 Bit    Registers := 136   
+	               10 Bit    Registers := 36    
+	                8 Bit    Registers := 5     
+	                7 Bit    Registers := 1     
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 42    
++---Multipliers : 
+	              32x32  Multipliers := 4     
++---RAMs : 
+	            1200K Bit	(76800 X 16 bit)          RAMs := 1     
++---ROMs : 
+	                    ROMs := 1     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 70    
+	   4 Input   32 Bit        Muxes := 2     
+	   2 Input   17 Bit        Muxes := 2     
+	   3 Input   16 Bit        Muxes := 1     
+	   2 Input   14 Bit        Muxes := 2     
+	   2 Input   12 Bit        Muxes := 288   
+	   7 Input   12 Bit        Muxes := 1     
+	   3 Input   12 Bit        Muxes := 2     
+	   4 Input   12 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 40    
+	   3 Input    9 Bit        Muxes := 2     
+	   8 Input    8 Bit        Muxes := 7     
+	  11 Input    8 Bit        Muxes := 1     
+	  32 Input    8 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 1     
+	   4 Input    6 Bit        Muxes := 1     
+	  32 Input    5 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 4     
+	   4 Input    4 Bit        Muxes := 3     
+	   2 Input    4 Bit        Muxes := 4     
+	  32 Input    4 Bit        Muxes := 1     
+	   4 Input    3 Bit        Muxes := 1     
+	   4 Input    2 Bit        Muxes := 4     
+	   2 Input    2 Bit        Muxes := 2     
+	   6 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 310   
+	   5 Input    1 Bit        Muxes := 2     
+	   6 Input    1 Bit        Muxes := 1     
+	   4 Input    1 Bit        Muxes := 16    
+	  32 Input    1 Bit        Muxes := 9     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+DSP Report: Generating DSP on_crosshair2, operation Mode is: A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: Generating DSP on_crosshair2, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+DSP Report: operator on_crosshair2 is absorbed into DSP on_crosshair2.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:37 ; elapsed = 00:00:38 . Memory (MB): peak = 1316.641 ; gain = 210.254
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping	Report
++------------+-----------------------------------------+---------------+----------------+
+|Module Name | RTL Object                              | Depth x Width | Implemented As | 
++------------+-----------------------------------------+---------------+----------------+
+|sccb        | U_SCCB_CONTROLLER/sccb_addr_reg_reg_rep | 256x16        | Block RAM      | 
++------------+-----------------------------------------+---------------+----------------+
+
+
+Block RAM: Preliminary Mapping	Report (see note below)
++------------+------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object             | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|top         | U_FRAME_BUFFER/mem_reg | 75 K x 16(NO_CHANGE)   | W |   | 75 K x 16(WRITE_FIRST) |   | R | Port A and B     | 0      | 48     | 
++------------+------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+DSP: Preliminary Mapping	Report (see note below)
++-------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name        | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++-------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|pixel_mixer_manual | A*B            | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_manual | (PCIN>>17)+A*B | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_manual | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_manual | (PCIN>>17)+A*B | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_manual | A*B            | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_manual | (PCIN>>17)+A*B | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_manual | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_manual | (PCIN>>17)+A*B | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_auto   | A*B            | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_auto   | (PCIN>>17)+A*B | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_auto   | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_auto   | (PCIN>>17)+A*B | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_auto   | A*B            | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_auto   | (PCIN>>17)+A*B | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_auto   | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|pixel_mixer_auto   | (PCIN>>17)+A*B | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++-------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1316.641 ; gain = 210.254
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:45 ; elapsed = 00:00:46 . Memory (MB): peak = 1317.445 ; gain = 211.059
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping	Report
++------------+------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object             | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|top         | U_FRAME_BUFFER/mem_reg | 75 K x 16(NO_CHANGE)   | W |   | 75 K x 16(WRITE_FIRST) |   | R | Port A and B     | 0      | 48     | 
++------------+------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_4 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_5 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_6 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_7 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_8 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_9 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_10 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_11 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_12 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_13 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_14 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_15 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_0__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_1__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_2__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_3__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_4__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_5__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_6__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_7__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_8__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_9__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_10__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_11__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_12__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_13__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_14__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U_FRAME_BUFFER/mem_reg_1_15__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:49 ; elapsed = 00:00:50 . Memory (MB): peak = 1355.426 ; gain = 249.039
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:51 ; elapsed = 00:00:53 . Memory (MB): peak = 1369.434 ; gain = 263.047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:51 ; elapsed = 00:00:53 . Memory (MB): peak = 1369.434 ; gain = 263.047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:52 ; elapsed = 00:00:54 . Memory (MB): peak = 1369.434 ; gain = 263.047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:52 ; elapsed = 00:00:54 . Memory (MB): peak = 1369.434 ; gain = 263.047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:53 ; elapsed = 00:00:54 . Memory (MB): peak = 1369.434 ; gain = 263.047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:53 ; elapsed = 00:00:54 . Memory (MB): peak = 1369.434 ; gain = 263.047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |clk_wiz_0     |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |clk_wiz  |     1|
+|2     |BUFG     |     1|
+|3     |CARRY4   |  1587|
+|4     |DSP48E1  |    12|
+|5     |LUT1     |   417|
+|6     |LUT2     |  2324|
+|7     |LUT3     |   743|
+|8     |LUT4     |  2807|
+|9     |LUT5     |  2029|
+|10    |LUT6     |  3676|
+|11    |MUXF7    |    36|
+|12    |RAMB18E1 |     1|
+|13    |RAMB36E1 |    48|
+|16    |FDCE     |  1922|
+|17    |FDPE     |   405|
+|18    |FDRE     |   103|
+|19    |FDSE     |     1|
+|20    |IBUF     |    16|
+|21    |OBUF     |    30|
+|22    |OBUFT    |     1|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:53 ; elapsed = 00:00:54 . Memory (MB): peak = 1369.434 ; gain = 263.047
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:46 ; elapsed = 00:00:52 . Memory (MB): peak = 1369.434 ; gain = 135.973
+Synthesis Optimization Complete : Time (s): cpu = 00:00:53 ; elapsed = 00:00:54 . Memory (MB): peak = 1369.434 ; gain = 263.047
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.142 . Memory (MB): peak = 1384.137 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1684 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-140] Inserted 1 IBUFs to IO ports without IO buffers.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1384.137 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+120 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 1384.137 ; gain = 277.750
+INFO: [Common 17-1381] The checkpoint 'C:/Working/FPGA_Harman_25_1/260115_vga_spi_test/260115_vga_spi_test.runs/synth_1/top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Thu Jan 15 17:57:30 2026...

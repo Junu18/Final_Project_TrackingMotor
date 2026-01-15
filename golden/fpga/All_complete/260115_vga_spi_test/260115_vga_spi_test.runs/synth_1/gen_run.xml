@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1768467382">
+  <File Type="PA-TCL" Name="top.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="top_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="top_reports.tcl"/>
+  <File Type="RDS-RDS" Name="top.vds"/>
+  <File Type="RDS-UTIL" Name="top_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="top_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="top.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="top_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="top_timing_summary_synth.pb"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/ps2_keyboard.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/ps2_keyboard.v"/>
+        <Attr Name="ImportTime" Val="1768288313"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/ps2_keyboard_only_top.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/ps2_keyboard_only_top.v"/>
+        <Attr Name="ImportTime" Val="1768288322"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/ps2_rx_keyboard.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/ps2_rx_keyboard.v"/>
+        <Attr Name="ImportTime" Val="1768288299"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/OV7670_controller.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/OV7670_controller.sv"/>
+        <Attr Name="ImportTime" Val="1768288045"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/VGA_Syncher.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/VGA_Syncher.sv"/>
+        <Attr Name="ImportTime" Val="1768288058"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/fnd.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/fnd.sv"/>
+        <Attr Name="ImportTime" Val="1768378579"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/frame_buffer.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/frame_buffer.sv"/>
+        <Attr Name="ImportTime" Val="1768288065"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/image_reader.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/image_reader.sv"/>
+        <Attr Name="ImportTime" Val="1768288075"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/mux_nx1.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/mux_nx1.sv"/>
+        <Attr Name="ImportTime" Val="1768384734"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/pixel_mixer_auto.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/pixel_mixer_auto.sv"/>
+        <Attr Name="ImportTime" Val="1768288099"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/pixel_mixer_manual.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/pixel_mixer_manual.sv"/>
+        <Attr Name="ImportTime" Val="1768396976"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/red_tracker_auto.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/red_tracker_auto.sv"/>
+        <Attr Name="ImportTime" Val="1768396967"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/red_tracker_manual.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/red_tracker_manual.sv"/>
+        <Attr Name="ImportTime" Val="1768380570"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/sccb.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/sccb.sv"/>
+        <Attr Name="ImportTime" Val="1768288119"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/slave_top.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/slave_top.sv"/>
+        <Attr Name="ImportTime" Val="1768378620"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/spi_packer.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/spi_packer.sv"/>
+        <Attr Name="ImportTime" Val="1768378609"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/spi_slave.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/spi_slave.sv"/>
+        <Attr Name="ImportTime" Val="1768378599"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/top.sv">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/top.sv"/>
+        <Attr Name="ImportTime" Val="1768396264"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/260114_VGA_SPI/pclk_gen.sv">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/pclk_gen.sv"/>
+        <Attr Name="ImportTime" Val="1768288081"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="top"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/260114_VGA_SPI/Basys-3-Master.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../file_source/260114_VGA_SPI/Basys-3-Master.xdc"/>
+        <Attr Name="ImportTime" Val="1768383295"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020">
+      <Desc>Vivado Synthesis Defaults</Desc>
+    </StratHandle>
+    <Step Id="synth_design"/>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="clk_wiz_0"/>
+</GenRun>

@@ -15,8 +15,7 @@ module ps2_keyboard (
             is_released   <= 1'b0;
             keyboard_data <= 8'b0;
         end else if (rx_done) begin
-            if (valid_data_keyboard == 8'hF0) begin
-                is_released <= 1'b1;
+            if (valid_data_keyboard == 8'hF0) begin 
             end else begin
                 case(valid_data_keyboard) 
                 8'h1D: keyboard_data[0] <= is_released ? 0 : 1; // W 
