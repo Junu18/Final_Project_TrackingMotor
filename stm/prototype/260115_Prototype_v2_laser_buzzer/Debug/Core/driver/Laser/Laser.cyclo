@@ -1,0 +1,3 @@
+../Core/driver/Laser/Laser.c:10:6:Laser_Init	1
+../Core/driver/Laser/Laser.c:20:6:Laser_on	1
+../Core/driver/Laser/Laser.c:25:6:Laser_off	1

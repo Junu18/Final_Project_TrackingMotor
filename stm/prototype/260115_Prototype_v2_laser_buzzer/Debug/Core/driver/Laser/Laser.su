@@ -1,0 +1,3 @@
+../Core/driver/Laser/Laser.c:10:6:Laser_Init	24	static
+../Core/driver/Laser/Laser.c:20:6:Laser_on	16	static
+../Core/driver/Laser/Laser.c:25:6:Laser_off	16	static
