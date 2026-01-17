@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sat Jan 17 20:05:37 2026
+# Process ID: 2020
+# Current directory: C:/Working/FPGA_Harman_25_1/260108_final_project/Final_Project_TrackingMotor/golden/fpga/All_complete/260115_vga_spi_test
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7968 C:\Working\FPGA_Harman_25_1\260108_final_project\Final_Project_TrackingMotor\golden\fpga\All_complete\260115_vga_spi_test\260115_vga_spi_test.xpr
+# Log file: C:/Working/FPGA_Harman_25_1/260108_final_project/Final_Project_TrackingMotor/golden/fpga/All_complete/260115_vga_spi_test/vivado.log
+# Journal file: C:/Working/FPGA_Harman_25_1/260108_final_project/Final_Project_TrackingMotor/golden/fpga/All_complete/260115_vga_spi_test\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Working/FPGA_Harman_25_1/260108_final_project/Final_Project_TrackingMotor/golden/fpga/All_complete/260115_vga_spi_test/260115_vga_spi_test.xpr
+update_compile_order -fileset sources_1
