@@ -1,0 +1,5 @@
+../Core/driver/Buzzer/buzzer.c:10:6:Buzzer_Init	1
+../Core/driver/Buzzer/buzzer.c:17:6:Buzzer_MakeSound	4
+../Core/driver/Buzzer/buzzer.c:23:6:Buzzer_StartSound	1
+../Core/driver/Buzzer/buzzer.c:27:6:Buzzer_StopSound	1
+../Core/driver/Buzzer/buzzer.c:31:6:Buzzer_PlayPattern	3

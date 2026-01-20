@@ -1,0 +1,41 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sun Jan 18 19:33:17 2026
+# Process ID: 19568
+# Current directory: D:/work/build/_v11_real_all_complete/260115_vga_spi_test
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent10272 D:\work\build\_v11_real_all_complete\260115_vga_spi_test\260115_vga_spi_test.xpr
+# Log file: D:/work/build/_v11_real_all_complete/260115_vga_spi_test/vivado.log
+# Journal file: D:/work/build/_v11_real_all_complete/260115_vga_spi_test\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/work/build/_v11_real_all_complete/260115_vga_spi_test/260115_vga_spi_test.xpr
+update_compile_order -fileset sources_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {D:/work/build/_v11_real_all_complete/260115_vga_spi_test/260115_vga_spi_test.runs/impl_1/top.bit} [get_hw_devices xc7a35t_0]
+current_hw_device [get_hw_devices xc7a35t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a35t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {D:/work/build/_v11_real_all_complete/260115_vga_spi_test/260115_vga_spi_test.runs/impl_1/top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+disconnect_hw_server localhost:3121
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {D:/work/build/_v11_real_all_complete/260115_vga_spi_test/260115_vga_spi_test.runs/impl_1/top.bit} [get_hw_devices xc7a35t_0]
+current_hw_device [get_hw_devices xc7a35t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a35t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {D:/work/build/_v11_real_all_complete/260115_vga_spi_test/260115_vga_spi_test.runs/impl_1/top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {D:/work/build/_v11_real_all_complete/260115_vga_spi_test/260115_vga_spi_test.runs/impl_1/top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]

@@ -1,0 +1,23 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sun Jan 18 18:08:41 2026
+# Process ID: 2844
+# Current directory: C:/Working/FPGA_Harman_25_1/_v08_0118_1708/_v08_0118_1708/260115_vga_spi_test
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent18304 C:\Working\FPGA_Harman_25_1\_v08_0118_1708\_v08_0118_1708\260115_vga_spi_test\260115_vga_spi_test.xpr
+# Log file: C:/Working/FPGA_Harman_25_1/_v08_0118_1708/_v08_0118_1708/260115_vga_spi_test/vivado.log
+# Journal file: C:/Working/FPGA_Harman_25_1/_v08_0118_1708/_v08_0118_1708/260115_vga_spi_test\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Working/FPGA_Harman_25_1/_v08_0118_1708/_v08_0118_1708/260115_vga_spi_test/260115_vga_spi_test.xpr
+INFO: [Project 1-313] Project file moved from 'D:/work/build/_v07_0118_1708/260115_vga_spi_test' since last save.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
+open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:05 . Memory (MB): peak = 1086.105 ; gain = 0.000
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Jan 18 18:13:02 2026...

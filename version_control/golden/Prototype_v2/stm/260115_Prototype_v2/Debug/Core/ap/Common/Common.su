@@ -1,0 +1,2 @@
+../Core/ap/Common/Common.c:10:6:Common_StartTIMInterrupt	8	static
+../Core/ap/Common/Common.c:14:6:Common_StopTIMInterrupt	8	static
