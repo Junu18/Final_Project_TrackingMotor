@@ -1,0 +1,224 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
+| Date         : Wed Jan 21 20:47:46 2026
+| Host         : DESKTOP-7CFQ9ND running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
+| Design       : top
+| Device       : xc7a35t
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |   146 |
+|    Minimum number of control sets                        |   146 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |   774 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |   146 |
+| >= 0 to < 4        |     3 |
+| >= 4 to < 6        |     2 |
+| >= 6 to < 8        |     2 |
+| >= 8 to < 10       |     5 |
+| >= 10 to < 12      |   102 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     1 |
+| >= 16              |    31 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              35 |           23 |
+| No           | No                    | Yes                    |             138 |           64 |
+| No           | Yes                   | No                     |              14 |            5 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |            2353 |          988 |
+| Yes          | Yes                   | No                     |              70 |           24 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++--------------------------+-------------------------------------------------------------+---------------------------------------------------------------+------------------+----------------+--------------+
+|       Clock Signal       |                        Enable Signal                        |                        Set/Reset Signal                       | Slice Load Count | Bel Load Count | Bels / Slice |
++--------------------------+-------------------------------------------------------------+---------------------------------------------------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG           | U_ps2_keyboard_only_top/U_PS2_RX_KEYBOARD/E[0]              | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                1 |              1 |         1.00 |
+|  pclk_IBUF_BUFG          |                                                             |                                                               |                1 |              2 |         2.00 |
+|  clk_IBUF_BUFG           |                                                             |                                                               |                2 |              3 |         1.50 |
+|  pclk_IBUF_BUFG          | U_OV7670_MEM_CONTROLLER/pixelData[7]                        | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |              5 |         1.67 |
+|  clk_IBUF_BUFG           | U_SCCB/U_SCCB_CONTROLLER/FSM_sequential_state[4]_i_1_n_0    | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                1 |              5 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_SPI/u_spi/bit_cnt[5]_i_1_n_0                              | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |              6 |         3.00 |
+|  u_clk_wiz/inst/clk_out1 | enemy_predict_2s/miss_cnt                                   | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |              7 |         2.33 |
+|  clk_IBUF_BUFG           | U_ps2_keyboard_only_top/U_PS2_RX_KEYBOARD/rx_buffer_next    | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |              8 |         4.00 |
+|  clk_IBUF_BUFG           | U_ps2_keyboard_only_top/U_PS2_RX_KEYBOARD/rx_data_next      | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                1 |              8 |         8.00 |
+|  clk_IBUF_BUFG           | U_SCCB/U_SCCB_CONTROLLER/sccb_addr_next                     | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |              8 |         2.67 |
+|  clk_IBUF_BUFG           | U_SCCB/U_SCCB_CONTROLLER/tx_data_next                       | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |              8 |         4.00 |
+|  pclk_IBUF_BUFG          | U_OV7670_MEM_CONTROLLER/pixelData[15]                       | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |              8 |         1.33 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_5[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_7[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             10 |         1.67 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_14[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_12[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_6[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             10 |         2.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[4][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[14][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[10][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_48[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             10 |         1.67 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_41[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             10 |         1.67 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_12[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             10 |         1.43 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[0][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_30[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             10 |         2.50 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_13[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all                              | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_45[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             10 |         2.00 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_22[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                8 |             10 |         1.25 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_31[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             10 |         2.00 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_17[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             10 |         2.50 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_16[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             10 |         2.50 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[11][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_20[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             10 |         1.43 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_47[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             10 |         1.67 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_26[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             10 |         1.43 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_AUTO/aim_y[9]_i_1_n_0                         | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_21[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             10 |         2.50 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_9[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             10 |         1.67 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_32[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             10 |         2.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_AUTO/aim_x[9]_i_1_n_0                         | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_33[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             10 |         2.00 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_8[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             10 |         2.00 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_56[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             10 |         1.43 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_40[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             10 |         2.50 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_11[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             10 |         1.43 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_25[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             10 |         1.67 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_21[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             10 |         2.50 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[1][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[2][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[3][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             10 |         2.50 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[13][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[6][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[7][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[8][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[9][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all                              | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[0][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[10][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[11][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[12][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[14][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[1][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[2][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[3][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[5][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[6][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[7][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[8][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             10 |         2.50 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[9][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[13][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[12][9]_i_1_n_0               | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_7[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             10 |         1.43 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_55[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             10 |         1.67 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_15[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             10 |         1.43 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_6[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             10 |         2.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_x_all[5][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             10 |         3.33 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_46[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             10 |         1.43 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_4[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             10 |         2.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_MANUAL/aim_y_all[4][9]_i_1_n_0                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                2 |             10 |         5.00 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_8[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/y_min_reg[10][0]              | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_2[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             11 |         1.57 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_13[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             11 |         1.57 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_8[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_3[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_9[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             11 |         1.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_12[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             11 |         1.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_38[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                8 |             11 |         1.38 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_39[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |               10 |             11 |         1.10 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_24[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             11 |         1.57 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_28[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             11 |         1.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_18[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             11 |         1.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_19[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             11 |         2.75 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_23[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                8 |             11 |         1.38 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_29[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             11 |         1.57 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_14[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             11 |         1.57 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_15[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_34[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             11 |         1.57 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_35[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_43[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             11 |         1.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_53[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             11 |         1.57 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_44[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_49[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                3 |             11 |         3.67 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_50[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             11 |         1.57 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_54[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             11 |         1.57 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_19[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                8 |             11 |         1.38 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/x_min_reg[10][0]              | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_18[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             11 |         2.75 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_13[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_14[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             11 |         1.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_23[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             11 |         1.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_9[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             11 |         2.20 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_24[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             11 |         1.83 |
+|  clk_IBUF_BUFG           | U_FND/U_CNT_4/U_fnd_tick_gen/E[0]                           | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             14 |         2.80 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_51[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             17 |         2.43 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_52[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             17 |         2.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_42[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             17 |         2.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_20[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             17 |         2.43 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_10[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             17 |         2.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_36[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             17 |         3.40 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_27[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             17 |         3.40 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_11[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             17 |         2.43 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_16[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             17 |         2.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_17[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             17 |         2.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_22[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             17 |         3.40 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[9]_rep__4_37[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             17 |         3.40 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_10[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             17 |         4.25 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/h_counter_reg[5]_rep__2_1[0]  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                6 |             17 |         2.83 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/E[0]                          | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                4 |             17 |         4.25 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_25[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                5 |             17 |         3.40 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter_reg[9]_rep__2_15[0] | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             17 |         2.43 |
+|  u_clk_wiz/inst/clk_out1 | U_SPI/u_spi/rx_data_reg[31]_i_1_n_0                         | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |               10 |             18 |         1.80 |
+|  u_clk_wiz/inst/clk_out1 | enemy_predict_2s/x_meas_prev                                | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             20 |         2.86 |
+|  u_clk_wiz/inst/clk_out1 | enemy_predict_2s/vir_signal3_out                            | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |               11 |             21 |         1.91 |
+|  u_clk_wiz/inst/clk_out1 | enemy_predict_2s/sampling_time_reg_n_0                      | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                8 |             21 |         2.62 |
+|  u_clk_wiz/inst/clk_out1 | U_SPI/u_spi/E[0]                                            | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |               15 |             22 |         1.47 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_AUTO/lost_counter[0]_i_1_n_0                  | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |                7 |             27 |         3.86 |
+|  u_clk_wiz/inst/clk_out1 |                                                             |                                                               |               20 |             32 |         1.60 |
+|  pclk_IBUF_BUFG          | U_OV7670_MEM_CONTROLLER/wAddr[0]_i_2_n_0                    | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_1 |                9 |             36 |         4.00 |
+|  u_clk_wiz/inst/clk_out1 | U_RED_TRACKER_AUTO/x_min_out[11]_i_1_n_0                    | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |               17 |             42 |         2.47 |
+|  u_clk_wiz/inst/clk_out1 | U_SPI/u_spi/tx_shift[30]_i_1_n_0                            | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |               20 |             53 |         2.65 |
+|  clk_IBUF_BUFG           |                                                             | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |               21 |             53 |         2.52 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/v_counter                     | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |               28 |             54 |         1.93 |
+|  u_clk_wiz/inst/clk_out1 |                                                             | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |               48 |             99 |         2.06 |
+|  u_clk_wiz/inst/clk_out1 | U_VGA_SYNCHER/U_PIXEL_COUNTER/vsync_d_reg_0                 | U_ps2_keyboard_only_top/U_PS2_KEYBOARD/keyboard_data_reg[7]_0 |              283 |            688 |         2.43 |
++--------------------------+-------------------------------------------------------------+---------------------------------------------------------------+------------------+----------------+--------------+
+
+

@@ -1,0 +1,40 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed Jan 21 19:45:23 2026
+# Process ID: 8616
+# Current directory: D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent13996 D:\FPGA\_v13_1_all_complete_reset_out\260115_vga_spi_test\260115_vga_spi_test.xpr
+# Log file: D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test/vivado.log
+# Journal file: D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test/260115_vga_spi_test.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
+open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 1105.039 ; gain = 0.000
+update_compile_order -fileset sources_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:3042
+INFO: [Labtools 27-3414] Connected to existing cs_server.
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210183BE1106A
+set_property PROGRAM.FILE {D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test/260115_vga_spi_test.runs/impl_1/top.bit} [get_hw_devices xc7a35t_0]
+current_hw_device [get_hw_devices xc7a35t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test/260115_vga_spi_test.runs/impl_1/top.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a35t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+exit
+INFO: [Common 17-206] Exiting Vivado at Wed Jan 21 19:52:30 2026...

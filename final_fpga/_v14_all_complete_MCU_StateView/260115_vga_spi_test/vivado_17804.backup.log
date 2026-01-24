@@ -1,0 +1,30 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed Jan 21 15:57:59 2026
+# Process ID: 17804
+# Current directory: D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent10072 D:\FPGA\_v13_1_all_complete_reset_out\260115_vga_spi_test\260115_vga_spi_test.xpr
+# Log file: D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test/vivado.log
+# Journal file: D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test/260115_vga_spi_test.xpr
+INFO: [Project 1-313] Project file moved from 'D:/work/build/_v12_all_complete_manual_speed/260115_vga_spi_test' since last save.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
+open_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:05 . Memory (MB): peak = 1103.766 ; gain = 0.000
+update_compile_order -fileset sources_1
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test/260115_vga_spi_test.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+[Wed Jan 21 16:02:03 2026] Launched synth_1...
+Run output will be captured here: D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test/260115_vga_spi_test.runs/synth_1/runme.log
+[Wed Jan 21 16:02:03 2026] Launched impl_1...
+Run output will be captured here: D:/FPGA/_v13_1_all_complete_reset_out/260115_vga_spi_test/260115_vga_spi_test.runs/impl_1/runme.log

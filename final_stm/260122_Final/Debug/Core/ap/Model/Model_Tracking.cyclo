@@ -1,0 +1,3 @@
+../Core/ap/Model/Model_Tracking.c:24:6:Model_TrackingInit	1
+../Core/ap/Model/Model_Tracking.c:31:6:Model_SetTrackingState	1
+../Core/ap/Model/Model_Tracking.c:35:17:Model_GetTrackingState	1
